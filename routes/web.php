@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
+});
+
+//change this to use the proper method for setting
+Route::get('/passwordSet', function () {
+    return view('passwordSet');
 });
