@@ -9,9 +9,9 @@
         <div class="col-sm-4 col-sm-offset-4">
             {{-- TODO link this to the appropriate controller --}}
             <form class="w-50 h-50" action="setPassword" method="POST">
+                {{-- needed for security apparently --}}
+                @csrf
                 <div class="form-group">
-                    {{-- needed for security apparently --}}
-                    @csrf
                     <label for="setPassword">Password</label>
                     <input type="password" name="password" class="form-control" id="setPassword" placeholder="New Password">
                 </div>

@@ -21,3 +21,7 @@ Route::get('/', function () {
 Route::get('/passwordSet', function () {
     return view('passwordSet');
 });
+
+Route::get('/schedule', function () {
+    return view('instructorSchedule');
+});
