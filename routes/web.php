@@ -25,3 +25,16 @@ Route::get('/passwordSet', function () {
 Route::get('/schedule', function () {
     return view('instructorSchedule');
 });
+
+//admin routes, mostly for testing, for now
+Route::get('/instructors', function () {
+    return view('adminViewInstructors');
+});
+
+Route::get('/deactivated', function () {
+    return view('adminDeactivatedInstructors');
+});
+
+Route::get('/unresponsive', function () {
+    return view('adminUnresponsiveInstructors');
+});
