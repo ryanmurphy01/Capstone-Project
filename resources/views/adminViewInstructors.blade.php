@@ -10,7 +10,7 @@
       <th>Last Name</th>
       <th>Email</th>
       <th>Phone Number</th>
-      {{-- empty placeholder that may be helpful for formatting --}}
+      {{-- empty placeholder that may be helpful for formatting (the table heading)) --}}
       <th></th>
     </tr>
     {{-- again, use a foreach to go through db once it's setup --}}
