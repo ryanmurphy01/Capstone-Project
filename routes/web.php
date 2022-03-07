@@ -23,18 +23,30 @@ Route::get('/passwordSet', function () {
 });
 
 Route::get('/schedule', function () {
-    return view('instructorSchedule');
+    return view('InstructorViews/instructorSchedule');
 });
 
 //admin routes, mostly for testing, for now
 Route::get('/instructors', function () {
-    return view('adminViewInstructors');
+    return view('AdminViews/adminViewInstructors');
 });
 
 Route::get('/deactivated', function () {
-    return view('adminDeactivatedInstructors');
+    return view('AdminViews/adminDeactivatedInstructors');
 });
 
 Route::get('/unresponsive', function () {
-    return view('adminUnresponsiveInstructors');
+    return view('AdminViews/adminUnresponsiveInstructors');
+});
+
+Route::get('/requests', function () {
+    return view('AdminViews/adminRequests');
+});
+
+Route::get('/approvedRequests', function () {
+    return view('AdminViews/adminApprovedRequests');
+});
+
+Route::get('/deniedRequests', function () {
+    return view('AdminViews/adminDeniedRequests');
 });
