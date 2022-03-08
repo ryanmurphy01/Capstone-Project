@@ -17,7 +17,11 @@
       <td>HTML and CSS</td>
       <td>WEB110</td>
       {{-- make the image an onclick once we get into controllers and stuff --}}
-      <td><img src="#" alt="status icon"></td>
+      <td>
+        <svg height="30" width="30">
+            <circle cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="green" />
+        </svg>
+      </td>
     </tr>
 </table>
 
