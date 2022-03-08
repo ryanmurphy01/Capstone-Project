@@ -17,8 +17,8 @@
       <td>B990</td>
       <td>
         {{-- use these to trigger a popup or run a function --}}
-        <button type="button">flag</button>
         <button type="button">edit</button>
+        <button type="button">delete</button>
       </td>
     </tr>
   </table>

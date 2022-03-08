@@ -27,6 +27,7 @@ Route::get('/schedule', function () {
 });
 
 //admin routes, mostly for testing, for now
+//main
 Route::get('/instructors', function () {
     return view('AdminViews/adminViewInstructors');
 });
@@ -39,6 +40,32 @@ Route::get('/unresponsive', function () {
     return view('AdminViews/adminUnresponsiveInstructors');
 });
 
+//main
+Route::get('/availability', function () {
+    return view('AdminViews/adminSchedule');
+});
+
+//main
+Route::get('/programs', function () {
+    return view('AdminViews/adminPrograms');
+});
+
+//main
+Route::get('/history', function () {
+    return view('AdminViews/adminHistory');
+});
+
+//main
+Route::get('/semester', function () {
+    return view('AdminViews/adminSemester');
+});
+
+//main
+Route::get('/email', function () {
+    return view('AdminViews/adminEmail');
+});
+
+//main
 Route::get('/requests', function () {
     return view('AdminViews/adminRequests');
 });

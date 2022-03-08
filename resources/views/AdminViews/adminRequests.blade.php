@@ -7,15 +7,21 @@
 <div>
     <div>
         <h3>Approve</h3>
-        <img src="#" alt="green circle">
+        <svg height="100" width="100">
+            <circle cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="green" />
+        </svg>
     </div>
     <div>
         <h3>Pending</h3>
-        <img src="#" alt="orange circle">
+        <svg height="100" width="100">
+            <circle cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="orange" />
+        </svg>
     </div>
     <div>
         <h3>Deny</h3>
-        <img src="#" alt="red circle">
+        <svg height="100" width="100">
+            <circle cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="red" />
+        </svg>
     </div>
 </div>
 
