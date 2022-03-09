@@ -18,6 +18,7 @@ class CreateAccountsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('contact_number');
+            $table->string('password');
             $table->string('personal_email');
             $table->string('school_email');
             $table->integer('num_of_courses');
