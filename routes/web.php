@@ -22,8 +22,20 @@ Route::get('/passwordSet', function () {
     return view('passwordSet');
 });
 
+//instructor routes
+//main
 Route::get('/schedule', function () {
     return view('InstructorViews/instructorSchedule');
+});
+
+//main
+Route::get('/courses', function () {
+    return view('InstructorViews/instructorCourses');
+});
+
+//main
+Route::get('/welcome', function () {
+    return view('InstructorViews/instructorWelcome');
 });
 
 //admin routes, mostly for testing, for now
