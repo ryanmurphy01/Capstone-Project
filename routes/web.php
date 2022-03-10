@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 
 /*
@@ -15,8 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('InstructorViews/instructorSchedule');
 });
+
+
+Route::get('/login',[MainController::class, 'login']);
 
 //change this to use the proper method for setting
 Route::get('/passwordSet', function () {
