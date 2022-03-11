@@ -123,10 +123,10 @@
             </div>
         </div>
         <div class="col py-3">
-            <h1>Programs</h1>
-            <input type="text" placeholder="Program Name or Code...">
+            <h1 class="mb-3">Programs</h1>
+            <input type="text" placeholder="Program Name or Code..." class="mb-4" >
 
-            <table>
+            <table class="table table-striped" >
                 <tr>
                 <th>Program Name</th>
                 <th>Program Code</th>
@@ -139,13 +139,13 @@
                 <td>B990</td>
                 <td>
                     {{-- use these to trigger a popup or run a function --}}
-                    <button type="button">edit</button>
-                    <button type="button">delete</button>
+                    <button type="button" class="float-end ms-3">delete</button>
+                    <button type="button" class="float-end">edit</button>
                 </td>
                 </tr>
             </table>
 
-            <button type="button">Add Program</button>
+            <button type="button" class="btn btn-success float-end" style="width: 150px"  >Add Program</button>
         </div>
     </div>
 </div>
