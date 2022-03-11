@@ -126,6 +126,17 @@
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Instructors</h1>
 
+            @if(Session::get('success'))
+                    <div class="alert alert-success alert-dismissible">
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif
+
+                    @if(Session::get('fail'))
+                    <div class="alert alert-fail">
+                        {{ Session::get('fail') }}
+                    </div>
+                    @endif
             <input type="text" class="form-control form-control-lg" placeholder="Search...">
 
             <table class="table table-hover table-striped">
@@ -141,53 +152,19 @@
                 </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
                 <tbody>
-                <tr>
-                <td>Alfreds</td>
-                <td>Futterkiste</td>
-                <td>AFutterkiste@example.com</td>
-                <td>5555555555</td>
-                <td>
-                    <button type="button">flag</button>
-                    <button type="button">edit</button>
-                    <button type="button">deactivate</button>
-                </td>
-                </tr>
-
-                <tr>
-                <td>Alfreds</td>
-                <td>Futterkiste</td>
-                <td>AFutterkiste@example.com</td>
-                <td>5555555555</td>
-                <td>
-                    <button type="button">flag</button>
-                    <button type="button">edit</button>
-                    <button type="button">deactivate</button>
-                </td>
-                </tr>
-
-                <tr>
-                <td>Alfreds</td>
-                <td>Futterkiste</td>
-                <td>AFutterkiste@example.com</td>
-                <td>5555555555</td>
-                <td>
-                    <button type="button">flag</button>
-                    <button type="button">edit</button>
-                    <button type="button">deactivate</button>
-                </td>
-                </tr>
-
-                <tr>
-                <td>Alfreds</td>
-                <td>Futterkiste</td>
-                <td>AFutterkiste@example.com</td>
-                <td>5555555555</td>
-                <td>
-                    <button type="button">flag</button>
-                    <button type="button">edit</button>
-                    <button type="button">deactivate</button>
-                </td>
-                </tr>
+                    @foreach ($accounts as $account)
+                    <tr>
+                    <td>{{ $account->first_name}}</td>
+                    <td>{{ $account->last_name}}</td>
+                    <td>{{ $account->personal_email}}</td>
+                    <td>{{ $account->contact_number}}</td>
+                    <td>
+                        <button type="button">flag</button>
+                        <button type="button">edit</button>
+                        <button type="button">deactivate</button>
+                    </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
             
@@ -212,40 +189,77 @@
                 </div>
                 <div class="modal-body">
                         
-                    <form action="" method="post">
+                <form method="post" action="{{ route('save') }}" >
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">First Name</label>
-                        </div>
+                   
+
+                    @csrf
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com" value="{{ old('firstname')}}">
+                        <label for="floatingInput">First Name</label>
                         
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Last Name</label>
-                        </div>
+                        <!-- error field -->
+                        <span class="text-danger">@error('firstname'){{ $message }} @enderror</span>
+                    </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="email">Personal Email</label>
-                        </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@example.com" value="{{ old('lastname')}}">
+                        <label for="floatingInput">Last Name</label>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="email">College Email</label>
-                        </div>
+                        <!-- error field -->
+                        <span class="text-danger">@error('lastname'){{ $message }} @enderror</span>
+                    </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="number">Phone Number</label>
-                        </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="personalemail" name="personalemail" placeholder="name@example.com" value="{{ old('personalemail')}}">
+                        <label for="email">Personal Email</label>
 
-                       
+                        <!-- error field -->
+                        <span class="text-danger">@error('personalemail'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="collegeEmail" name="collegeemail" placeholder="name@example.com" value="{{ old('collegeemail')}}">
+                        <label for="email">College Email</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('collegeemail'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="name@example.com" >
+                        <label for="password">Password</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('password'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="name@example.com" value="{{ old('phone')}}">
+                        <label for="number">Phone Number</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('phone'){{ $message }} @enderror</span>
+                    </div>
+
+                    <select class="form-select form-select-lg pb-2" aria-label="Default select example" name="accounttype">
+                        <option selected>Select Account Type</option>
+                        @foreach ($accountTypes as $type)
+                        <option value='{{$type->id}}'>{{ $type->account_type }}</option>
+                        @endforeach
+                    </select>
+
+
+
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                </div>
+
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create User</button>
-                </div>
+                
                 </div>
             </div>
             </div>

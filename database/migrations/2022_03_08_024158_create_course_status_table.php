@@ -16,6 +16,7 @@ class CreateCourseStatusTable extends Migration
         Schema::create('course_status', function (Blueprint $table) {
             $table->id();
             $table->string("status");
+            $table->timestamps();
         });
     }
 

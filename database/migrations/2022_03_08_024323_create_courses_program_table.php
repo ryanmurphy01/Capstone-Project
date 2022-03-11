@@ -17,6 +17,7 @@ class CreateCoursesProgramTable extends Migration
 
             $table->foreignId('course_id')->constrained("courses");
             $table->foreignId('program_id')->constrained("programs");
+            $table->timestamps();
 
         });
     }

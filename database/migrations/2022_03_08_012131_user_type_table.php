@@ -17,6 +17,7 @@ class UserTypeTable extends Migration
 
             $table->id();
             $table->string("account_type");
+            $table->timestamps();
             
         });
     }

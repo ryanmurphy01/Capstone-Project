@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->text("description");
             $table->integer("credit_hours");
+            $table->timestamps();
         });
     }
 

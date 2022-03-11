@@ -18,6 +18,7 @@ class CreateTeacherCourseTable extends Migration
             $table->foreignId('account_id')->constrained();
             $table->foreignId('course_id')->constrained("courses");
             $table->foreignId('status_id')->constrained("course_status");
+            $table->timestamps();
 
         });
     }

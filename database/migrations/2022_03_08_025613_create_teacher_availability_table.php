@@ -18,7 +18,8 @@ class CreateTeacherAvailabilityTable extends Migration
             $table->foreignId('day_id')->constrained("days");
             $table->time('start_time');
             $table->time("end_time");
-            $table->foreignId('semester_id')->constrained("semester");;
+            $table->foreignId('semester_id')->constrained("semester");
+            $table->timestamps();
         });
     }
 

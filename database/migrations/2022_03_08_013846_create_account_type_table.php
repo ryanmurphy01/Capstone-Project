@@ -18,6 +18,7 @@ class CreateAccountTypeTable extends Migration
 
             $table->foreignId('account_id')->constrained();
             $table->foreignId('type_id')->constrained("user_type");
+            $table->timestamps();
             
         });
     }

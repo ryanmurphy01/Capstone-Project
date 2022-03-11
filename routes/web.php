@@ -22,6 +22,8 @@ Route::get('/', function () {
 
 Route::get('/login',[MainController::class, 'login']);
 
+Route::post('/save',[MainController::class, 'save'])->name('save');
+
 //change this to use the proper method for setting
 Route::get('/passwordSet', function () {
     return view('passwordSet');
@@ -45,9 +47,9 @@ Route::get('/welcome', function () {
 
 //admin routes, mostly for testing, for now
 //main
-Route::get('/instructors', function () {
-    return view('AdminViews/adminViewInstructors');
-});
+
+Route::get('/instructors', [MainController::class, 'indexUsers']);
+
 
 Route::get('/deactivated', function () {
     return view('AdminViews/adminDeactivatedInstructors');
