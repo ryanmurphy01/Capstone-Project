@@ -10,8 +10,8 @@
                 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none justify-center">
                     <span class="d-none d-sm-inline text-center" style="font-size: 18pt;">Admin Panel</span>
                 </a>
-                {{-- make both of these max width so the active box fills all the space --}}
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%">
+                {{-- make both of these max width so the active box fills all the space, also add a touch of margin so it doesn't touch the edge --}}
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
                         <a href="instructors" class="nav-link align-middle px-0 link-dark active">
@@ -111,18 +111,17 @@
                         <span class="d-none d-sm-inline mx-1">Admin Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
-                         <li><a class="dropdown-item" href="#">Settings</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li> 
+                        </li> --}}
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        
+
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Instructors</h1>
 
@@ -142,32 +141,32 @@
             <table class="table table-hover table-striped">
 
                 <thead class="thead-light">
-                <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th></th>
-                </tr>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
                 <tbody>
                     @foreach ($accounts as $account)
                     <tr>
-                    <td>{{ $account->first_name}}</td>
-                    <td>{{ $account->last_name}}</td>
-                    <td>{{ $account->personal_email}}</td>
-                    <td>{{ $account->contact_number}}</td>
-                    <td>
-                        <button type="button">flag</button>
-                        <button type="button">edit</button>
-                        <button type="button">deactivate</button>
-                    </td>
+                        <td>{{ $account->first_name}}</td>
+                        <td>{{ $account->last_name}}</td>
+                        <td>{{ $account->personal_email}}</td>
+                        <td>{{ $account->contact_number}}</td>
+                        <td>
+                            <button type="button">flag</button>
+                            <button type="button">edit</button>
+                            <button type="button">deactivate</button>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            
+
 
             {{-- the thing in the url is the route name of the destination page, see web.php --}}
             <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
@@ -175,30 +174,27 @@
 
             {{-- could make an invisible form which appears when this button is clicked --}}
             <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
-            
+
         </div>
     </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title ">Create Instructor</h1>
-                </div>
-                <div class="modal-body">
-                        
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title ">Create Instructor</h1>
+            </div>
+            <div class="modal-body">
+
                 <form method="post" action="{{ route('save') }}" >
-
-                   
-
-                    @csrf
+                @csrf
 
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com" value="{{ old('firstname')}}">
                         <label for="floatingInput">First Name</label>
-                        
+
                         <!-- error field -->
                         <span class="text-danger">@error('firstname'){{ $message }} @enderror</span>
                     </div>
@@ -255,13 +251,12 @@
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Create User</button>
-                </div>
+                    </div>
 
-                    </form>
-                </div>
-                
-                </div>
+                </form>
             </div>
-            </div>
+        </div>
+    </div>
+</div>
 
 @endsection

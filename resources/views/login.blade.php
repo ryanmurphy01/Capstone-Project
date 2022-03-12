@@ -1,7 +1,3 @@
-
-
-
-
 {{-- import the bootstrap, as mentioned in that comment --}}
 @extends('template')
 {{-- marker to fill the contect yield section with whatever is put in here --}}
@@ -17,7 +13,7 @@
           <h3 class="mb-4 fs-1 text-center">Login</h3>
 
           <form method="post" action="{{ route('check') }}" >
-            
+
               @if(Session::get('fail'))
               <div class="alert alert-danger">
                 {{ Session::get('fail') }}
@@ -45,7 +41,7 @@
                 <div class="d-grid">
                   <button type="submit" class="btn btn-lg btn-primary mb-2">Login</button>
                 </div>
-          
+
            </form>
           </div>
         </div>

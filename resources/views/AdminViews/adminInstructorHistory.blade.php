@@ -4,15 +4,14 @@
 
 <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+        <div class="col-auto col-md-0 col-xl-0 px-sm-2 px-0">
             {{-- extra style, border to make the bar actually visible lol --}}
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100" style="border-right: 1px solid black;">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <span class="d-none d-sm-inline" style="font-size: 18pt;">Admin Panel</span>
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-2 min-vh-100" style="border-right: 1px solid black;">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none justify-center">
+                    <span class="d-none d-sm-inline text-center" style="font-size: 18pt;">Admin Panel</span>
                 </a>
-                {{-- make both of these max width so the active box fills all the space --}}
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%">
-                    <li class="nav-item" style="width: 100%">
+                {{-- make both of these max width so the active box fills all the space, also add a touch of margin so it doesn't touch the edge --}}
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
                         <a href="instructors" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
@@ -111,13 +110,12 @@
                         <span class="d-none d-sm-inline mx-1">Admin Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li> --}}
+                        </li> --}}
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
             </div>

@@ -111,41 +111,44 @@
                         <span class="d-none d-sm-inline mx-1">Admin Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li> --}}
+                        </li> --}}
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1>Program Title Here</h1>
-            <input type="text" placeholder="Course Name or Code...">
+        <div class="col-8">
+            <h1 class="pb-5 pt-5 display-3">Program Title Here</h1>
+            <input type="text" placeholder="Course Name or Code..." class="form-control form-control-lg">
 
-            <table>
-                <tr>
-                <th>Course Name</th>
-                <th>Course Code</th>
-                {{-- empty placeholder that may be helpful for formatting (heading) --}}
-                <th></th>
-                </tr>
+            <table class="table table-hover table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course Code</th>
+                        {{-- empty placeholder that may be helpful for formatting (heading) --}}
+                        <th></th>
+                    </tr>
+                </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
-                <tr>
-                <td>HTML and CSS</td>
-                <td>WEB110</td>
-                <td>
-                    {{-- use these to trigger a popup or run a function --}}
-                    <button type="button">edit</button>
-                    <button type="button">delete</button>
-                </td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>HTML and CSS</td>
+                        <td>WEB110</td>
+                        <td>
+                            {{-- use these to trigger a popup or run a function --}}
+                            <button type="button">edit</button>
+                            <button type="button">delete</button>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
 
-            <button type="button">Add Course</button>
+            <button type="button" class="btn btn-success float-end" style="width: 150px">Add Course</button>
         </div>
     </div>
 </div>
