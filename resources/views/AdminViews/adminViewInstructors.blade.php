@@ -4,11 +4,11 @@
 {{-- bootstrap nav bar --}}
 <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+        <div class="col-auto col-md-0 col-xl-0 px-sm-2 px-0">
             {{-- extra style, border to make the bar actually visible lol --}}
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100" style="border-right: 1px solid black;">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <span class="d-none d-sm-inline" style="font-size: 18pt;">Admin Panel</span>
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-2 min-vh-100" style="border-right: 1px solid black;">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none justify-center">
+                    <span class="d-none d-sm-inline text-center" style="font-size: 18pt;">Admin Panel</span>
                 </a>
                 {{-- make both of these max width so the active box fills all the space --}}
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%">
@@ -112,51 +112,156 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li><a class="dropdown-item" href="#">Sign Out</a></li>
-                        {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
+                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li> --}}
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li> 
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1>Instructors</h1>
-            <input type="text" placeholder="Name...">
+        
+        <div class="col-8">
+            <h1 class="pb-5 pt-5 display-3">Instructors</h1>
 
-            <table>
+            @if(Session::get('success'))
+                    <div class="alert alert-success alert-dismissible">
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif
+
+                    @if(Session::get('fail'))
+                    <div class="alert alert-fail">
+                        {{ Session::get('fail') }}
+                    </div>
+                    @endif
+            <input type="text" class="form-control form-control-lg" placeholder="Search...">
+
+            <table class="table table-hover table-striped">
+
+                <thead class="thead-light">
                 <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
-                {{-- empty placeholder that may be helpful for formatting (the table heading)) --}}
                 <th></th>
                 </tr>
+                </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
-                <tr>
-                <td>Alfreds</td>
-                <td>Futterkiste</td>
-                <td>AFutterkiste@example.com</td>
-                <td>5555555555</td>
-                <td>
-                    <button type="button">flag</button>
-                    <button type="button">edit</button>
-                    <button type="button">deactivate</button>
-                </td>
-                </tr>
+                <tbody>
+                    @foreach ($accounts as $account)
+                    <tr>
+                    <td>{{ $account->first_name}}</td>
+                    <td>{{ $account->last_name}}</td>
+                    <td>{{ $account->personal_email}}</td>
+                    <td>{{ $account->contact_number}}</td>
+                    <td>
+                        <button type="button">flag</button>
+                        <button type="button">edit</button>
+                        <button type="button">deactivate</button>
+                    </td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
+            
 
             {{-- the thing in the url is the route name of the destination page, see web.php --}}
-            <button onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
-            <button onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
+            <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
+            <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
 
             {{-- could make an invisible form which appears when this button is clicked --}}
-            <button type="button">Add User</button>
+            <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
+            
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title ">Create Instructor</h1>
+                </div>
+                <div class="modal-body">
+                        
+                <form method="post" action="{{ route('save') }}" >
+
+                   
+
+                    @csrf
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com" value="{{ old('firstname')}}">
+                        <label for="floatingInput">First Name</label>
+                        
+                        <!-- error field -->
+                        <span class="text-danger">@error('firstname'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@example.com" value="{{ old('lastname')}}">
+                        <label for="floatingInput">Last Name</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('lastname'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="personalemail" name="personalemail" placeholder="name@example.com" value="{{ old('personalemail')}}">
+                        <label for="email">Personal Email</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('personalemail'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="collegeEmail" name="collegeemail" placeholder="name@example.com" value="{{ old('collegeemail')}}">
+                        <label for="email">College Email</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('collegeemail'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="name@example.com" >
+                        <label for="password">Password</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('password'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="name@example.com" value="{{ old('phone')}}">
+                        <label for="number">Phone Number</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('phone'){{ $message }} @enderror</span>
+                    </div>
+
+                    <select class="form-select form-select-lg pb-2" aria-label="Default select example" name="accounttype">
+                        <option selected>Select Account Type</option>
+                        @foreach ($accountTypes as $type)
+                        <option value='{{$type->id}}'>{{ $type->account_type }}</option>
+                        @endforeach
+                    </select>
+
+
+
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                </div>
+
+                    </form>
+                </div>
+                
+                </div>
+            </div>
+            </div>
 
 @endsection

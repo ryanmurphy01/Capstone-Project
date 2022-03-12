@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 
 /*
@@ -15,8 +16,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('InstructorViews/instructorSchedule');
 });
+
+
+Route::get('/login',[MainController::class, 'login'])->name('login') ->middleware('AlreadyLogged');
+Route::post('/save',[MainController::class, 'save'])->name('save');
+Route::post('/check',[MainController::class, 'check'])->name('check');
+Route::get('/logout',[MainController::class, 'logout'])->name('logout');
+
+
+
+Route::group(['middleware'=>['AuthCheck']], function(){
+   
+    Route::get('/instructors', [MainController::class, 'indexUsers']);
+});
+
+
+
 
 //change this to use the proper method for setting
 Route::get('/passwordSet', function () {
@@ -41,9 +58,9 @@ Route::get('/welcome', function () {
 
 //admin routes, mostly for testing, for now
 //main
-Route::get('/instructors', function () {
-    return view('AdminViews/adminViewInstructors');
-});
+
+
+
 
 Route::get('/deactivated', function () {
     return view('AdminViews/adminDeactivatedInstructors');

@@ -13,13 +13,15 @@ class CreateAccountTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_type', function (Blueprint $table) {
+        Schema::create('account_types', function (Blueprint $table) {
             
 
             $table->foreignId('account_id')->constrained();
-            $table->foreignId('type_id')->constrained("user_type");
+            $table->foreignId('type_id')->constrained("user_types");
+            $table->timestamps();
             
         });
+
     }
 
     /**
@@ -29,6 +31,6 @@ class CreateAccountTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_type');
+        Schema::dropIfExists('account_types');
     }
 }

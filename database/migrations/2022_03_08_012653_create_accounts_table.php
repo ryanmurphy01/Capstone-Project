@@ -25,6 +25,7 @@ class CreateAccountsTable extends Migration
             $table->foreignId('status_id')->constrained("account_status");
             $table->string('last_updated_availability');
             $table->rememberToken();
+            $table->timestamps();
             
         });
     }
