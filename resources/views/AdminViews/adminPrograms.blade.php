@@ -166,16 +166,16 @@
                 @csrf
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programCode" name="programCode" value="{{ old('programCode')}}">
-                        <label for="floatingInput">Program Code</label>
+                        <input type="text" class="form-control" id="programCode" name="programCode" pattern="[a-zA-Z]\d\d\d" value="{{ old('programCode')}}">
+                        <label for="floatingInput">Program Code (Format: A111)</label>
 
                         <!-- error field -->
                         <span class="text-danger">@error('programCode'){{ $message }} @enderror</span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programName" name="programName" value="{{ old('programName')}}">
-                        <label for="floatingInput">Program Name</label>
+                        <input type="text" class="form-control" id="programName" name="programName" pattern="[a-zA-Z+\s+\-]+" value="{{ old('programName')}}">
+                        <label for="floatingInput">Program Name (Letters, spaces and dashes only)</label>
 
                         <!-- error field -->
                         <span class="text-danger">@error('programName'){{ $message }} @enderror</span>
