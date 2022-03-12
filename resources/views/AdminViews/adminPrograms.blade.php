@@ -135,15 +135,16 @@
                 </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
                 <tbody>
+                    @foreach ($programs as $program)
                     <tr>
-                        <td>Mobile Applications Development</td>
-                        <td>B990</td>
+                        <td>{{ $program->program_name}}</td>
+                        <td>{{ $program->program_code}}</td>
                         <td>
-                            {{-- use these to trigger a popup or run a function --}}
-                            <button type="button" class="float-end ms-3">delete</button>
-                            <button type="button" class="float-end">edit</button>
+                            <button type="button">edit</button>
+                            <button type="button">delete</button>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
 
@@ -161,24 +162,23 @@
             <div class="modal-body">
 
                 {{-- TODO put the proper route in here when done --}}
-                {{-- action="{{  }}" --}}
-                <form method="post">
+                <form method="post" action="{{ route('saveProgram') }}">
                 @csrf
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programName" name="programName" placeholder="Program Name..." value="{{ old('programName')}}">
-                        <label for="floatingInput">Program Name</label>
-
-                        <!-- error field -->
-                        <span class="text-danger">@error('programName'){{ $message }} @enderror</span>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programCode" name="programCode" placeholder="A000" value="{{ old('programCode')}}">
+                        <input type="text" class="form-control" id="programCode" name="programCode" value="{{ old('programCode')}}">
                         <label for="floatingInput">Program Code</label>
 
                         <!-- error field -->
                         <span class="text-danger">@error('programCode'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="programName" name="programName" value="{{ old('programName')}}">
+                        <label for="floatingInput">Program Name</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('programName'){{ $message }} @enderror</span>
                     </div>
 
                     <div class="modal-footer">
