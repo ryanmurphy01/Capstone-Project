@@ -13,12 +13,12 @@ class CreateTeacherAvailabilityTable extends Migration
      */
     public function up()
     {
-        Schema::create('teacher_availability', function (Blueprint $table) {
+        Schema::create('teacher_availabilitys', function (Blueprint $table) {
             $table->foreignId('account_id')->constrained();
             $table->foreignId('day_id')->constrained("days");
             $table->time('start_time');
             $table->time("end_time");
-            $table->foreignId('semester_id')->constrained("semester");
+            $table->foreignId('semester_id')->constrained("semesters");
             $table->timestamps();
         });
     }

@@ -7,15 +7,19 @@ use App\Models\account;
 use App\Models\AccountType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use PDO;
 
 class MainController extends Controller
 {
+
+
     function login(){
         return view('login');
     }
 
-
+    //Function to save new accounts into the database
     function save(Request $request){
+
         //Validate request
         $request->validate([
 
@@ -41,8 +45,8 @@ class MainController extends Controller
         $save = $account->save();
 
         
-        
-        DB::table('account_type')->insert([
+        //Get account types
+        DB::table('account_types')->insert([
             'account_id' => $account->id,
             'type_id' => $request->accounttype
         ]);
@@ -61,9 +65,10 @@ class MainController extends Controller
     function indexUsers(){
 
         $data = account::all();
-        $data2 = DB::table('user_type')->get();
+        $data2 = DB::table('user_types')->get();
 
         return view('AdminViews/adminViewInstructors', ['accounts'=>$data], ['accountTypes'=>$data2]);
+        
     }
 
     function indexAccountType(){
@@ -71,4 +76,48 @@ class MainController extends Controller
 
         return view('AdminViews/adminViewInstructors', ['accountTypes'=>$data2]);
     }
+
+    //check users login 
+    function check(Request $request){
+        //Validate request
+        $request->validate([
+            'personal_email'=>'required|email',
+            'password'=>'required|min:5'
+
+        ]);
+
+        $userInfo = account::where('personal_email', '=', $request->personal_email)->first();
+       
+
+        if(!$userInfo){
+           return back()->with('fail','Incorrect Email');
+        } else{
+            if(Hash::check($request->password, $userInfo->password)){
+                $request->session()->put('LoggedUser', $userInfo->id);
+                
+                //Get account type and redirect them to correct pages.
+                $userType = AccountType::where('account_id', '=', $userInfo->id)->first();
+
+                if($userType->type_id == 1){
+                    return redirect('/instructors');
+                } else {
+                    return redirect('/welcome');
+                }
+            
+
+            } else{
+                return back()->with('fail','Incorrect Password');
+            }
+        }
+    }
+
+    //logout request
+    function logout(){
+        if(session()->has('LoggedUser')){
+            session()->pull('LoggedUser');
+            return redirect('/login');
+        }
+    }
+
+    
 }

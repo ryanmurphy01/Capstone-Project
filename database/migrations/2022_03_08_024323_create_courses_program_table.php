@@ -13,7 +13,7 @@ class CreateCoursesProgramTable extends Migration
      */
     public function up()
     {
-        Schema::create('courses_program', function (Blueprint $table) {
+        Schema::create('courses_programs', function (Blueprint $table) {
 
             $table->foreignId('course_id')->constrained("courses");
             $table->foreignId('program_id')->constrained("programs");

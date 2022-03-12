@@ -18,6 +18,8 @@ class CreateAccountStatusTable extends Migration
             $table->string("status");
             $table->timestamps();
         });
+
+        
     }
 
     /**
