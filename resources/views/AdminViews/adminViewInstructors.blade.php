@@ -127,12 +127,14 @@
 
             @if(Session::get('success'))
                     <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         {{ Session::get('success') }}
                     </div>
                     @endif
 
                     @if(Session::get('fail'))
-                    <div class="alert alert-fail">
+                    <div class="alert alert-fail alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         {{ Session::get('fail') }}
                     </div>
                     @endif
@@ -149,7 +151,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                {{-- again, use a foreach to go through db once it's setup --}}
+                
                 <tbody>
                     @foreach ($accounts as $account)
                     <tr>
@@ -168,11 +170,11 @@
             </table>
 
 
-            {{-- the thing in the url is the route name of the destination page, see web.php --}}
+            
             <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
 
-            {{-- could make an invisible form which appears when this button is clicked --}}
+            
             <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
 
         </div>

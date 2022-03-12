@@ -71,9 +71,13 @@ Route::get('/availability', function () {
     return view('AdminViews/adminSchedule');
 });
 
+
+Route::resource('programs', ProgramController::class);
+
 //main Program routes
-Route::get('/programs', [ProgramController::class, 'indexPrograms']);
-Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
+//Route::get('/programs', [ProgramController::class, 'indexPrograms']);
+//Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
+//Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
 //main
 Route::get('/history', function () {

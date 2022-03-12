@@ -122,6 +122,20 @@
         </div>
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Programs</h1>
+            @if(Session::get('success'))
+                    <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif
+
+                    @if(Session::get('fail'))
+                    <div class="alert alert-fail alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ Session::get('fail') }}
+                    </div>
+                    @endif
+
             <input type="text" placeholder="Program Name or Code..." class="form-control form-control-lg">
 
             <table class="table table-hover table-striped">
@@ -140,8 +154,14 @@
                         <td>{{ $program->program_name}}</td>
                         <td>{{ $program->program_code}}</td>
                         <td>
-                            <button type="button">edit</button>
-                            <button type="button">delete</button>
+
+                        <form action="{{ route('programs.destroy',$program->id) }}" method="POST">
+                            <a class="btn btn-primary">Edit</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                           
                         </td>
                     </tr>
                     @endforeach
@@ -162,20 +182,20 @@
             <div class="modal-body">
 
                 {{-- TODO put the proper route in here when done --}}
-                <form method="post" action="{{ route('saveProgram') }}">
+                <form method="post" action="{{ route('programs.store') }}">
                 @csrf
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programCode" name="programCode" pattern="[a-zA-Z]\d\d\d" value="{{ old('programCode')}}">
-                        <label for="floatingInput">Program Code (Format: A111)</label>
+                        <input type="text" class="form-control" id="programCode" name="programCode" placeholder="example">
+                        <label for="floatingInput">Program Code</label>
 
                         <!-- error field -->
                         <span class="text-danger">@error('programCode'){{ $message }} @enderror</span>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programName" name="programName" pattern="[a-zA-Z+\s+\-]+" value="{{ old('programName')}}">
-                        <label for="floatingInput">Program Name (Letters, spaces and dashes only)</label>
+                        <input type="text" class="form-control" id="programName" name="programName" placeholder="example">
+                        <label for="floatingInput">Program Name</label>
 
                         <!-- error field -->
                         <span class="text-danger">@error('programName'){{ $message }} @enderror</span>
