@@ -124,9 +124,9 @@
         </div>
         <div class="col py-3">
             <h1>Deactivated Instructors</h1>
-            <input type="text" placeholder="Name...">
+            <input type="text" placeholder="Name..." class="mb-4 w-100 p-1">
 
-            <table>
+            <table class="table table-striped">
                 <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -142,9 +142,11 @@
                 <td>AFutterkiste@example.com</td>
                 <td>5555555555</td>
                 <td>
-                    <button type="button">flag</button>
-                    <button type="button">edit</button>
+                    <div class="float-end">
+                    <button type="button" class="me-3">flag</button>
+                    <button type="button" class="me-3">edit</button>
                     <button type="button">reactivate</button>
+                    </div>
                 </td>
                 </tr>
             </table>

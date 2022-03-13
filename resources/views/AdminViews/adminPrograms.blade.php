@@ -124,7 +124,7 @@
         </div>
         <div class="col py-3">
             <h1 class="mb-3">Programs</h1>
-            <input type="text" placeholder="Program Name or Code..." class="mb-4" >
+            <input type="text" placeholder="Program Name or Code..." class="mb-4 w-100 p-1" >
 
             <table class="table table-striped" >
                 <tr>
