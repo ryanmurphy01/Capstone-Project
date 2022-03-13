@@ -122,11 +122,19 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1>Current Semester</h1>
-            <h2>Semester Name and Code here</h2>
+        <div class="col py-3 m-5">
+        <div class="border border-dark rounded text-center" style="width: auto">
+            <h1 class="mt-4 text-success">Current Semester</h1>
 
-            <button type="button">New Semester</button>
+    
+        <div class="row">
+            <h3 class="col mt-4">Semester Name: Summer 2022</h3>
+            <h3 class="col mt-4">Semester Code: 23453456</h3>
+        </div>
+    
+
+            <button type="button" class="my-4 btn btn-warning border-dark" >New Semester</button>
+            </div>
         </div>
     </div>
 </div>
