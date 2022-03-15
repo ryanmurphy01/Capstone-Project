@@ -4,14 +4,15 @@
 {{-- bootstrap nav bar --}}
 <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-0 col-xl-0 px-sm-2 px-0">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
             {{-- extra style, border to make the bar actually visible lol --}}
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-2 min-vh-100" style="border-right: 1px solid black;">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none justify-center">
-                    <span class="d-none d-sm-inline text-center" style="font-size: 18pt;">Admin Panel</span>
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100" style="border-right: 1px solid black;">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <span class="d-none d-sm-inline" style="font-size: 18pt;">Admin Panel</span>
                 </a>
-                {{-- make both of these max width so the active box fills all the space, also add a touch of margin so it doesn't touch the edge --}}
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
+                {{-- make both of these max width so the active box fills all the space --}}
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%">
+                    <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
                         <a href="instructors" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
@@ -36,7 +37,7 @@
                             <span class="ms-1 d-none d-sm-inline" style="font-size: 14pt;">Instructor Availability</span>
                         </a>
                     </li>
-                    <li class="nav-item" style="width: 100%;">
+                    <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
                         <a href="programs" class="nav-link align-middle px-0 link-dark active">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
@@ -110,106 +111,41 @@
                         <span class="d-none d-sm-inline mx-1">Admin Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li> --}}
-                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li> --}}
                     </ul>
                 </div>
             </div>
         </div>
+        <div class="col py-3">
+            <h1 class="mb-3">Programs</h1>
+            <input type="text" placeholder="Program Name or Code..." class="mb-4 w-100 p-1" >
 
-        <div class="col-8">
-            <h1 class="pb-5 pt-5 display-3">Programs</h1>
-            @if(Session::get('success'))
-                    <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ Session::get('success') }}
-                    </div>
-                    @endif
-
-                    @if(Session::get('fail'))
-                    <div class="alert alert-fail alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ Session::get('fail') }}
-                    </div>
-                    @endif
-
-
-            <input type="text" placeholder="Program Name or Code..." class="form-control form-control-lg">
-
-            <table class="table table-hover table-striped">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Program Name</th>
-                        <th>Program Code</th>
-                        {{-- empty placeholder that may be helpful for formatting (heading) --}}
-                        <th></th>
-                    </tr>
-                </thead>
+            <table class="table table-striped" >
+                <tr>
+                <th>Program Name</th>
+                <th>Program Code</th>
+                {{-- empty placeholder that may be helpful for formatting (heading) --}}
+                <th></th>
+                </tr>
                 {{-- again, use a foreach to go through db once it's setup --}}
-                <tbody>
-                    @foreach ($programs as $program)
-                    <tr>
-                        <td>{{ $program->program_name}}</td>
-                        <td>{{ $program->program_code}}</td>
-                        <td>
-
-                        <form action="{{ route('programs.destroy',$program->id) }}" method="POST">
-                            <a class="btn btn-primary">Edit</a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-                        
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                <tr>
+                <td>Mobile Applications Development</td>
+                <td>B990</td>
+                <td>
+                    {{-- use these to trigger a popup or run a function --}}
+                    <button type="button" class="float-end ms-3">delete</button>
+                    <button type="button" class="float-end">edit</button>
+                </td>
+                </tr>
             </table>
 
-            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#userModal">Add Program</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title ">Create Program</h1>
-            </div>
-            <div class="modal-body">
-
-                {{-- TODO put the proper route in here when done --}}
-                <form method="post" action="{{ route('programs.store') }}">
-                @csrf
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programCode" name="programCode" placeholder="example">
-                        <label for="floatingInput">Program Code</label>
-
-                        <!-- error field -->
-                        <span class="text-danger">@error('programCode'){{ $message }} @enderror</span>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="programName" name="programName" placeholder="example">
-                        <label for="floatingInput">Program Name</label>
-
-                        <!-- error field -->
-                        <span class="text-danger">@error('programName'){{ $message }} @enderror</span>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Program</button>
-                    </div>
-
-                </form>
-            </div>
+            <button type="button" class="btn btn-success float-end" style="width: 150px"  >Add Program</button>
         </div>
     </div>
 </div>
