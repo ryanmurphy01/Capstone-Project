@@ -120,6 +120,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Programs</h1>
             @if(Session::get('success'))
@@ -135,6 +136,7 @@
                         {{ Session::get('fail') }}
                     </div>
                     @endif
+
 
             <input type="text" placeholder="Program Name or Code..." class="form-control form-control-lg">
 
@@ -161,7 +163,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
-                           
+                        
                         </td>
                     </tr>
                     @endforeach

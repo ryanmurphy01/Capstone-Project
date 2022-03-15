@@ -124,7 +124,7 @@
             <h1>Course History - Instructor Name Here</h1>
             <input type="text" placeholder="Course Name or Code...">
 
-            <table>
+            <table class="table table-striped">
                 <tr>
                 <th>Course Name</th>
                 <th>Course Code</th>
