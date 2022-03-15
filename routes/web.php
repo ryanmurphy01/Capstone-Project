@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
-
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ Route::get('/logout',[MainController::class, 'logout'])->name('logout');
 
 
 Route::group(['middleware'=>['AuthCheck']], function(){
-   
+
     Route::get('/instructors', [MainController::class, 'indexUsers']);
 });
 
@@ -58,10 +58,6 @@ Route::get('/welcome', function () {
 
 //admin routes, mostly for testing, for now
 //main
-
-
-
-
 Route::get('/deactivated', function () {
     return view('AdminViews/adminDeactivatedInstructors');
 });
@@ -75,10 +71,13 @@ Route::get('/availability', function () {
     return view('AdminViews/adminSchedule');
 });
 
-//main
-Route::get('/programs', function () {
-    return view('AdminViews/adminPrograms');
-});
+
+Route::resource('programs', ProgramController::class);
+
+//main Program routes
+//Route::get('/programs', [ProgramController::class, 'indexPrograms']);
+//Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
+//Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
 //main
 Route::get('/history', function () {

@@ -24,8 +24,7 @@ class account extends Authenticatable
         'contact_number',
         'password',
         'personal_email',
-        'school_email',
-        'password'
+        'school_email'
     ];
 
     /**
