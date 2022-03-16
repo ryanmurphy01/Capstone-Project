@@ -16,6 +16,7 @@ use App\Http\Controllers\ProgramController;
 */
 
 Route::get('/', function () {
+    
     return view('InstructorViews/instructorSchedule');
 });
 
@@ -37,37 +38,44 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
 //change this to use the proper method for setting
 Route::get('/passwordSet', function () {
+   
     return view('passwordSet');
 });
 
 //instructor routes
 //main
 Route::get('/schedule', function () {
+   
     return view('InstructorViews/instructorSchedule');
 });
 
 //main
 Route::get('/courses', function () {
+   
     return view('InstructorViews/instructorCourses');
 });
 
 //main
 Route::get('/welcome', function () {
+    
     return view('InstructorViews/instructorWelcome');
 });
 
 //admin routes, mostly for testing, for now
 //main
 Route::get('/deactivated', function () {
+    
     return view('AdminViews/adminDeactivatedInstructors');
 });
 
 Route::get('/unresponsive', function () {
+    
     return view('AdminViews/adminUnresponsiveInstructors');
 });
 
 //main
 Route::get('/availability', function () {
+    
     return view('AdminViews/adminSchedule');
 });
 
@@ -81,28 +89,34 @@ Route::resource('programs', ProgramController::class);
 
 //main
 Route::get('/history', function () {
+    
     return view('AdminViews/adminHistory');
 });
 
 //main
 Route::get('/semester', function () {
+    
     return view('AdminViews/adminSemester');
 });
 
 //main
 Route::get('/email', function () {
+    
     return view('AdminViews/adminEmail');
 });
 
 //main
 Route::get('/requests', function () {
+    
     return view('AdminViews/adminRequests');
 });
 
 Route::get('/approvedRequests', function () {
+   
     return view('AdminViews/adminApprovedRequests');
 });
 
 Route::get('/deniedRequests', function () {
+   
     return view('AdminViews/adminDeniedRequests');
 });
