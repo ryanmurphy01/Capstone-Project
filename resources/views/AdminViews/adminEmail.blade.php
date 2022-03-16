@@ -120,13 +120,21 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1>Request Availability</h1>
-            <h2>Semester</h2>
-            <h3>Semester Name and Code here</h3>
+        <div class="col py-3 m-5">
+        <div class="border border-dark rounded text-center bg-secondary" style="--bs-bg-opacity: .20; width: auto">
+            <h1 class="mt-4 text-success">Request Availability</h1>
+
+            <h2 class="col mt-4">Semester</h2>
+
+        <div class="row">
+            <h3 class="col mt-4">Semester Name here</h3>
+            <h3 class="col mt-4">Semester Code here</h3>
+        </div>
 
             {{-- TODO make this do something --}}
-            <button type="button">Send Email</button>
+            <button type="button" class="my-4 btn btn-warning border-dark">Send Email</button>
+        </div>
+
         </div>
     </div>
 </div>
