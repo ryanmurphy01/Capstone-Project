@@ -16,7 +16,7 @@ use App\Http\Controllers\ProgramController;
 */
 
 Route::get('/', function () {
-    Artisan::call('cache:clear');
+    
     return view('InstructorViews/instructorSchedule');
 });
 
