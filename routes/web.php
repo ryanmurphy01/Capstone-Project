@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IHistory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
@@ -80,9 +81,10 @@ Route::resource('programs', ProgramController::class);
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
 //main
-Route::get('/history', function () {
-    return view('AdminViews/adminHistory');
-});
+Route::resource('history', IHistory::class);
+// Route::get('/history', function () {
+//     return view('AdminViews/adminHistory');
+// });
 
 //main
 Route::get('/semester', function () {

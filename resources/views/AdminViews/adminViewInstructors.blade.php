@@ -151,7 +151,6 @@
                         <th></th>
                     </tr>
                 </thead>
-
                 <tbody>
                     @foreach ($accounts as $account)
                     <tr>

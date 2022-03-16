@@ -130,13 +130,14 @@
                         <th>Instructor Name</th>
                     </tr>
                 </thead>
-                {{-- again, use a foreach to go through db once it's setup --}}
-
-                <tr>
-                {{-- send user from here to the specific history page when clicked on one of these --}}
-                <td><a href="#">Ryan Murphy</a></td>
-                </tr>
-
+                <tbody>
+                        @foreach ($accounts as $account)
+                        <tr>
+                            {{-- send user from here to the specific history page when clicked on one of these --}}
+                            <td><a href="#" class="link-dark" style="font-size: 14pt">{{ $account->first_name }} {{ $account->last_name }}</a></td>
+                        </tr>
+                        @endforeach
+                </tbody>
             </table>
         </div>
     </div>
