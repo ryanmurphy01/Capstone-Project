@@ -86,6 +86,9 @@ Route::resource('history', IHistory::class);
 //     return view('AdminViews/adminHistory');
 // });
 
+//route for when you click on a certain instructor in the history page
+Route::get('courseHistory/{id}', [IHistory::class, 'detail']);
+
 //main
 Route::get('/semester', function () {
     return view('AdminViews/adminSemester');
