@@ -120,21 +120,23 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1>Instructor Course History</h1>
+        <div class="col-8">
+            <h1 class="pb-5 pt-5 display-3">Instructor Course History</h1>
             <input type="text" placeholder="Instructor or Course Code..." class="mb-4 w-100 p-1" >
 
-            <table class="table table-striped mx-auto text-center">
-                <tr>
-                <th>Instructor Name</th>
-                </tr>
+            <table class="table table-hover table-striped mx-auto text-center">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Instructor Name</th>
+                    </tr>
+                </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
-                
+
                 <tr>
                 {{-- send user from here to the specific history page when clicked on one of these --}}
-                <td><a href="#"  >Ryan Murphy</a></td>
+                <td><a href="#">Ryan Murphy</a></td>
                 </tr>
-                
+
             </table>
         </div>
     </div>
