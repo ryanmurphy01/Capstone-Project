@@ -121,92 +121,141 @@
             </div>
         </div>
         <div class="col py-3">
-            <input type="text" placeholder="Instructor Name...">
+            <input type="text" placeholder="Instructor Name..." class="mb-4 w-100 p-1">
 
             {{-- might need to put all this in a scrollview later --}}
-            <table>
+            <table class="table table-striped table-hover mx-auto text-center">
+
+            {{--Days of the weeks header--}}
+            <thead>
                 <tr>
                 {{-- Cai said only Sat, so if anyone whines that all the days aren't here, i will eat you --}}
-                <th>Instructor</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
+                <th scope="col">Instructor</th>
+                <th scope="col">Monday</th>
+                <th scope="col">Tuesday</th>
+                <th scope="col">Wednesday</th>
+                <th scope="col">Thursday</th>
+                <th scope="col">Friday</th>
+                <th scope="col">Saturday</th>
                 </tr>
+            </thead>
+
                 {{-- again, use a foreach to go through db once it's setup --}}
+            <tbody>
                 <tr>
-                <td>Alfreds Futterkiste</td>
+            {{--Instructors Names--}} 
+                    <td  style="list-style: none;">
+                        <li class="text-start"><strong>Alfreds</strong></li>
+                        <li class="text-start"><strong>Futterkiste</strong></li>
+                    <td>
+
+              
                 {{-- dynamically changing the backgrounds shouldn't be hard with a bit of JS in the controller,
                 over a certain threshold and background colour = blue or something --}}
-                {{-- Monday --}}
+            {{-- Monday Time block--}}
                 <td>
-                    <ul>
+                    <ul style="list-style: none;">
+                    <div class="bg-info">
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
+                    </div>
+                              
                         {{-- this should be where the colour would change --}}
+                    <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
+                    </div>  
+                    
+                    <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
+                    </div>
+
                     </ul>
                 </td>
-                {{-- Tuesday --}}
-                <td>
-                    <ul>
+            {{-- Tuesday Time block--}}
+                <td class="bg-danger">
+                    <ul style="list-style: none;">
                         {{-- do something like this if there are no hours, might require some janky workarounds in the forech --}}
                         <li>No Hours</li>
                     </ul>
                 </td>
-                {{-- Wednesday --}}
+            {{-- Wednesday Time block--}}
                 <td>
-                    <ul>
+                <ul style="list-style: none;">
+                    <div class="bg-info">
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
+                    </div>
+                              
                         {{-- this should be where the colour would change --}}
+                    <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
+                    </div>  
+                    
+                    <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
+                    </div>
+
                     </ul>
                 </td>
-                {{-- Thursday --}}
+            {{-- Thursday Time block--}}
                 <td>
-                    <ul>
+                    <ul style="list-style: none;">
+                    <div class="bg-info">
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
+                    </div>
+                              
                         {{-- this should be where the colour would change --}}
+                    <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
+                    </div>  
+                    
+                    <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
+                    </div>
+
                     </ul>
                 </td>
-                {{-- Friday --}}
+            {{-- Friday Time block--}}
                 <td>
-                    <ul>
+                <ul style="list-style: none;">
+                    <div class="bg-info">
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
+                    </div>
+                              
                         {{-- this should be where the colour would change --}}
+                    <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
+                    </div>  
+                    
+                    <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
+                    </div>
+
                     </ul>
                 </td>
-                {{-- Saturday --}}
-                <td>
-                    <ul>
+            {{-- Saturday Time block--}}
+                <td class="bg-danger">
+                    <ul style="list-style: none;">
                         {{-- do something like this if there are no hours, might require some janky workarounds in the forech --}}
                         <li>No Hours</li>
                     </ul>
                 </td>
                 </tr>
+                </tbody>
             </table>
 
             {{-- could make an invisible form which appears when this button is clicked --}}
-            <button type="button">Export</button>
+            <button type="button" class="my-4 btn btn-success border-dark float-end" style="width: 200px;">Export </button>
         </div>
     </div>
 </div>
