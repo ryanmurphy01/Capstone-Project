@@ -13,7 +13,7 @@
                 {{-- make both of these max width so the active box fills all the space, also add a touch of margin so it doesn't touch the edge --}}
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="instructors" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('instructors.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="availability" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('availability') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -38,7 +38,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="programs" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('programs.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -51,7 +51,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="history" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('history.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -65,7 +65,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="semester" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('semester') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -78,7 +78,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="email" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('email') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mailbox" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -91,7 +91,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="requests" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('request.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-patch-question-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">

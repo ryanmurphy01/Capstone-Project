@@ -133,7 +133,7 @@
                 <tbody>
                         @foreach ($accounts as $account)
                         <tr>
-                            {{-- send user from here to the specific history page when clicked on one of these --}}
+                            
                             <td><a href="courseHistory/{{ $account->id }}" class="link-dark" style="font-size: 14pt">{{ $account->first_name }} {{ $account->last_name }}</a></td>
                         </tr>
                         @endforeach

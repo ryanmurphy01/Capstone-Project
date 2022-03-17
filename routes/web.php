@@ -30,7 +30,7 @@ Route::get('/logout',[MainController::class, 'logout'])->name('logout');
 
 Route::group(['middleware'=>['AuthCheck']], function(){
 
-    Route::get('/instructors', [MainController::class, 'indexUsers']);
+    Route::get('/instructors', [MainController::class, 'indexUsers'])->name('instructors.index');
 });
 
 
@@ -61,16 +61,16 @@ Route::get('/welcome', function () {
 //main
 Route::get('/deactivated', function () {
     return view('AdminViews/adminDeactivatedInstructors');
-});
+})->name('deactivated');
 
 Route::get('/unresponsive', function () {
     return view('AdminViews/adminUnresponsiveInstructors');
-});
+})->name('unresponsive');
 
 //main
 Route::get('/availability', function () {
     return view('AdminViews/adminSchedule');
-});
+})->name('availability');
 
 
 Route::resource('programs', ProgramController::class);
@@ -81,7 +81,7 @@ Route::resource('programs', ProgramController::class);
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
 //main
-Route::resource('history', IHistory::class);
+Route::get('history', [IHistory::class, 'index'])->name('history.index');
 // Route::get('/history', function () {
 //     return view('AdminViews/adminHistory');
 // });
@@ -92,17 +92,17 @@ Route::get('courseHistory/{id}', [IHistory::class, 'detail']);
 //main
 Route::get('/semester', function () {
     return view('AdminViews/adminSemester');
-});
+})->name('semester');
 
 //main
 Route::get('/email', function () {
     return view('AdminViews/adminEmail');
-});
+})->name('email');
 
 //main
 Route::get('/requests', function () {
     return view('AdminViews/adminRequests');
-});
+})->name('request.index');
 
 Route::get('/approvedRequests', function () {
     return view('AdminViews/adminApprovedRequests');
