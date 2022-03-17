@@ -17,6 +17,7 @@ use App\Http\Controllers\ProgramController;
 */
 
 Route::get('/', function () {
+    
     return view('InstructorViews/instructorSchedule');
 });
 
@@ -38,37 +39,44 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
 //change this to use the proper method for setting
 Route::get('/passwordSet', function () {
+   
     return view('passwordSet');
 });
 
 //instructor routes
 //main
 Route::get('/schedule', function () {
+   
     return view('InstructorViews/instructorSchedule');
 });
 
 //main
 Route::get('/courses', function () {
+   
     return view('InstructorViews/instructorCourses');
 });
 
 //main
 Route::get('/welcome', function () {
+    
     return view('InstructorViews/instructorWelcome');
 });
 
 //admin routes, mostly for testing, for now
 //main
 Route::get('/deactivated', function () {
+    
     return view('AdminViews/adminDeactivatedInstructors');
 })->name('deactivated');
 
 Route::get('/unresponsive', function () {
+    
     return view('AdminViews/adminUnresponsiveInstructors');
 })->name('unresponsive');
 
 //main
 Route::get('/availability', function () {
+    
     return view('AdminViews/adminSchedule');
 })->name('availability');
 
@@ -89,25 +97,32 @@ Route::get('history', [IHistory::class, 'index'])->name('history.index');
 //route for when you click on a certain instructor in the history page
 Route::get('courseHistory/{id}', [IHistory::class, 'detail']);
 
+
+
 //main
 Route::get('/semester', function () {
+    
     return view('AdminViews/adminSemester');
 })->name('semester');
 
 //main
 Route::get('/email', function () {
+    
     return view('AdminViews/adminEmail');
 })->name('email');
 
 //main
 Route::get('/requests', function () {
+    
     return view('AdminViews/adminRequests');
 })->name('request.index');
 
 Route::get('/approvedRequests', function () {
+   
     return view('AdminViews/adminApprovedRequests');
 });
 
 Route::get('/deniedRequests', function () {
+   
     return view('AdminViews/adminDeniedRequests');
 });
