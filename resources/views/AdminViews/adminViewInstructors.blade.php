@@ -175,6 +175,7 @@
                     @endforeach
                 </tbody>
             </table>
+            
 
             <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
@@ -194,7 +195,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('save') }}" >
+                <form method="post" action="{{ route('instructors.store') }}">
                 @csrf
 
                     <div class="form-floating mb-3">
@@ -245,8 +246,8 @@
                         <span class="text-danger">@error('phone'){{ $message }} @enderror</span>
                     </div>
 
-                    <select class="form-select form-select-lg pb-2" aria-label="Default select example" name="accounttype">
-                        <option selected>Select Account Type</option>
+                    <select class="form-select form-select-lg padding-bottom-sm" aria-label="Default select example" name="accounttype">
+                        <option value='' disabled selected>Select Account Type</option>
                         @foreach ($accountTypes as $type)
                         <option value='{{$type->id}}'>{{ $type->account_type }}</option>
                         @endforeach

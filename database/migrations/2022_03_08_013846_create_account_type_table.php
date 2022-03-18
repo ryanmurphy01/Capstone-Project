@@ -16,7 +16,7 @@ class CreateAccountTypeTable extends Migration
         Schema::create('account_types', function (Blueprint $table) {
             
 
-            $table->foreignId('account_id')->constrained();
+            $table->foreignId('account_id')->constrained("accounts")->onDelete('cascade');
             $table->foreignId('type_id')->constrained("user_types");
             $table->timestamps();
             
