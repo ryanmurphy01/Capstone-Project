@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IHistory;
+use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
@@ -23,7 +24,7 @@ Route::get('/', function () {
 
 
 Route::get('/login',[MainController::class, 'login'])->name('login') ->middleware('AlreadyLogged');
-Route::post('/save',[MainController::class, 'save'])->name('save');
+//Route::post('/save',[MainController::class, 'save'])->name('save');
 Route::post('/check',[MainController::class, 'check'])->name('check');
 Route::get('/logout',[MainController::class, 'logout'])->name('logout');
 
@@ -31,8 +32,11 @@ Route::get('/logout',[MainController::class, 'logout'])->name('logout');
 
 Route::group(['middleware'=>['AuthCheck']], function(){
 
-    Route::get('/instructors', [MainController::class, 'indexUsers'])->name('instructors.index');
+    Route::resource('instructors', InstructorController::class);
+    Route::resource('programs', ProgramController::class);
+   
 });
+
 
 
 
@@ -81,7 +85,7 @@ Route::get('/availability', function () {
 })->name('availability');
 
 
-Route::resource('programs', ProgramController::class);
+
 
 //main Program routes
 //Route::get('/programs', [ProgramController::class, 'indexPrograms']);

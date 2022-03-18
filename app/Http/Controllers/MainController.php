@@ -17,65 +17,7 @@ class MainController extends Controller
         return view('login');
     }
 
-    //Function to save new accounts into the database
-    function save(Request $request){
 
-        //Validate request
-        $request->validate([
-
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'personalemail'=>'required|email',
-            'collegeemail'=>'required|email',
-            'password'=>'required|min:5',
-            'phone'=>'required'
-        ]);
-
-        //Insert into database
-        $account = new account;
-        $account->first_name = $request->firstname;
-        $account->last_name = $request->lastname;
-        $account->contact_number = $request->phone;
-        $account->password = Hash::make($request->password);
-        $account->personal_email = $request->personalemail;
-        $account->school_email = $request->collegeemail;
-        $account->num_of_courses = 0;
-        $account->status_id = 1;
-        $account->last_updated_availability = now();
-        $save = $account->save();
-
-        
-        //Get account types
-        DB::table('account_types')->insert([
-            'account_id' => $account->id,
-            'type_id' => $request->accounttype
-        ]);
-
-
-
-        if($save){
-            return back()->with('success', 'New User has been added');
-        } else {
-            return back()->with('fail', 'Something went wrong');
-        }
-
-    }
-
-    //Get all accounts for instructors view
-    function indexUsers(){
-
-        $data = account::all();
-        $data2 = DB::table('user_types')->get();
-
-        return view('AdminViews/adminViewInstructors', ['accounts'=>$data], ['accountTypes'=>$data2]);
-        
-    }
-
-    function indexAccountType(){
-        $data2 = AccountType::all();
-
-        return view('AdminViews/adminViewInstructors', ['accountTypes'=>$data2]);
-    }
 
     //check users login 
     function check(Request $request){
