@@ -144,10 +144,12 @@
             <tbody>
                 <tr>
             {{--Instructors Names--}} 
-                    <td  style="list-style: none;">
-                        <li class="text-start"><strong>Alfreds</strong></li>
-                        <li class="text-start"><strong>Futterkiste</strong></li>
-                    <td>
+                    <td  style="width: 50px;">
+                        <ul style="list-style: none;">
+                        <li class="text-center"><strong>Alfreds</strong></li>
+                        <li class="text-center"><strong>Futterkiste</strong></li>
+                        </ul>
+                    </td>
 
               
                 {{-- dynamically changing the backgrounds shouldn't be hard with a bit of JS in the controller,
@@ -155,6 +157,7 @@
             {{-- Monday Time block--}}
                 <td>
                     <ul style="list-style: none;">
+                    <div class="border border-1 border-dark m-1">
                     <div class="bg-info">
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
@@ -170,19 +173,22 @@
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
                     </div>
-
+                    </div>
                     </ul>
                 </td>
             {{-- Tuesday Time block--}}
-                <td class="bg-danger">
-                    <ul style="list-style: none;">
+                <td>
+                    <ul  style="list-style: none;">
+                    <div class="bg-danger text-light m-1 border border-1 border-dark" style="height: 150px;">
                         {{-- do something like this if there are no hours, might require some janky workarounds in the forech --}}
-                        <li>No Hours</li>
+                        <li class="py-5">No Hours</li>
+                    </div>
                     </ul>
                 </td>
             {{-- Wednesday Time block--}}
                 <td>
                 <ul style="list-style: none;">
+                    <div class="border border-1 border-dark m-1">
                     <div class="bg-info">
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
@@ -198,12 +204,13 @@
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
                     </div>
-
+                    </div>
                     </ul>
                 </td>
             {{-- Thursday Time block--}}
                 <td>
-                    <ul style="list-style: none;">
+                <ul style="list-style: none;">
+                    <div class="border border-1 border-dark m-1">
                     <div class="bg-info">
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
@@ -219,13 +226,14 @@
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
                     </div>
-
+                    </div>
                     </ul>
                 </td>
             {{-- Friday Time block--}}
                 <td>
-                <ul style="list-style: none;">
-                    <div class="bg-info">
+                <ul style="list-style: none;" >
+                    <div class="border border-1 border-dark m-1">
+                    <div class="bg-info" >
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
                     </div>
@@ -240,15 +248,18 @@
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
                     </div>
-
+                    </div>
                     </ul>
                 </td>
             {{-- Saturday Time block--}}
-                <td class="bg-danger">
-                    <ul style="list-style: none;">
+                <td >
+                <ul  style="list-style: none;">
+                    <div class="bg-danger text-light m-1 border border-1 border-dark m-1" style="height: 150px;">
                         {{-- do something like this if there are no hours, might require some janky workarounds in the forech --}}
-                        <li>No Hours</li>
+                        <li class="py-5">No Hours</li>
+                    </div>
                     </ul>
+                    
                 </td>
                 </tr>
                 </tbody>
