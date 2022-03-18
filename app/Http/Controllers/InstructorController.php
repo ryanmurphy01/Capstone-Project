@@ -17,7 +17,7 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        $data = account::all();
+        $data = DB::table('accounts')->where('status_id', 1)->get();
         $data2 = DB::table('user_types')->get();
 
         return view('AdminViews/adminViewInstructors', ['accounts'=>$data], ['accountTypes'=>$data2]);
