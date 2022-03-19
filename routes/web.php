@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeactivatedController;
 use App\Http\Controllers\IHistory;
 use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     Route::resource('instructors', InstructorController::class);
     Route::resource('programs', ProgramController::class);
+    Route::resource('deactivated', DeactivatedController::class);
+    Route::put('deactivated-update/{id}', [DeactivatedController::class, 'statusUpdate'])->name('deactivate.activate');
    
 });
 
@@ -68,10 +71,7 @@ Route::get('/welcome', function () {
 
 //admin routes, mostly for testing, for now
 //main
-Route::get('/deactivated', function () {
-    
-    return view('AdminViews/adminDeactivatedInstructors');
-})->name('deactivated');
+
 
 Route::get('/unresponsive', function () {
     
