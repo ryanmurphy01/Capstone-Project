@@ -123,6 +123,14 @@
 
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Programs</h1>
+
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new Program please try again.
+                </div>
+            @endif 
+
             @if(Session::get('success'))
                     <div class="alert alert-success alert-dismissible">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
