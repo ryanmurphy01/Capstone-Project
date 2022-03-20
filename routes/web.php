@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DeactivatedController;
-use App\Http\Controllers\IHistory;
+use App\Http\Controllers\IHistoryController;
 use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
@@ -95,13 +95,13 @@ Route::get('/availability', function () {
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
 //main
-Route::get('history', [IHistory::class, 'index'])->name('history.index');
+Route::get('history', [IHistoryController::class, 'index'])->name('history.index');
 // Route::get('/history', function () {
 //     return view('AdminViews/adminHistory');
 // });
 
 //route for when you click on a certain instructor in the history page
-Route::get('courseHistory/{id}', [IHistory::class, 'detail']);
+Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
 
 
 
