@@ -124,7 +124,16 @@
 
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Instructors</h1>
-
+            
+            {{-- When modal form fails tell user --}}
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new User please try again.
+                </div>
+            @endif 
+            
+            {{-- If Sql works tell user if not display error--}}
             @if(Session::get('success'))
                     <div class="alert alert-success alert-dismissible">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -133,7 +142,7 @@
                     @endif
 
                     @if(Session::get('fail'))
-                    <div class="alert alert-fail alert-dismissible">
+                    <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         {{ Session::get('fail') }}
                     </div>
@@ -182,7 +191,7 @@
                     @endforeach
                 </tbody>
             </table>
-
+         
 
             <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
@@ -260,7 +269,7 @@
                         @endforeach
                     </select>
 
-
+                  
 
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -268,6 +277,7 @@
                     </div>
 
                 </form>
+               
             </div>
         </div>
     </div>
