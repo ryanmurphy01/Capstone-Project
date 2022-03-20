@@ -19,7 +19,7 @@ use App\Http\Controllers\ProgramController;
 */
 
 Route::get('/', function () {
-    
+
     return view('InstructorViews/instructorSchedule');
 });
 
@@ -37,7 +37,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::resource('programs', ProgramController::class);
     Route::resource('deactivated', DeactivatedController::class);
     Route::put('deactivated-update/{id}', [DeactivatedController::class, 'statusUpdate'])->name('deactivate.activate');
-   
+
 });
 
 
@@ -46,26 +46,28 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
 //change this to use the proper method for setting
 Route::get('/passwordSet', function () {
-   
+
     return view('passwordSet');
 });
 
 //instructor routes
 //main
 Route::get('/schedule', function () {
-   
+
     return view('InstructorViews/instructorSchedule');
 });
 
 //main
-Route::get('/courses', function () {
-   
-    return view('InstructorViews/instructorCourses');
-});
+//TODO change this if you want Ryan, lol
+Route::get('/courses', [ProgramController::class, 'iDropdown']);
+// Route::get('/courses', function () {
+
+//     return view('InstructorViews/instructorCourses');
+// });
 
 //main
 Route::get('/welcome', function () {
-    
+
     return view('InstructorViews/instructorWelcome');
 });
 
@@ -74,13 +76,13 @@ Route::get('/welcome', function () {
 
 
 Route::get('/unresponsive', function () {
-    
+
     return view('AdminViews/adminUnresponsiveInstructors');
 })->name('unresponsive');
 
 //main
 Route::get('/availability', function () {
-    
+
     return view('AdminViews/adminSchedule');
 })->name('availability');
 
@@ -105,28 +107,28 @@ Route::get('courseHistory/{id}', [IHistory::class, 'detail']);
 
 //main
 Route::get('/semester', function () {
-    
+
     return view('AdminViews/adminSemester');
 })->name('semester');
 
 //main
 Route::get('/email', function () {
-    
+
     return view('AdminViews/adminEmail');
 })->name('email');
 
 //main
 Route::get('/requests', function () {
-    
+
     return view('AdminViews/adminRequests');
 })->name('request.index');
 
 Route::get('/approvedRequests', function () {
-   
+
     return view('AdminViews/adminApprovedRequests');
 });
 
 Route::get('/deniedRequests', function () {
-   
+
     return view('AdminViews/adminDeniedRequests');
 });

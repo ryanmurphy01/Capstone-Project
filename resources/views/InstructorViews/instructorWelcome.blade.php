@@ -7,7 +7,7 @@
             {{-- extra style, border to make the bar actually visible lol --}}
             <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-2 min-vh-100" style="border-right: 1px solid black;">
                 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none justify-center">
-                    <span class="d-none d-sm-inline text-center" style="font-size: 18pt;">Admin Panel</span>
+                    <span class="d-none d-sm-inline text-center" style="font-size: 18pt;">Instructor Panel</span>
                 </a>
                 {{-- make both of these max width so the active box fills all the space, also add a touch of margin so it doesn't touch the edge --}}
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
