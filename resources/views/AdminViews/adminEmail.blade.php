@@ -132,7 +132,7 @@
         </div>
 
             {{-- TODO make this do something --}}
-            <button type="button" class="my-4 btn btn-warning border-dark">Send Email</button>
+            <button type="button" class="my-4 btn btn-warning border-dark" style="width: 150px;">Send Email</button>
         </div>
 
         </div>
