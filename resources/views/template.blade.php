@@ -7,6 +7,7 @@
     <title>Zekelman Part Time</title>
 
     {{-- import bootstrap here so you only have to do it once, then call it on the other screens with 'extends' --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
