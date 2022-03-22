@@ -95,8 +95,9 @@ Route::get('/availability', function () {
 //Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
+//TODO, over here Ryan <<<<<<<<<<
 //route to list courses when you click on a certain program in the programs page
-Route::get('courses/{id}', [CourseController::class, 'index']);
+Route::get('courses/{id}', [CourseController::class, 'listCourses']);
 
 //main
 Route::get('history', [IHistoryController::class, 'index'])->name('history.index');

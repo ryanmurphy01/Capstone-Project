@@ -44,7 +44,6 @@ class InstructorController extends Controller
     {
         //Validate request
         $request->validate([
-
             'firstname'=>'required',
             'lastname'=>'required',
             'personalemail'=>'required|email',
@@ -67,7 +66,7 @@ class InstructorController extends Controller
         $account->last_updated_availability = now();
         $save = $account->save();
 
-        
+
         //Get account types
         DB::table('account_types')->insert([
             'account_id' => $account->id,
@@ -129,12 +128,12 @@ class InstructorController extends Controller
     {
         $account = account::where('id', '=', $id)->first();
         $delete = $account->delete();
-       
+
 
         if($delete){
             print('it worked');
             return back()->with('success', 'Account has been deleted');
-        } else {    
+        } else {
             print('it broke');
             return back()->with('fail', 'Something went wrong');
         }
