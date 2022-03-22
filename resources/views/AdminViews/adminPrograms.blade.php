@@ -125,6 +125,14 @@
             <h1 class="pb-5 pt-5 display-3">Programs</h1>
 
             @if($errors->any())
+            <script>
+                    $(document).ready(function(){
+                        $('#programModal').modal("show");
+                    });
+                </script>
+                @endif
+
+            @if($errors->any())
             <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     Failed to add new Program please try again.
@@ -180,12 +188,12 @@
                 </tbody>
             </table>
 
-            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#userModal">Add Program</button>
+            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#programModal">Add Program</button>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="programModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

@@ -125,6 +125,14 @@
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Instructors</h1>
             
+            @if($errors->any())
+            <script>
+                    $(document).ready(function(){
+                        $('#userModal').modal("show");
+                    });
+                </script>
+                @endif
+            
             {{-- When modal form fails tell user --}}
             @if($errors->any())
             <div class="alert alert-danger alert-dismissible">
@@ -191,19 +199,23 @@
                     @endforeach
                 </tbody>
             </table>
-         
+
 
             <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
 
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
 
+         
+            
+
+
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true" name="userModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -275,12 +287,13 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Create User</button>
                     </div>
+                    
 
                 </form>
+               
                
             </div>
         </div>
     </div>
 </div>
-
 @endsection

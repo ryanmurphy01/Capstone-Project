@@ -53,6 +53,7 @@ class InstructorController extends Controller
             'phone'=>'required',
             'accounttype'=>'required'
         ]);
+        
 
         //Insert into database
         $account = new account;
