@@ -97,7 +97,10 @@ Route::get('/availability', function () {
 
 //TODO, over here Ryan <<<<<<<<<<
 //route to list courses when you click on a certain program in the programs page
-Route::get('courses/{id}', [CourseController::class, 'listCourses']);
+Route::get('courses/{id}', [CourseController::class, 'index']);
+Route::resource('courses', CourseController::class);
+
+
 
 //main
 Route::get('history', [IHistoryController::class, 'index'])->name('history.index');

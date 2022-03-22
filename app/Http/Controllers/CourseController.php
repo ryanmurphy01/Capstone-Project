@@ -8,18 +8,12 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    //function to take user to course page with courses from a selected program listed
-    // function index($id) {
-
-    //     $data = program::find($id);
-    //     return view('AdminViews/adminCourses', ['programs'=>$data]);
-    // }
-
-    //TODO, i have no idea if this is right lol
     //function to get all courses matching the program, and the program details
-    function listCourses($id) {
+    function index($id) {
 
-        $data = course::all()->where('program_id', $id);
+        //TODO, limit it to only get courses linked to that specific program
+        //how i tried, didn't work: $data = course::all()->where('program_id', $id);
+        $data = course::all();
         $data2 = program::find($id);
         return view('AdminViews/adminCourses', ['courses'=>$data], ['programs'=>$data2]);
     }
@@ -28,14 +22,15 @@ class CourseController extends Controller
     function store(Request $request){
 
 
-        //TODO uncomment the name lines once the migration is updated
+        //TODO uncomment this once the other stuff works
         //Validate request
-         $request->validate([
-        //'courseName'=>'required',
-        'description'=>'required',
-        'creditHours'=>'required|numeric'
-        ]);
+        // $request->validate([
+        //     //'courseName'=>'required',
+        //     'description'=>'required',
+        //     'creditHours'=>'required|numeric'
+        // ]);
 
+        //not sure how foreign keys work here, take a look if this is wrong
         //Insert into database
         $course = new course;
         //$course->course_name = $request->courseName;
