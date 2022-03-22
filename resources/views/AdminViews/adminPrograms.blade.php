@@ -161,7 +161,7 @@
                 <tbody>
                     @foreach ($programs as $program)
                     <tr>
-                        <td><a href="courses/{{ $program->id }}" class="link-dark" style="font-size: 14pt">{{ $program->program_name }}</a></td>
+                        <td><a href="courses/{{ $program->id }}" class="link-dark" style="font-size: 13pt">{{ $program->program_name }}</a></td>
                         {{-- <td>{{ $program->program_name }}</td> --}}
                         <td>{{ $program->program_code }}</td>
                         <td>
@@ -190,7 +190,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title ">Create Program</h1>
+                <h1 class="modal-title">Create Program</h1>
             </div>
             <div class="modal-body">
 

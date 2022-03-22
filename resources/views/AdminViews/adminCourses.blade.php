@@ -152,4 +152,44 @@
     </div>
 </div>
 
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Create Program</h1>
+            </div>
+            <div class="modal-body">
+
+                {{-- TODO put the proper route in here when done --}}
+                <form method="post" action="{{ route('programs.store') }}">
+                @csrf
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="programCode" name="programCode" placeholder="example">
+                        <label for="floatingInput">Program Code</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('programCode'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="programName" name="programName" placeholder="example">
+                        <label for="floatingInput">Program Name</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('programName'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Program</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

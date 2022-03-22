@@ -58,13 +58,12 @@
                         <span class="d-none d-sm-inline mx-1">Instructor Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li> --}}
+                        </li> --}}
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
             </div>
@@ -76,7 +75,7 @@
             <section class="p-5">
                 <h2 class="text-success">Availability</h2>
                 <p>
-                    Here you can set your working hours. Once on the page, enter your start and end time, 
+                    Here you can set your working hours. Once on the page, enter your start and end time,
                     then hit save to add it to the list. Use the delete buttons if you've added an entry by mistake.
                 </p>
                 <p>
@@ -94,7 +93,7 @@
                 Once all the courses you wish to teach are in the submission list, press the red button and confirm your selection.
                 </p>
              </section>
-             
+
 
         </div>
     </div>
