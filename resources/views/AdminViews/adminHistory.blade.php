@@ -133,7 +133,6 @@
                 <tbody>
                         @foreach ($accounts as $account)
                         <tr>
-                            
                             <td><a href="courseHistory/{{ $account->id }}" class="link-dark" style="font-size: 14pt">{{ $account->first_name }} {{ $account->last_name }}</a></td>
                         </tr>
                         @endforeach

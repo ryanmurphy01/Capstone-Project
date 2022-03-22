@@ -129,7 +129,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     Failed to add new Program please try again.
                 </div>
-            @endif 
+            @endif
 
             @if(Session::get('success'))
                     <div class="alert alert-success alert-dismissible">
@@ -161,8 +161,9 @@
                 <tbody>
                     @foreach ($programs as $program)
                     <tr>
-                        <td>{{ $program->program_name}}</td>
-                        <td>{{ $program->program_code}}</td>
+                        <td><a href="courses/{{ $program->id }}" class="link-dark" style="font-size: 14pt">{{ $program->program_name }}</a></td>
+                        {{-- <td>{{ $program->program_name }}</td> --}}
+                        <td>{{ $program->program_code }}</td>
                         <td>
                             <form action="{{ route('programs.destroy',$program->id) }}" method="POST">
                                 <a class="btn btn border-dark">
@@ -219,7 +220,7 @@
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>
