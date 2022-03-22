@@ -121,6 +121,7 @@
             </div>
         </div>
         <div class="col py-3">
+        <h1 class="pb-3 pt-3 ">Instructor Availability</h1>
             <input type="text" placeholder="Instructor Name..." class="mb-4 w-100 p-1">
 
             {{-- might need to put all this in a scrollview later --}}
@@ -266,7 +267,7 @@
             </table>
 
             {{-- could make an invisible form which appears when this button is clicked --}}
-            <button type="button" class="my-4 btn btn-success border-dark float-end" style="width: 200px;">Export </button>
+            <button type="button" class="my-4 btn btn-success border-dark float-end" style="width: 150px;">Export </button>
         </div>
     </div>
 </div>
