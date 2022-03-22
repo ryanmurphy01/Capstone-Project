@@ -123,28 +123,30 @@
             <h1>Course Requests</h1>
 
             {{-- the key for the little circles --}}
-            <div>
-                <div>
+            <div class="container" >
+                <div class="row row-cols-auto float-end mb-3">
+                <div class="col text-center">
                     <h3>Approve</h3>
                     <svg height="50" width="50">
                         <circle cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="green" />
                     </svg>
                 </div>
-                <div>
+                <div class="col text-center">
                     <h3>Pending</h3>
                     <svg height="50" width="50">
                         <circle cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="orange" />
                     </svg>
                 </div>
-                <div>
+                <div class="col text-center">
                     <h3>Deny</h3>
                     <svg height="50" width="50">
                         <circle cx="25" cy="25" r="20" stroke="black" stroke-width="3" fill="red" />
                     </svg>
                 </div>
+                </div>
             </div>
 
-            <table>
+            <table class="table table-striped table-hover mx-auto">
                 <tr>
                 <th>Instructor Name</th>
                 <th>Course Name</th>
@@ -166,8 +168,8 @@
             </table>
 
             {{-- the thing in the url is the route name of the destination page, see web.php --}}
-            <button onclick="document.location='{{ url('approvedRequests') }}'">Approved</button>
-            <button onclick="document.location='{{ url('deniedRequests') }}'">Denied</button>
+            <button onclick="document.location='{{ url('approvedRequests') }}'" style="width: 150px">Approved</button>
+            <button onclick="document.location='{{ url('deniedRequests') }}'" style="width: 150px">Denied</button>
         </div>
     </div>
 </div>
