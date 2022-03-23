@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeactivatedController;
 use App\Http\Controllers\IHistoryController;
 use App\Http\Controllers\InstructorController;
@@ -40,7 +41,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
 });
 
-
+Route::post('courses/{id}',[CourseController::class, 'storeCourse'])->name('storeCourse');
+ 
 
 
 
@@ -58,7 +60,7 @@ Route::get('/schedule', function () {
 });
 
 //main
-//TODO change this if you want Ryan, lol
+
 Route::get('/courses', [ProgramController::class, 'iDropdown']);
 // Route::get('/courses', function () {
 
@@ -94,6 +96,12 @@ Route::get('/availability', function () {
 //Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
+
+Route::get('courses/{id}', [CourseController::class, 'index']);
+Route::resource('courses', CourseController::class);
+
+
+
 //main
 Route::get('history', [IHistoryController::class, 'index'])->name('history.index');
 // Route::get('/history', function () {
@@ -107,7 +115,6 @@ Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
 
 //main
 Route::get('/semester', function () {
-
     return view('AdminViews/adminSemester');
 })->name('semester');
 

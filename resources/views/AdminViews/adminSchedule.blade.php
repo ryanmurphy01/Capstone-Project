@@ -144,7 +144,7 @@
                 {{-- again, use a foreach to go through db once it's setup --}}
             <tbody>
                 <tr>
-            {{--Instructors Names--}} 
+            {{--Instructors Names--}}
                     <td  style="width: 50px;">
                         <ul style="list-style: none;">
                         <li class="text-center"><strong>Alfreds</strong></li>
@@ -152,7 +152,7 @@
                         </ul>
                     </td>
 
-              
+
                 {{-- dynamically changing the backgrounds shouldn't be hard with a bit of JS in the controller,
                 over a certain threshold and background colour = blue or something --}}
             {{-- Monday Time block--}}
@@ -163,13 +163,13 @@
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
                     </div>
-                              
+
                         {{-- this should be where the colour would change --}}
                     <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
-                    </div>  
-                    
+                    </div>
+
                     <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
@@ -194,13 +194,13 @@
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
                     </div>
-                              
+
                         {{-- this should be where the colour would change --}}
                     <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
-                    </div>  
-                    
+                    </div>
+
                     <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
@@ -216,13 +216,13 @@
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
                     </div>
-                              
+
                         {{-- this should be where the colour would change --}}
                     <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
-                    </div>  
-                    
+                    </div>
+
                     <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
@@ -238,13 +238,13 @@
                         <li>6:00 - 7:00</li>
                         <li>11:00 - 12:00</li>
                     </div>
-                              
+
                         {{-- this should be where the colour would change --}}
                     <div class="bg-warning" >
                         <li>12:00 - 2:00</li>
                         <li>3:00 - 5:00</li>
-                    </div>  
-                    
+                    </div>
+
                     <div class="bg-success" style="--bs-bg-opacity: .5">
                         {{-- change here again --}}
                         <li>9:00 - 11:00</li>
@@ -260,7 +260,7 @@
                         <li class="py-5">No Hours</li>
                     </div>
                     </ul>
-                    
+
                 </td>
                 </tr>
                 </tbody>

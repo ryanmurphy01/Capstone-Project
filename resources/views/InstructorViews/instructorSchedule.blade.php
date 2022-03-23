@@ -58,13 +58,12 @@
                         <span class="d-none d-sm-inline mx-1">Instructor Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
-                        {{-- <li><a class="dropdown-item" href="#">Addtings</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li> --}}
+                        </li> --}}
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
             </div>
@@ -82,7 +81,7 @@
                 <div class="form-group" style="width: 300px;">
                     <div class="col">
                         <h2 class="text-center">Monday</h2>
-                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;"> 
+                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
                         {{-- start time field --}}
                         <label for="startTime">Enter your start time</label>
                         <input type="time" name="startTime" class="form-control" id="startTime">
@@ -95,7 +94,7 @@
                         <div class="border-bottom border-dark border-2 mt-5">
 
                         <table  class="table table-hover  text-center mt-5">
-                            <thead>  
+                            <thead>
                             <th >Times added</th>
                             </thead>
                             {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
@@ -108,12 +107,12 @@
                     </div>
                 </div>
                 </div>
-                
+
                 {{-- Tuesday Section --}}
                 <div class="form-group " style="width: 300px;">
                     <div class="col">
                         <h2 class="text-center">Tuesday</h2>
-                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;"> 
+                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
                         {{-- start time field --}}
                         <label for="startTime">Enter your start time</label>
                         <input type="time" name="startTime" class="form-control" id="startTime">
@@ -126,7 +125,7 @@
                         <div class="border-bottom border-dark border-2 mt-5">
 
                         <table  class="table table-hover  text-center mt-5">
-                            <thead>  
+                            <thead>
                             <th >Times added</th>
                             </thead>
                             {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
@@ -144,7 +143,7 @@
                 <div class="form-group " style="width: 300px;">
                     <div class="col">
                         <h2 class="text-center">Wednesday</h2>
-                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;"> 
+                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
                         {{-- start time field --}}
                         <label for="startTime">Enter your start time</label>
                         <input type="time" name="startTime" class="form-control" id="startTime">
@@ -157,7 +156,7 @@
                         <div class="border-bottom border-dark border-2 mt-5">
 
                         <table  class="table table-hover  text-center mt-5">
-                            <thead>  
+                            <thead>
                             <th >Times added</th>
                             </thead>
                             {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
@@ -177,7 +176,7 @@
                 <div class="form-group pt-4" style="width: 300px;">
                     <div class="col">
                         <h2 class="text-center">Thursday</h2>
-                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;"> 
+                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
                         {{-- start time field --}}
                         <label for="startTime">Enter your start time</label>
                         <input type="time" name="startTime" class="form-control" id="startTime">
@@ -190,7 +189,7 @@
                         <div class="border-bottom border-dark border-2 mt-5">
 
                         <table  class="table table-hover  text-center mt-5">
-                            <thead>  
+                            <thead>
                             <th >Times added</th>
                             </thead>
                             {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
@@ -208,7 +207,7 @@
                 <div class="form-group pt-4" style="width: 300px;">
                     <div class="col">
                         <h2 class="text-center">Friday</h2>
-                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;"> 
+                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
                         {{-- start time field --}}
                         <label for="startTime">Enter your start time</label>
                         <input type="time" name="startTime" class="form-control" id="startTime">
@@ -221,7 +220,7 @@
                         <div class="border-bottom border-dark border-2 mt-5">
 
                         <table  class="table table-hover  text-center mt-5">
-                            <thead>  
+                            <thead>
                             <th >Times added</th>
                             </thead>
                             {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
@@ -239,7 +238,7 @@
                 <div class="form-group pt-4" style="width: 300px;">
                     <div class="col">
                         <h2 class="text-center">Saturday</h2>
-                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;"> 
+                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
                         {{-- start time field --}}
                         <label for="startTime">Enter your start time</label>
                         <input type="time" name="startTime" class="form-control" id="startTime">
@@ -252,7 +251,7 @@
                         <div class="border-bottom border-dark border-2 mt-5">
 
                         <table  class="table table-hover  text-center mt-5">
-                            <thead>  
+                            <thead>
                             <th >Times added</th>
                             </thead>
                             {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
@@ -265,14 +264,14 @@
                     </div>
                 </div>
                 </div>
-                <div>         
+                <div>
                 <label for="courseLoad" class="ms-3 mt-3 mb-1">Maximum Course Load</label>
                 <p name="courseLoad" id="courseLoad" type="text" class="form-control text-center ms-3" style="width: 150px;" >ex. 0</p>
                 <button type="submit" class="btn btn-primary text-center float-end m-5 bg-warning text-black border border-dark" style="width: 150px;">Submit</button>
                     </div>
                 </div>
             </div>
-                    
+
             </form>
         </div>
     </div>
