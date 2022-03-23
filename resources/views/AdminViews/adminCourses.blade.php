@@ -124,25 +124,46 @@
             <h1 class="pb-5 pt-5 display-3">{{ $programs->program_name }}</h1>
             <input type="text" placeholder="Course Name or Code..." class="form-control form-control-lg">
 
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new Program please try again.
+                </div>
+            @endif
+
+            @if(Session::get('success'))
+                    <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif
+
+                    @if(Session::get('fail'))
+                    <div class="alert alert-fail alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ Session::get('fail') }}
+                    </div>
+                    @endif
+
+
             <table class="table table-hover table-striped">
                 <thead class="thead-light">
                     <tr>
                         <th>Course Name</th>
                         <th>Course Code</th>
                         <th>Course Description</th>
-                        {{-- empty placeholder that may be helpful for formatting (heading) --}}
+                        
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($courses as $course)
                     <tr>
-                        {{-- <td>{{ $course->course_name }}</td> --}}
-                        <td></td>
-                        <td>{{ $course->id }}</td>
+                        <td>{{$course->course_name}}</td>
+                        <td>{{ $course->course_code}}</td>
                         <td>{{ $course->description }}</td>
                         <td>
-                            {{-- TODO change this to proper route --}}
+                            
                             <form action="{{ route('courses.destroy',$course->id) }}" method="POST">
                                 <a class="btn btn border-dark">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -170,12 +191,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title">Create Program</h1>
+                <h1 class="modal-title">Create Course</h1>
             </div>
             <div class="modal-body">
 
                 {{-- TODO put the proper route in here when done route('courses.store') --}}
-                <form method="post" action="{{ route('courses.store') }}">
+                <form method="post" action="{{ route('storeCourse', $programs->id) }}">
                 @csrf
 
                     <div class="form-floating mb-3">
@@ -184,6 +205,14 @@
 
                         <!-- error field -->
                         <span class="text-danger">@error('courseName'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="courseCode" name="courseCode" placeholder="example">
+                        <label for="floatingInput">Course Code</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('courseCode'){{ $message }} @enderror</span>
                     </div>
 
                     <div class="form-floating mb-3">

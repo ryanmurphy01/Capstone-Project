@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\course;
 use App\Models\program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; 
 
 class CourseController extends Controller
 {
@@ -19,28 +20,35 @@ class CourseController extends Controller
     }
 
     //Function to save new courses into the database
-    function store(Request $request){
+    function storeCourse(Request $request, $id){
 
-
-        //TODO uncomment this once the other stuff works
-        //Validate request
-        // $request->validate([
-        //     //'courseName'=>'required',
-        //     'description'=>'required',
-        //     'creditHours'=>'required|numeric'
-        // ]);
+        $request->validate([
+            'courseName'=>'required',
+            'courseCode'=>'required',
+            'description'=>'required',
+            'creditHours'=>'required|numeric'
+        ]);
 
         //not sure how foreign keys work here, take a look if this is wrong
         //Insert into database
         $course = new course;
-        //$course->course_name = $request->courseName;
+        $course->course_code = $request->courseCode;
+        $course->course_name = $request->courseName;
         $course->description = $request->description;
         $course->credit_hours = $request->creditHours;
         $save = $course->save();
 
+        DB::table('courses_programs')->insert([
+            'course_code' => $course->id,
+            'program_id' => $id
+            
+        ]);
+
+
+
         if($save){
             print('it worked');
-            return back()->with('success', 'New Program has been added');
+            return back()->with('success', 'New Course has been added');
         } else {
             print('it broke');
             return back()->with('fail', 'Something went wrong');

@@ -15,8 +15,8 @@ class CreateCoursesProgramTable extends Migration
     {
         Schema::create('courses_programs', function (Blueprint $table) {
 
-            $table->foreignId('course_id')->constrained("courses");
-            $table->foreignId('program_id')->constrained("programs");
+            $table->foreignId('course_code')->constrained("courses")->onDelete('cascade')->primary();
+            $table->foreignId('program_id')->constrained("programs")->onDelete('cascade');
             $table->timestamps();
 
         });
