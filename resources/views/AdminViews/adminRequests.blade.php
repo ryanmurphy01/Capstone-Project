@@ -168,8 +168,8 @@
             </table>
 
             {{-- the thing in the url is the route name of the destination page, see web.php --}}
-            <button onclick="document.location='{{ url('approvedRequests') }}'" style="width: 150px">Approved</button>
-            <button onclick="document.location='{{ url('deniedRequests') }}'" style="width: 150px">Denied</button>
+            <button onclick="document.location='{{ url('approvedRequests') }}'" style="width: 150px" class="m-2 btn btn-success border-dark float-end">Approved</button>
+            <button onclick="document.location='{{ url('deniedRequests') }}'" style="width: 150px" class="m-2 btn btn-success border-dark float-end">Denied</button>
         </div>
     </div>
 </div>
