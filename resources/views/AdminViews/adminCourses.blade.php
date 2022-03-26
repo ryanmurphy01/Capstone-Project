@@ -152,18 +152,18 @@
                         <th>Course Name</th>
                         <th>Course Code</th>
                         <th>Course Description</th>
-                        
+
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($courses as $course)
                     <tr>
-                        <td>{{$course->course_name}}</td>
-                        <td>{{ $course->course_code}}</td>
+                        <td>{{ $course->course_name }}</td>
+                        <td>{{ $course->course_code }}</td>
                         <td>{{ $course->description }}</td>
                         <td>
-                            
+
                             <form action="{{ route('courses.destroy',$course->id) }}" method="POST">
                                 <a class="btn btn border-dark">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
