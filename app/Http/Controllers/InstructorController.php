@@ -59,7 +59,7 @@ class InstructorController extends Controller
             'phone'=>'required',
             'accounttype'=>'required'
         ]);
-        
+
 
         //Insert into database
         $account = new account;
@@ -114,7 +114,7 @@ class InstructorController extends Controller
         $userType = DB::table('account_types')->where('account_id', $account->id)->first();
 
 
-        return view('AdminViews/admineditInstructor', ['account'=>$account],  ['accountTypes'=>$userTypes, 'userType'=>$userType]);
+        return view('AdminViews/adminEditInstructor', ['account'=>$account],  ['accountTypes'=>$userTypes, 'userType'=>$userType]);
     }
 
     /**
@@ -140,11 +140,11 @@ class InstructorController extends Controller
 
         $account = account::findOrFail($id);
         $account->first_name = $request->firstname;
-        $account->last_name = $request->lastname; 
+        $account->last_name = $request->lastname;
         $account->personal_email = $request->personalemail;
         $account->school_email = $request->collegeemail;
         $account->contact_number = $request->phone;
-        
+
         $save = $account->save();
 
         if($save){
