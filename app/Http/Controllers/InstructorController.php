@@ -114,7 +114,7 @@ class InstructorController extends Controller
         $userType = DB::table('account_types')->where('account_id', $account->id)->first();
 
 
-        return view('AdminViews/adminEditInstructor', ['account'=>$account],  ['accountTypes'=>$userTypes, 'userType'=>$userType]);
+        return view('AdminViews/admineditInstructor', ['account'=>$account],  ['accountTypes'=>$userTypes, 'userType'=>$userType]);
     }
 
     /**
