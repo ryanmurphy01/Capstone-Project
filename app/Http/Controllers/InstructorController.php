@@ -149,7 +149,7 @@ class InstructorController extends Controller
 
         if($save){
             print('it worked');
-            return redirect()->route('instructors.index')->with('success', 'Account has been Updated');
+            return redirect()->route('instructors.index')->with('success', 'Account has been updated');
         } else {
             print('it broke');
             return redirect()->route('instructors.index')->with('fail', 'Something went wrong');

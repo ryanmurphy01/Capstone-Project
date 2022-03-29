@@ -98,11 +98,9 @@ class ProgramController extends Controller
         $program->program_name = $request->programName;
         $save = $program->save();
 
-        $save = $program->save();
-
         if($save){
             print('it worked');
-            return redirect()->route('programs.index')->with('success', 'Program has been Updated');
+            return redirect()->route('programs.index')->with('success', 'Program has been updated');
         } else {
             print('it broke');
             return redirect()->route('programs.index')->with('fail', 'Something went wrong');
