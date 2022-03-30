@@ -103,14 +103,13 @@ class CourseController extends Controller
             'creditHours'=>'required|numeric'
         ]);
 
-        //magic to get the program id again
-        // $data = DB::table('programs')
-        // -> join('courses_programs', 'programs.id', '=', 'courses_programs.program_id')
-        // -> where('courses_programs.course_code', $id)
-        // -> select('programs.*')
-        // -> get();
+       
+        $data = DB::table('programs')
+        -> join('courses_programs', 'programs.id', '=', 'courses_programs.program_id')
+        -> where('courses_programs.course_code', $id)
+        -> select('programs.*')
+        -> get();
 
-        // use $data[0]->id to get the program ID
 
 
         $course = course::findOrFail($id);
@@ -123,10 +122,10 @@ class CourseController extends Controller
         //TODO, temporary(?) redirects program hub instead
         if($save){
             print('it worked');
-            return redirect()->route('programs.index')->with('success', 'Course has been updated');
+            return redirect()->route('courses', [$id => $data[0]->id])->with('success', 'Course has been updated');
         } else {
             print('it broke');
-            return redirect()->route('programs.index')->with('fail', 'Something went wrong');
+            return redirect()->route('courses', [$id => $data[0]->id])->with('fail', 'Something went wrong');
         }
     }
 }

@@ -42,6 +42,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 });
 
 Route::post('courses/{id}',[CourseController::class, 'storeCourse'])->name('storeCourse');
+
  
 
 
@@ -97,7 +98,7 @@ Route::get('/availability', function () {
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
 
-Route::get('courses/{id}', [CourseController::class, 'index']);
+Route::get('courses/{id}', [CourseController::class, 'index'])->name('courses');
 Route::resource('courses', CourseController::class);
 
 

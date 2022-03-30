@@ -122,6 +122,19 @@
         </div>
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">{{ $programs->program_name }}</h1>
+            @if(Session::get('success'))
+            <div class="alert alert-success alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ Session::get('success') }}
+            </div>
+            @endif
+
+            @if(Session::get('fail'))
+            <div class="alert alert-fail alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ Session::get('fail') }}
+            </div>
+            @endif
             <input type="text" placeholder="Course Name or Code..." class="form-control form-control-lg">
 
             @if($errors->any())
@@ -131,19 +144,7 @@
                 </div>
             @endif
 
-            @if(Session::get('success'))
-                    <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ Session::get('success') }}
-                    </div>
-                    @endif
-
-                    @if(Session::get('fail'))
-                    <div class="alert alert-fail alert-dismissible">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        {{ Session::get('fail') }}
-                    </div>
-                    @endif
+           
 
 
             <table class="table table-hover table-striped">
