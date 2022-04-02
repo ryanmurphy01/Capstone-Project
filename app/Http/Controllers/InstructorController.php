@@ -59,7 +59,7 @@ class InstructorController extends Controller
             'phone'=>'required',
             'accounttype'=>'required'
         ]);
-        
+
 
         //Insert into database
         $account = new account;
@@ -140,16 +140,16 @@ class InstructorController extends Controller
 
         $account = account::findOrFail($id);
         $account->first_name = $request->firstname;
-        $account->last_name = $request->lastname; 
+        $account->last_name = $request->lastname;
         $account->personal_email = $request->personalemail;
         $account->school_email = $request->collegeemail;
         $account->contact_number = $request->phone;
-        
+
         $save = $account->save();
 
         if($save){
             print('it worked');
-            return redirect()->route('instructors.index')->with('success', 'Account has been Updated');
+            return redirect()->route('instructors.index')->with('success', 'Account has been updated');
         } else {
             print('it broke');
             return redirect()->route('instructors.index')->with('fail', 'Something went wrong');

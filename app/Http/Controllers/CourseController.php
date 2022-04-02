@@ -72,4 +72,60 @@ class CourseController extends Controller
             return back()->with('fail', 'Something went wrong');
         }
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $course = course::findOrFail($id);
+
+        return view('AdminViews/adminEditCourse', ['course'=>$course]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //Validate request
+        $request->validate([
+            'courseName'=>'required',
+            'courseCode'=>'required',
+            'description'=>'required',
+            'creditHours'=>'required|numeric'
+        ]);
+
+       
+        $data = DB::table('programs')
+        -> join('courses_programs', 'programs.id', '=', 'courses_programs.program_id')
+        -> where('courses_programs.course_code', $id)
+        -> select('programs.*')
+        -> get();
+
+
+
+        $course = course::findOrFail($id);
+        $course->course_code = $request->courseCode;
+        $course->course_name = $request->courseName;
+        $course->description = $request->description;
+        $course->credit_hours = $request->creditHours;
+        $save = $course->save();
+
+        //TODO, temporary(?) redirects program hub instead
+        if($save){
+            print('it worked');
+            return redirect()->route('courses', [$id => $data[0]->id])->with('success', 'Course has been updated');
+        } else {
+            print('it broke');
+            return redirect()->route('courses', [$id => $data[0]->id])->with('fail', 'Something went wrong');
+        }
+    }
 }

@@ -27,9 +27,9 @@ class ProgramController extends Controller
 
 
         //Validate request
-         $request->validate([
-        'programCode'=>'required|min:4|max:4',
-        'programName'=>'required'
+        $request->validate([
+            'programCode'=>'required|min:4|max:4',
+            'programName'=>'required'
         ]);
 
         //Insert into database
@@ -61,6 +61,49 @@ class ProgramController extends Controller
         } else {
             print('it broke');
             return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $program = program::findOrFail($id);
+
+        return view('AdminViews/adminEditProgram', ['program'=>$program]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //Validate request
+        $request->validate([
+            'programCode'=>'required|min:4|max:4',
+            'programName'=>'required'
+        ]);
+
+
+        $program = program::findOrFail($id);
+        $program->program_code = $request->programCode;
+        $program->program_name = $request->programName;
+        $save = $program->save();
+
+        if($save){
+            print('it worked');
+            return redirect()->route('programs.index')->with('success', 'Program has been updated');
+        } else {
+            print('it broke');
+            return redirect()->route('programs.index')->with('fail', 'Something went wrong');
         }
     }
 
