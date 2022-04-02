@@ -42,8 +42,13 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 });
 
 Route::post('courses/{id}',[CourseController::class, 'storeCourse'])->name('storeCourse');
+//trying to search and index in one
+Route::get('courses/{id}', [CourseController::class, 'index'])->name('courses');
+Route::resource('courses', CourseController::class);
+//route to search
+// Route::get('courses/search', 'CourseController@search');
 
- 
+
 
 
 
@@ -96,10 +101,6 @@ Route::get('/availability', function () {
 //Route::get('/programs', [ProgramController::class, 'indexPrograms']);
 //Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
-
-
-Route::get('courses/{id}', [CourseController::class, 'index'])->name('courses');
-Route::resource('courses', CourseController::class);
 
 
 
