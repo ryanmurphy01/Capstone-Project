@@ -29,7 +29,6 @@ class CourseController extends Controller
             -> where('courses_programs.program_id', $id)
             -> select('courses.*')
             -> get();
-
         }
 
         //otherwise only match courses with the right program ID

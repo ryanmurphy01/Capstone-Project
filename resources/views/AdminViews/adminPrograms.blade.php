@@ -153,8 +153,10 @@
                     </div>
                     @endif
 
-
-            <input type="text" placeholder="Program Name or Code..." class="form-control form-control-lg">
+            {{-- search bar --}}
+            <form action="{{ route('programs.index') }}" method="GET">
+                <input type="text" name="aProgramSearch" id="aProgramSearch" placeholder="Program Name or Code..." class="form-control form-control-lg">
+            </form>
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">

@@ -136,6 +136,7 @@
             </div>
             @endif
 
+            {{-- search bar --}}
             <form action="{{ route('courses', $programs->id) }}" method="GET">
                 <input type="text" name="aCourseSearch" id="aCourseSearch" placeholder="Course Name or Code..." class="form-control form-control-lg">
             </form>

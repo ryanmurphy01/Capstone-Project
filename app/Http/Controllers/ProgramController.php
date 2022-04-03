@@ -4,12 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\program;
+use Illuminate\Support\Facades\DB;
 
 class ProgramController extends Controller
 {
 
-    function index(){
-        $data = program::all();
+    function index(Request $request) {
+
+        $search_text = $request->aProgramSearch;
+
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            $data = DB::table('programs')
+            -> where('programs.program_name', 'LIKE', '%'.$search_text.'%')
+            -> orWhere('programs.program_code', 'LIKE', '%'.$search_text.'%')
+            -> select('programs.*')
+            -> get();
+        }
+        //otherwise run the retrieve as usual
+        else {
+            $data = program::all();
+        }
 
         return view('AdminViews/adminPrograms', ['programs'=>$data]);
     }
