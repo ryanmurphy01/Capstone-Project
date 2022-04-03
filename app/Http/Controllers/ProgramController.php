@@ -29,14 +29,6 @@ class ProgramController extends Controller
         return view('AdminViews/adminPrograms', ['programs'=>$data]);
     }
 
-    //duplicate function to give info to the instructor's page program drop down, change this too if you want Ryan
-    function iDropdown(){
-        $data = program::all();
-
-        return view('InstructorViews/instructorCourses', ['programs'=>$data]);
-    }
-
-
     //Function to save new programs into the database
     function store(Request $request){
 

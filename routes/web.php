@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeactivatedController;
+use App\Http\Controllers\ICourseRequestController;
 use App\Http\Controllers\IHistoryController;
 use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
@@ -67,7 +68,9 @@ Route::get('/schedule', function () {
 
 //main
 
-Route::get('/courses', [ProgramController::class, 'iDropdown']);
+Route::get('/coursesReq', [ICourseRequestController::class, 'iDropdown']);
+Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
+Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
 
 //     return view('InstructorViews/instructorCourses');
