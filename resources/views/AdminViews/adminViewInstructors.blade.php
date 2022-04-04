@@ -155,7 +155,16 @@
                         {{ Session::get('fail') }}
                     </div>
                     @endif
-            <input type="text" class="form-control form-control-lg" placeholder="Search...">
+                    
+            <!-- Instructor Search -->
+            <form action="/search" method="POST" role="search">
+            {{ csrf_field() }}
+                <div class="input-group">
+                    <input name="instructorSearch" type="text" class="typehead form-control form-control-lg" placeholder="Search...">
+                    <button type="submit" class="btn btn-default border border-1">
+                        <span class="">Search</span>
+                    </button>
+                </div>
 
             <table class="table table-hover table-striped">
 

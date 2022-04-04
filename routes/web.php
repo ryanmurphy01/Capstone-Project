@@ -59,6 +59,18 @@ Route::get('/schedule', function () {
     return view('InstructorViews/instructorSchedule');
 });
 
+//searching
+Route::any('/search',function(){
+    $instructorSearch = Input::get ('instructorSearch');
+    $account = Account::where('first_name', 'LIKE', '%'.$instructorSearch.'%')->orWhere('first_name','LIKE', '%'.$instructorSearch.'%')->get();
+        if(count($account) > 0)
+            return view('instructors')->withDetails($instructorSearch)->withQuery ($instructorSearch);
+            else return view ('instructors')->withMessage('No Details found. Try to search again.');
+});
+
+// Route::get('adminViewInstructors', [SearchController::class, 'index'])->name('adminViewInstructors');
+// Route::get('autocomplete', [SearchController::class, 'autocomplete'])->name('autocomplete');
+
 //main
 
 Route::get('/courses', [ProgramController::class, 'iDropdown']);
