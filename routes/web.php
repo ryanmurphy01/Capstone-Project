@@ -70,9 +70,8 @@ Route::get('/schedule', function () {
 
 Route::get('/coursesReq', [ICourseRequestController::class, 'iDropdown']);
 Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
-Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
+// Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
-
 //     return view('InstructorViews/instructorCourses');
 // });
 

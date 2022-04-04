@@ -76,21 +76,35 @@
                 <div class="col-sm">
                     <label class="pb-2 pt-2 display-6" for="selectPrograms">Program</label>
                     <form action="{{ route('coursesReqSearch') }}" method="GET">
-                        <select class="form-select form-select-lg" name="selectPrograms" id="selectPrograms">
+                        <input class="form-control form-control-lg" type="text" list="programs" name="selectPrograms" id="selectPrograms"
+                        {{-- optional to check if the last program is there and replace with a the default if it isn't --}}
+                        {{-- doesn't work tho and keeps returning undefined if the optional is removed --}}
+                        placeholder="{{ $selected->program_name ?? 'Select a program and press enter to see its courses' }}" />
+                            <datalist id="programs" name="programs">
+                                @foreach ($programs as $program)
+                                    <option value="{{ $program->program_name }}"></option>
+                                @endforeach
+                            </datalist>
+
+                        {{-- the drop down way, in case we need it back --}}
+                        {{-- <select class="form-select form-select-lg" name="selectPrograms" id="selectPrograms">
                             <option value='' disabled selected>Select a program to list its courses</option>
                             @foreach ($programs as $program)
                             <option value="{{ $program->id }}">{{ $program->program_name }}</option>
                             @endforeach
-                        </select>
-                        <button type="submit" style="margin-top: 10px" type="button" class="pb-2 pt-2 btn btn-secondary">Refresh Courses</button>
+                        </select> --}}
+                        {{-- submit button isn't needed with datalist since enter works, might be helpful on mobile tho
+                        so i'll leave it here --}}
+                        {{-- <button type="submit" style="margin-top: 10px" type="button" class="pb-2 pt-2 btn btn-secondary">Refresh Courses</button> --}}
                     </form>
 
                     <label class="pb-2 pt-2 display-6" for="selectCourses">Courses</label>
-                    <select class="form-select form-select-lg" name="selectCourses" id="selectCourses">
+                    <input class="form-control form-control-lg" type="text" list="courses" name="selectCourses" id="selectCourses" placeholder="Click to see courses from the selected program" />
+                    <datalist id="courses" name="courses">
                         @foreach ($courses as $course)
-                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                            <option value="{{ $course->course_name }}"></option>
                         @endforeach
-                    </select>
+                    </datalist>
 
                     {{-- might need to make this whole section into a form, or have some other way to capture the course inputs --}}
                     {{-- also buttons may need ids --}}
