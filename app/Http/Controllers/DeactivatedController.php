@@ -13,9 +13,30 @@ class DeactivatedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = DB::table('accounts')->where('status_id', 2)->get();
+        //extract the instructor to be matched from the request
+        $search_text = $request->aDeactivatedSearch;
+
+        if (!empty($search_text)) {
+            $data = DB::table('accounts')
+            //only retrieve records that are deactivated
+            -> where('status_id', 2)
+            //check if any of the fields in an account match the given input
+            //need the 'use(varName)' to access variable outside the closure
+            -> where(function ($query) use($search_text) {
+            $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('contact_number', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
+            })
+            -> get();
+        }
+        //return all deactivated users if the search is returned empty
+        else {
+            $data = DB::table('accounts')->where('status_id', 2)->get();
+        }
 
         return view('AdminViews/adminDeactivatedInstructors', ['accounts'=>$data]);
 
@@ -61,7 +82,7 @@ class DeactivatedController extends Controller
      */
     public function edit($id)
     {
-       
+
     }
 
     /**
@@ -97,7 +118,7 @@ class DeactivatedController extends Controller
         if($update){
             print('it worked');
             return back()->with('success', "Account $print");
-        } else {    
+        } else {
             print('it broke');
             return back()->with('fail', 'Something went wrong');
         }

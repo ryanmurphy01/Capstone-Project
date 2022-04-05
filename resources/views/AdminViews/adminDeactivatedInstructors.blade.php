@@ -135,7 +135,11 @@
                         {{ Session::get('fail') }}
                     </div>
                     @endif
-            <input type="text" placeholder="Name..." class="form-control form-control-lg">
+
+            {{-- search bar --}}
+            <form action="{{ route('deactivated.index') }}" method="GET">
+                <input type="text" name="aDeactivatedSearch" id="aDeactivatedSearch" placeholder="Search..." class="form-control form-control-lg">
+            </form>
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">
@@ -169,7 +173,7 @@
                             </button>
                             <form style="display: inline-block" action="{{ route('deactivate.activate',$account->id) }}" method="POST">
 
-                                <button type="submit" class="btn btn-success">reactivate</button>
+                                <button type="submit" class="btn btn-success">Reactivate</button>
                                 @csrf
                                 @method('PUT')
                             </form>

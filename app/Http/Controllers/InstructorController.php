@@ -35,7 +35,7 @@ class InstructorController extends Controller
             })
             -> get();
         }
-
+        //return all active users if the search is returned empty
         else {
             $data = DB::table('accounts')->where('status_id', 1)->get();
         }
