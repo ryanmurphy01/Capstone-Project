@@ -82,7 +82,12 @@ class DeactivatedController extends Controller
      */
     public function edit($id)
     {
+        $account = account::findOrFail($id);
+        $userTypes = DB::table('user_types')->get();
+        $userType = DB::table('account_types')->where('account_id', $account->id)->first();
 
+
+        return view('AdminViews/admineditInstructor', ['account'=>$account],  ['accountTypes'=>$userTypes, 'userType'=>$userType]);
     }
 
     /**
@@ -94,7 +99,35 @@ class DeactivatedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        //Validate request
+        $request->validate([
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'personalemail'=>'required|email',
+            'collegeemail'=>'required|email',
+            'phone'=>'required',
+            'accounttype'=>'required'
+        ]);
+
+
+        $account = account::findOrFail($id);
+        $account->first_name = $request->firstname;
+        $account->last_name = $request->lastname;
+        $account->personal_email = $request->personalemail;
+        $account->school_email = $request->collegeemail;
+        $account->contact_number = $request->phone;
+
+        $save = $account->save();
+
+        if($save){
+            print('it worked');
+            return redirect()->route('deactivated.index')->with('success', 'Account has been updated');
+        } else {
+            print('it broke');
+            return redirect()->route('deactivated.index')->with('fail', 'Something went wrong');
+        }
+
     }
 
     public function statusUpdate($id){

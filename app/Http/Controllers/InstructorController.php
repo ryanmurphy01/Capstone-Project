@@ -177,7 +177,6 @@ class InstructorController extends Controller
             return redirect()->route('instructors.index')->with('fail', 'Something went wrong');
         }
 
-
     }
 
     /**
