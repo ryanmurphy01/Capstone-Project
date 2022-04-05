@@ -15,9 +15,27 @@ class InstructorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = DB::table('accounts')->where('status_id', 1)->get();
+        //extract the instructor to be matched from the request
+        $search_text = $request->aInstructorSearch;
+
+        if (!empty($search_text)) {
+            $data = DB::table('accounts')
+            //check if any of the fields in an account match the given input
+            -> where('accounts.first_name', 'LIKE', '%'.$search_text.'%')
+            -> orWhere('accounts.last_name', 'LIKE', '%'.$search_text.'%')
+            -> orWhere('accounts.contact_number', 'LIKE', '%'.$search_text.'%')
+            -> orWhere('accounts.personal_email', 'LIKE', '%'.$search_text.'%')
+            -> orWhere('accounts.school_email', 'LIKE', '%'.$search_text.'%')
+            -> select('accounts.*')
+            -> get();
+        }
+
+        else {
+            $data = DB::table('accounts')->where('status_id', 1)->get();
+        }
+
         $data2 = DB::table('user_types')->get();
 
         return view('AdminViews/adminViewInstructors', ['accounts'=>$data], ['accountTypes'=>$data2]);
