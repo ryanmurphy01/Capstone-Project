@@ -122,7 +122,11 @@
         </div>
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Instructor Course History</h1>
-            <input type="text" placeholder="Instructor or Course Code..." class="form-control form-control-lg">
+
+            {{-- search bar --}}
+            <form action="{{ route('history.index') }}" method="GET">
+                <input type="text" name="aHistorySearch" id="aHistorySearch" placeholder="Instructor or Course..." class="form-control form-control-lg">
+            </form>
 
             <table class="table table-hover table-striped mx-auto text-center">
                 <thead class="thead-light">
