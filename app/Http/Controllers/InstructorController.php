@@ -22,13 +22,17 @@ class InstructorController extends Controller
 
         if (!empty($search_text)) {
             $data = DB::table('accounts')
+            //only retrieve records that are active (not deactivated or unresponsive)
+            -> where('status_id', 1)
             //check if any of the fields in an account match the given input
-            -> where('accounts.first_name', 'LIKE', '%'.$search_text.'%')
-            -> orWhere('accounts.last_name', 'LIKE', '%'.$search_text.'%')
-            -> orWhere('accounts.contact_number', 'LIKE', '%'.$search_text.'%')
-            -> orWhere('accounts.personal_email', 'LIKE', '%'.$search_text.'%')
-            -> orWhere('accounts.school_email', 'LIKE', '%'.$search_text.'%')
-            -> select('accounts.*')
+            //need the 'use(varName)' to access variable outside the closure
+            -> where(function ($query) use($search_text) {
+            $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('contact_number', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
+            })
             -> get();
         }
 

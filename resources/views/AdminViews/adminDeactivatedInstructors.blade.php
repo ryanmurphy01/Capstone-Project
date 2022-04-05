@@ -135,7 +135,7 @@
                         {{ Session::get('fail') }}
                     </div>
                     @endif
-            <input type="text" placeholder="Name..." class="mb-4 w-100 p-1">
+            <input type="text" placeholder="Name..." class="form-control form-control-lg">
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">
