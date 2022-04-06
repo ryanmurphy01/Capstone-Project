@@ -23,10 +23,10 @@ class CourseController extends Controller
             //for some reason, 2 of these checks are needed, this one blocks word match from other programs
             -> where('courses_programs.program_id', $id)
             //match the provided search in course code or name
-            -> where('courses.course_name', 'LIKE', '%'.$search_text.'%')
-            -> orWhere('courses.course_code', 'LIKE', '%'.$search_text.'%')
-            //then match the program id, so it doesn't pull from other programs (this one blocks number match)
-            -> where('courses_programs.program_id', $id)
+            -> where(function ($query) use($search_text) {
+                $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
+                })
             -> select('courses.*')
             -> get();
         }
@@ -142,7 +142,6 @@ class CourseController extends Controller
         $course->credit_hours = $request->creditHours;
         $save = $course->save();
 
-        //TODO, temporary(?) redirects program hub instead
         if($save){
             print('it worked');
             return redirect()->route('courses', [$id => $data[0]->id])->with('success', 'Course has been updated');

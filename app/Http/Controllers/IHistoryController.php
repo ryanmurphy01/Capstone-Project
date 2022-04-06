@@ -14,12 +14,14 @@ class IHistoryController extends Controller
         //extract the instructor or course the user is looking for
         $search_text = $request->aHistorySearch;
 
+        //the junction for courses and accounts is currently not functional
+        //uncomment the lines in this function when it does work
         if (!empty($search_text)) {
             $data = DB::table('accounts')
             //connect the accounts table to teacher courses table with id
-            -> join('teacher_courses', 'accounts.id', '=', 'teacher_courses.account_id')
+            // -> join('teacher_courses', 'accounts.id', '=', 'teacher_courses.account_id')
             //then join that with the courses table so we can search for courses
-            -> join('courses', 'teacher_courses.course_code', '=', 'courses.id')
+            // -> join('courses', 'teacher_courses.course_code', '=', 'courses.id')
             //check if the search matches any user's name
             -> where(function ($query) use($search_text) {
                 $query -> where('accounts.first_name', 'LIKE', '%'.$search_text.'%')
@@ -30,10 +32,10 @@ class IHistoryController extends Controller
                     // -> orWhere('accounts.school_email', 'LIKE', '%'.$search_text.'%')
                 })
             //check if any courses match the search, by code or name
-            -> where(function ($query) use($search_text) {
-                $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
-                    -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
-                })
+            // -> orWhere(function ($query) use($search_text) {
+            //     $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
+            //         -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
+            //     })
             -> select('accounts.*')
             -> get();
         }
