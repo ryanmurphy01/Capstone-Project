@@ -68,8 +68,10 @@ Route::get('/schedule', function () {
 
 //main
 
-Route::get('/coursesReq', [ICourseRequestController::class, 'iDropdown']);
+Route::get('coursesReq', [ICourseRequestController::class, 'iDropdown'])->name('coursesReq');
 Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
+Route::get('coursesReqSelect', [ICourseRequestController::class, 'addToList'])->name('coursesReqSelect');
+
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
 //     return view('InstructorViews/instructorCourses');

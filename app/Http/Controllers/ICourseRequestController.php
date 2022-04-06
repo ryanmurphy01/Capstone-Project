@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ICourseRequestController extends Controller
 {
+
     //function to get all the programs for the dropdown thing
     function iDropdown(){
         //retrieve all programs
@@ -44,8 +45,25 @@ class ICourseRequestController extends Controller
         print($selectedProgram);
 
 
-        //return the data to the view
+        //return the data to the view                                                            Similar error here
         return view('InstructorViews/instructorCourses', ['courses'=>$data2], ['programs'=>$data], ['selected'=>$selectedProgram]);
+    }
+
+    function addToList(Request $request) {
+
+        $name = $request->selectCourses;
+
+        $course = DB::table('courses')
+            -> where('courses.course_name', $name)
+            -> select('courses.*')
+            -> get();
+
+        $selectedCourses = collect(new course());
+        $selectedCourses->prepend($course);
+
+        print($selectedCourses);
+        //tried to send the selected course array back but ran into the same error as above
+        //the extra field is never sent to view
     }
 
 }
