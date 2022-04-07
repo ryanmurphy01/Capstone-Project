@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeactivatedController;
+use App\Http\Controllers\ICourseRequestController;
 use App\Http\Controllers\IHistoryController;
 use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
@@ -42,16 +43,17 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 });
 
 Route::post('courses/{id}',[CourseController::class, 'storeCourse'])->name('storeCourse');
+//trying to search and index in one
+Route::get('courses/{id}', [CourseController::class, 'index'])->name('courses');
+Route::resource('courses', CourseController::class);
+//route to search
+// Route::get('courses/search', 'CourseController@search');
 
- 
 
-
-
-//change this to use the proper method for setting
-Route::get('/passwordSet', function () {
-
-    return view('passwordSet');
-});
+Route::get("/passwordReset",[MainController::class, 'showResetPage'])->name('forgot.password');
+Route::post("/passwordReset", [MainController::class, 'sendResetLink'])->name('forgot.link');
+Route::get("/passwordSet/{token}", [MainController::class, 'showResetForm'])->name('reset.password.form');
+Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('reset.password');
 
 //instructor routes
 //main
@@ -62,9 +64,12 @@ Route::get('/schedule', function () {
 
 //main
 
-Route::get('/courses', [ProgramController::class, 'iDropdown']);
-// Route::get('/courses', function () {
+Route::get('coursesReq', [ICourseRequestController::class, 'iDropdown'])->name('coursesReq');
+Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
+Route::get('coursesReqSelect', [ICourseRequestController::class, 'addToList'])->name('coursesReqSelect');
 
+// Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
+// Route::get('/courses', function () {
 //     return view('InstructorViews/instructorCourses');
 // });
 
@@ -96,10 +101,6 @@ Route::get('/availability', function () {
 //Route::get('/programs', [ProgramController::class, 'indexPrograms']);
 //Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
-
-
-Route::get('courses/{id}', [CourseController::class, 'index'])->name('courses');
-Route::resource('courses', CourseController::class);
 
 
 

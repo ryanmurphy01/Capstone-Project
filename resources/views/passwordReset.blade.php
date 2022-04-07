@@ -2,21 +2,42 @@
 @section('content')
 
 {{-- temp styles --}}
-<div class="container" style="height: 80vh">
-    <div class="row" style="padding-top: 10vh">
-        <div class="col-sm-4 col-sm-offset-4">
-            {{-- TODO link this to the appropriate controller --}}
-            <form class="w-50 h-50" action="sendResetLink" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="resetEmail">Email address</label>
-                    <input type="email" name="email" class="form-control" id="resetEmail">
-                </div>
-                <button type="submit" class="btn btn-primary text-center">Reset</button>
-            </form>
-        </div>
-    </div>
-</div>
+<section class="vh-100" style="background-color: #00693C;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-sm-12 col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong">
+            <div class="card-body p-5">
+  
+            <h3 class="mb-4 fs-1 text-center">Forgot Password</h3>
+            @if(Session::get('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+            @endif
+  
+            <form method="post" action="{{ route('forgot.link') }}" >
+  
+                  @csrf
 
-{{-- make sure to not forget the closing section tag --}}
+                  <p>Enter your email address below to send a reset password link</p>
+                  <div class="form-floating mb-3">
+                      <input type="text" class="form-control"  name="personal_email" placeholder="name@example.com" value="{{ old('personal_email')}}">
+                      <label for="floatingInput">Email</label>
+  
+                      <!--Error message-->
+                      <span class="text-danger">@error('personal_email'){{ $message }}@enderror</span>
+                  </div>
+   
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-lg btn-primary mb-2">Send Reset Link</button>
+                  </div>
+  
+             </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 @endsection
