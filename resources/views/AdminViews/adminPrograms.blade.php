@@ -122,7 +122,7 @@
         </div>
 
         <div class="col-8">
-            <h1 class="pb-5 pt-5 display-3">Programs</h1>
+            <h1 class="pb-3 pt-4">Programs</h1>
 
             @if($errors->any())
             <script>
@@ -154,7 +154,7 @@
                     @endif
 
 
-            <input type="text" placeholder="Program Name or Code..." class="form-control form-control-lg">
+            <input type="text" placeholder="Program Name or Code..." class="form-control form-control-lg mb-3">
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">

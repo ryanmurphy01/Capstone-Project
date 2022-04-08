@@ -122,8 +122,8 @@
             </div>
         </div>
 
-        <div class="col-8">
-            <h1 class="pb-5 pt-5 display-3">Instructors</h1>
+        <div class="col">
+            <h1 class="pb-3 pt-4">Instructors</h1>
             
             @if($errors->any())
             <script>
@@ -155,7 +155,7 @@
                         {{ Session::get('fail') }}
                     </div>
                     @endif
-            <input type="text" class="form-control form-control-lg" placeholder="Search...">
+            <input type="text" class="form-control form-control-lg mb-3" placeholder="Search...">
 
             <table class="table table-hover table-striped">
 

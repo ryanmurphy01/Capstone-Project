@@ -120,9 +120,9 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-        <h1 class="pb-3 pt-3 ">Instructor Availability</h1>
-            <input type="text" placeholder="Instructor Name..." class="mb-4 w-100 p-1">
+        <div class="col">
+        <h1 class="pb-3 pt-4 ">Instructor Availability</h1>
+            <input type="text" placeholder="Instructor Name..." class="form-control form-control-lg mb-3">
 
             {{-- might need to put all this in a scrollview later --}}
             <table class="table table-striped table-hover mx-auto text-center">
