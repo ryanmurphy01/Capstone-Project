@@ -64,10 +64,12 @@ Route::get('/schedule', function () {
 
 //main
 
-Route::get('coursesReq', [ICourseRequestController::class, 'iDropdown'])->name('coursesReq');
-Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
-Route::get('coursesReqSelect', [ICourseRequestController::class, 'addToList'])->name('coursesReqSelect');
-
+Route::get('coursesReq', [ICourseRequestController::class, 'index'])->name('coursesReq');
+Route::get('coursesReq/programs', [ICourseRequestController::class, 'showProgams'])->name('coursesReq/programs');
+//pass the program as param and list associated courses
+Route::get('coursesReq/courses/{id}', [ICourseRequestController::class, 'showCourses'])->name('coursesReq/courses');
+//route to save course selected by user
+Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelection'])->name('coursesReq/save');
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
 //     return view('InstructorViews/instructorCourses');

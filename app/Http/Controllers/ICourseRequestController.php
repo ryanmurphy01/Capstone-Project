@@ -9,15 +9,100 @@ use Illuminate\Support\Facades\DB;
 
 class ICourseRequestController extends Controller
 {
+    function index() {
+        $data = DB::table('courses')
+            //connect the accounts table to teacher courses table with id
+            -> join('teacher_courses', 'accounts.id', '=', 'teacher_courses.account_id')
+            //then join that with the courses table so we can search for courses
+            -> join('courses', 'teacher_courses.course_code', '=', 'courses.id')
+            //check if the search matches any user's name. use($search_text)
+            -> where('teacher_courses.account_id', '=', 1)
+            // -> where(function ($query) {
+            //     $query -> where('teacher_courses.account_id', '=', 1);
+                    //uncomment and add these to the query if we need to match more than just names
+                    // -> orWhere('accounts.contact_number', 'LIKE', '%'.$search_text.'%')
+                    // -> orWhere('accounts.personal_email', 'LIKE', '%'.$search_text.'%')
+                    // -> orWhere('accounts.school_email', 'LIKE', '%'.$search_text.'%')
+                //})
+            -> select('courses.*')
+            -> get();
 
-    //function to get all the programs for the dropdown thing
-    function iDropdown(){
-        //retrieve all programs
-        $data = program::all();
-        //return an empty collection of courses to make the foreach not throw an error
-        $data2 = collect(new course());
+        return view('InstructorViews/instructorCourses', ['courses'=>$data]);
+    }
 
-        return view('InstructorViews/instructorCourses', ['programs'=>$data], ['courses'=>$data2]);
+
+
+    //function to get all the programs
+    function showProgams(Request $request){
+
+        $search_text = $request->iProgramSearch;
+
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            $data = DB::table('programs')
+            -> where('programs.program_name', 'LIKE', '%'.$search_text.'%')
+            -> orWhere('programs.program_code', 'LIKE', '%'.$search_text.'%')
+            -> select('programs.*')
+            -> get();
+        }
+        //otherwise run the retrieve as usual
+        else {
+            $data = program::all();
+        }
+
+        return view('InstructorViews/instructorProgramForm', ['programs'=>$data]);
+    }
+
+    //function to get all courses matching the program, and the program details
+    function showCourses(Request $request, $id) {
+
+        $search_text = $request->iCourseSearch;
+
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            //join the course and junction table, then match only courses linked to the record with the
+            //id provided in the function
+            $data = DB::table('courses')
+            -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
+            //make sure only courses matching the program id provided are shown
+            -> where('courses_programs.program_id', $id)
+            //match the provided search in course code or name
+            -> where(function ($query) use($search_text) {
+                $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
+                })
+            -> select('courses.*')
+            -> get();
+        }
+
+        //otherwise only match courses with the right program ID
+        else {
+            //join the course and junction table, then match only courses linked to the record with the
+            //id provided in the function
+            $data = DB::table('courses')
+            -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
+            -> where('courses_programs.program_id', $id)
+            -> select('courses.*')
+            -> get();
+        }
+
+        $data2 = program::find($id);
+        return view('AdminViews/adminCourses', ['courses'=>$data], ['programs'=>$data2]);
+    }
+
+    function addToSelection($id) {
+
+        DB::table('teacher_courses')->insert([
+            //TODO, put the current usre ID here
+            'account_id' => $id,
+            //maybe put an if comparison to check if the course has already been taught
+            //if so, auto accept it right here
+            'course_code' => $id,
+            //and put the status for pending here
+            'status_id' => 3
+        ]);
+
+        return redirect('coursesReq');
     }
 
 

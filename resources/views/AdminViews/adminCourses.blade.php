@@ -148,9 +148,6 @@
                 </div>
             @endif
 
-
-
-
             <table class="table table-hover table-striped">
                 <thead class="thead-light">
                     <tr>

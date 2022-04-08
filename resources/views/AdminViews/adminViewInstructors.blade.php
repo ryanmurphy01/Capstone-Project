@@ -209,11 +209,6 @@
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
 
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
-
-
-
-
-
         </div>
     </div>
 </div>

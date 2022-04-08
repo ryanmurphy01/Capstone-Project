@@ -67,7 +67,6 @@ class CourseController extends Controller
         DB::table('courses_programs')->insert([
             'course_code' => $course->id,
             'program_id' => $id
-
         ]);
 
 
