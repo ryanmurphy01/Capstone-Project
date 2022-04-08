@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\account;
 use App\Models\AccountType;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class InstructorController extends Controller
 {
@@ -77,7 +80,6 @@ class InstructorController extends Controller
             'lastname'=>'required',
             'personalemail'=>'required|email',
             'collegeemail'=>'required|email',
-            'password'=>'required|min:5',
             'phone'=>'required',
             'accounttype'=>'required'
         ]);
@@ -88,7 +90,9 @@ class InstructorController extends Controller
         $account->first_name = $request->firstname;
         $account->last_name = $request->lastname;
         $account->contact_number = $request->phone;
-        $account->password = Hash::make($request->password);
+        //Make Random Password
+        $password = Str::random(10);
+        $account->password = Hash::make($password);
         $account->personal_email = $request->personalemail;
         $account->school_email = $request->collegeemail;
         $account->num_of_courses = 0;
@@ -97,11 +101,29 @@ class InstructorController extends Controller
         $save = $account->save();
 
 
-        //Get account types
+       
         DB::table('account_types')->insert([
             'account_id' => $account->id,
             'type_id' => $request->accounttype
         ]);
+
+        $token = Str::random(64);
+        DB::table('password_resets')->insert([
+            'personal_email'=>$request->personalemail,
+            'token'=>$token,
+            'created_at'=>Carbon::now(), 
+        ]);
+
+        $action_link = route('reset.password.form', ['token'=>$token, 'personal_email'=>$request->personalemail]);
+        $body = "Welcome! You have been registered for the Zekelman School of Business & Information Technology Part Time Availability Portal
+        With the account email: ".$request->personalemail." 
+        Please click the link below to reset password and login for the first time.";
+
+        Mail::send('email-forgot', ['action_link'=>$action_link,'body'=>$body], function($message) use ($request){
+            $message->from('parttimeteststclair@gmail.com','Part Time App');
+            $message->to($request->personalemail, 'name')
+            ->subject('Welcome To Part Time Availability Portal');
+        });
 
 
 

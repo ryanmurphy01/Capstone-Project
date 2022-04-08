@@ -50,14 +50,10 @@ Route::resource('courses', CourseController::class);
 // Route::get('courses/search', 'CourseController@search');
 
 
-
-
-
-//change this to use the proper method for setting
-Route::get('/passwordSet', function () {
-
-    return view('passwordSet');
-});
+Route::get("/passwordReset",[MainController::class, 'showResetPage'])->name('forgot.password');
+Route::post("/passwordReset", [MainController::class, 'sendResetLink'])->name('forgot.link');
+Route::get("/passwordSet/{token}", [MainController::class, 'showResetForm'])->name('reset.password.form');
+Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('reset.password');
 
 //instructor routes
 //main
