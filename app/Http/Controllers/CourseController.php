@@ -10,15 +10,38 @@ use Illuminate\Support\Facades\DB;
 class CourseController extends Controller
 {
     //function to get all courses matching the program, and the program details
-    function index($id) {
+    function index(Request $request, $id) {
 
-        //join the course and junction table, then match only courses linked to the record with the
-        //id provided in the function
-        $data = DB::table('courses')
-        -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
-        -> where('courses_programs.program_id', $id)
-        -> select('courses.*')
-        -> get();
+        $search_text = $request->aCourseSearch;
+
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            //join the course and junction table, then match only courses linked to the record with the
+            //id provided in the function
+            $data = DB::table('courses')
+            -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
+            //for some reason, 2 of these checks are needed, this one blocks word match from other programs
+            -> where('courses_programs.program_id', $id)
+            //match the provided search in course code or name
+            -> where(function ($query) use($search_text) {
+                $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
+                })
+            -> select('courses.*')
+            -> get();
+        }
+
+        //otherwise only match courses with the right program ID
+        else {
+            //join the course and junction table, then match only courses linked to the record with the
+            //id provided in the function
+            $data = DB::table('courses')
+            -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
+            -> where('courses_programs.program_id', $id)
+            -> select('courses.*')
+            -> get();
+        }
+
         $data2 = program::find($id);
         return view('AdminViews/adminCourses', ['courses'=>$data], ['programs'=>$data2]);
     }
@@ -103,7 +126,7 @@ class CourseController extends Controller
             'creditHours'=>'required|numeric'
         ]);
 
-       
+
         $data = DB::table('programs')
         -> join('courses_programs', 'programs.id', '=', 'courses_programs.program_id')
         -> where('courses_programs.course_code', $id)
@@ -119,7 +142,6 @@ class CourseController extends Controller
         $course->credit_hours = $request->creditHours;
         $save = $course->save();
 
-        //TODO, temporary(?) redirects program hub instead
         if($save){
             print('it worked');
             return redirect()->route('courses', [$id => $data[0]->id])->with('success', 'Course has been updated');

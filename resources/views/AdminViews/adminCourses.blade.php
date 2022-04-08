@@ -135,7 +135,11 @@
                 {{ Session::get('fail') }}
             </div>
             @endif
-            <input type="text" placeholder="Course Name or Code..." class="form-control form-control-lg">
+
+            {{-- search bar --}}
+            <form action="{{ route('courses', $programs->id) }}" method="GET">
+                <input type="text" name="aCourseSearch" id="aCourseSearch" placeholder="Course Name or Code..." class="form-control form-control-lg">
+            </form>
 
             @if($errors->any())
             <div class="alert alert-danger alert-dismissible">
@@ -144,7 +148,7 @@
                 </div>
             @endif
 
-           
+
 
 
             <table class="table table-hover table-striped">

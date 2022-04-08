@@ -124,7 +124,7 @@
 
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Instructors</h1>
-            
+
             @if($errors->any())
             <script>
                     $(document).ready(function(){
@@ -132,15 +132,15 @@
                     });
                 </script>
                 @endif
-            
+
             {{-- When modal form fails tell user --}}
             @if($errors->any())
             <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     Failed to add new User please try again.
                 </div>
-            @endif 
-            
+            @endif
+
             {{-- If Sql works tell user if not display error--}}
             @if(Session::get('success'))
                     <div class="alert alert-success alert-dismissible">
@@ -155,7 +155,11 @@
                         {{ Session::get('fail') }}
                     </div>
                     @endif
-            <input type="text" class="form-control form-control-lg" placeholder="Search...">
+
+            {{-- search bar --}}
+            <form action="{{ route('instructors.index') }}" method="GET">
+                <input type="text" name="aInstructorSearch" id="aInstructorSearch" placeholder="Search..." class="form-control form-control-lg">
+            </form>
 
             <table class="table table-hover table-striped">
 
@@ -206,8 +210,8 @@
 
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
 
-         
-            
+
+
 
 
         </div>
@@ -278,17 +282,17 @@
 
                      <br>
 
-                  
+
 
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Create User</button>
                     </div>
-                    
+
 
                 </form>
-               
-               
+
+
             </div>
         </div>
     </div>

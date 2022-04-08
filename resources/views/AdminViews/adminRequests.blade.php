@@ -119,8 +119,8 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1>Course Requests</h1>
+        <div class="col-8">
+            <h1 class="pb-5 pt-5 display-3">Course Requests</h1>
 
             {{-- the key for the little circles --}}
             <div class="container" >
