@@ -42,6 +42,8 @@
                     <span class="text-danger">@error('password_confirmation'){{ $message }}@enderror</span>
                 </div>
 
+                <p class="small d-md-flex justify-content-md-end"><a href="{{route('forgot.password')}}" class="text-black mb-2">login</a></p>
+
                   <div class="d-grid">
                     <button type="submit" class="btn btn-lg btn-primary mb-2">Reset Password</button>
                   </div>

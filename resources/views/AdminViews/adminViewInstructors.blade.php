@@ -259,14 +259,6 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="name@example.com" >
-                        <label for="password">Password</label>
-
-                        <!-- error field -->
-                        <span class="text-danger">@error('password'){{ $message }} @enderror</span>
-                    </div>
-
-                    <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="name@example.com" value="{{ old('phone')}}">
                         <label for="number">Phone Number</label>
 
