@@ -28,7 +28,9 @@
                       <!--Error message-->
                       <span class="text-danger">@error('personal_email'){{ $message }}@enderror</span>
                   </div>
-   
+                  
+                  <p class="small d-md-flex justify-content-md-end"><a href="{{route('login')}}" class="text-black mb-2">Login</a></p>
+
                   <div class="d-grid">
                     <button type="submit" class="btn btn-lg btn-primary mb-2">Send Reset Link</button>
                   </div>
