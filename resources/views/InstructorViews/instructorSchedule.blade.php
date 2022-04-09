@@ -38,7 +38,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a c class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('coursesReq') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
