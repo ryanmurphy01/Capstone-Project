@@ -101,7 +101,7 @@ class InstructorController extends Controller
         $save = $account->save();
 
 
-       
+
         DB::table('account_types')->insert([
             'account_id' => $account->id,
             'type_id' => $request->accounttype
@@ -111,12 +111,12 @@ class InstructorController extends Controller
         DB::table('password_resets')->insert([
             'personal_email'=>$request->personalemail,
             'token'=>$token,
-            'created_at'=>Carbon::now(), 
+            'created_at'=>Carbon::now(),
         ]);
 
         $action_link = route('reset.password.form', ['token'=>$token, 'personal_email'=>$request->personalemail]);
         $body = "Welcome! You have been registered for the Zekelman School of Business & Information Technology Part Time Availability Portal
-        With the account email: ".$request->personalemail." 
+        With the account email: ".$request->personalemail."
         Please click the link below to reset password and login for the first time.";
 
         Mail::send('email-forgot', ['action_link'=>$action_link,'body'=>$body], function($message) use ($request){

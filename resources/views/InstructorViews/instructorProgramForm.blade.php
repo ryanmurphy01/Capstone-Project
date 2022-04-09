@@ -14,7 +14,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="welcome" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -27,7 +27,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="schedule" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('schedule') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -39,7 +39,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="coursesReq" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('coursesReq') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -105,7 +105,10 @@
             {{-- search bar --}}
             {{-- TODO put the proper route here --}}
             <form action="{{ route('coursesReq/programs') }}" method="GET">
-                <input type="text" name="iProgramSearch" id="iProgramSearch" placeholder="Program Name or Code..." class="form-control form-control-lg">
+                <div class="input-group">
+                    <input type="text" name="iProgramSearch" id="iProgramSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </form>
 
             <table class="table table-hover table-striped">
@@ -113,8 +116,6 @@
                     <tr>
                         <th>Program Name</th>
                         <th>Program Code</th>
-                        {{-- empty placeholder that may be helpful for formatting (heading) --}}
-                        <th></th>
                     </tr>
                 </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
@@ -122,7 +123,7 @@
                     @foreach ($programs as $program)
                     <tr>
                         {{-- TODO put the proper route here --}}
-                        <td><a href="coursesReq/courses/{{ $program->id }}" class="link-dark" style="font-size: 13pt">{{ $program->program_name }}</a></td>
+                        <td><a href="{{ route('coursesReq/courses', $program->id) }}" class="link-dark" style="font-size: 13pt">{{ $program->program_name }}</a></td>
                         <td>{{ $program->program_code }}</td>
                         {{-- <td>
                             <a href="{{route('programs.edit', $program->id)}}">
@@ -135,8 +136,6 @@
                     @endforeach
                 </tbody>
             </table>
-
-            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#programModal">Add Program</button>
         </div>
     </div>
 </div>

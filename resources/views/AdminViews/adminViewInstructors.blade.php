@@ -158,7 +158,10 @@
 
             {{-- search bar --}}
             <form action="{{ route('instructors.index') }}" method="GET">
-                <input type="text" name="aInstructorSearch" id="aInstructorSearch" placeholder="Search..." class="form-control form-control-lg">
+                <div class="input-group">
+                    <input type="text" name="aInstructorSearch" id="aInstructorSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </form>
 
             <table class="table table-hover table-striped">

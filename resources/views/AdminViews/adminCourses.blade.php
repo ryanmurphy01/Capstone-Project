@@ -138,7 +138,10 @@
 
             {{-- search bar --}}
             <form action="{{ route('courses', $programs->id) }}" method="GET">
-                <input type="text" name="aCourseSearch" id="aCourseSearch" placeholder="Course Name or Code..." class="form-control form-control-lg">
+                <div class="input-group">
+                    <input type="text" name="aCourseSearch" id="aCourseSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </form>
 
             @if($errors->any())

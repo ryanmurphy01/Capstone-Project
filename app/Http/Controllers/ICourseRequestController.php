@@ -10,20 +10,14 @@ use Illuminate\Support\Facades\DB;
 class ICourseRequestController extends Controller
 {
     function index() {
+
+        $id = session('LoggedUser');
+
         $data = DB::table('courses')
-            //connect the accounts table to teacher courses table with id
-            -> join('teacher_courses', 'accounts.id', '=', 'teacher_courses.account_id')
-            //then join that with the courses table so we can search for courses
-            -> join('courses', 'teacher_courses.course_code', '=', 'courses.id')
+            //join the teacher courses and courses table to read out course details
+            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_code')
             //check if the search matches any user's name. use($search_text)
-            -> where('teacher_courses.account_id', '=', 1)
-            // -> where(function ($query) {
-            //     $query -> where('teacher_courses.account_id', '=', 1);
-                    //uncomment and add these to the query if we need to match more than just names
-                    // -> orWhere('accounts.contact_number', 'LIKE', '%'.$search_text.'%')
-                    // -> orWhere('accounts.personal_email', 'LIKE', '%'.$search_text.'%')
-                    // -> orWhere('accounts.school_email', 'LIKE', '%'.$search_text.'%')
-                //})
+            -> where('teacher_courses.account_id', '=', $id)
             -> select('courses.*')
             -> get();
 
@@ -87,19 +81,20 @@ class ICourseRequestController extends Controller
         }
 
         $data2 = program::find($id);
-        return view('AdminViews/adminCourses', ['courses'=>$data], ['programs'=>$data2]);
+        return view('InstructorViews/instructorCourseForm', ['courses'=>$data], ['programs'=>$data2]);
     }
 
     function addToSelection($id) {
 
+        $Userid = session('LoggedUser');
+
         DB::table('teacher_courses')->insert([
-            //TODO, put the current usre ID here
-            'account_id' => $id,
+            'account_id' => $Userid,
             //maybe put an if comparison to check if the course has already been taught
             //if so, auto accept it right here
             'course_code' => $id,
             //and put the status for pending here
-            'status_id' => 3
+            'status_id' => 1
         ]);
 
         return redirect('coursesReq');

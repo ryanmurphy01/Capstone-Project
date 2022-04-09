@@ -101,7 +101,7 @@
                 </tbody>
             </table>
 
-            <button href="{{ route('coursesReq/programs') }}" style="margin-top: 10px" type="button" class="pb-2 pt-2 btn btn-success">Click here to select another course</button>
+            <a href="{{ route('coursesReq/programs') }}" style="margin-top: 10px" type="button" class="pb-2 pt-2 btn btn-success">Click here to add another course</a>
     </div>
 </div>
 

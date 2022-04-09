@@ -138,7 +138,10 @@
 
             {{-- search bar --}}
             <form action="{{ route('deactivated.index') }}" method="GET">
-                <input type="text" name="aDeactivatedSearch" id="aDeactivatedSearch" placeholder="Search..." class="form-control form-control-lg">
+                <div class="input-group">
+                    <input type="text" name="aDeactivatedSearch" id="aDeactivatedSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </form>
 
             <table class="table table-hover table-striped">

@@ -13,7 +13,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="welcome" class="nav-link align-middle px-0 link-dark active">
+                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark active">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -26,7 +26,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="schedule" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('schedule') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -38,7 +38,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="coursesReq" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('coursesReq') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">

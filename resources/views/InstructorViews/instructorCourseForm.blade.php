@@ -14,7 +14,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="welcome" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -27,7 +27,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="schedule" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('schedule') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -39,7 +39,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="coursesReq" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('coursesReq') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -88,7 +88,10 @@
 
             {{-- search bar --}}
             <form action="{{ route('coursesReq/courses', $programs->id) }}" method="GET">
-                <input type="text" name="iCourseSearch" id="iCourseSearch" placeholder="Course Name or Code..." class="form-control form-control-lg">
+                <div class="input-group">
+                    <input type="text" name="iCourseSearch" id="iCourseSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </form>
 
             @if($errors->any())
@@ -115,21 +118,15 @@
                         <td>{{ $course->course_code }}</td>
                         <td>{{ $course->description }}</td>
                         <td>
-
-                            <a href="{{ route('coursesReq/save', $course->id) }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                </svg>
-                            </a>
+                            <form style="display: inline-block" class="float-end" action="{{ route('coursesReq/save', $course->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Teach this Course</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
-            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#userModal">
-                Add Course
-            </button>
         </div>
     </div>
 </div>

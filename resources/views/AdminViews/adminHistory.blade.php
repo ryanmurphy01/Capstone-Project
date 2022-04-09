@@ -125,7 +125,10 @@
 
             {{-- search bar --}}
             <form action="{{ route('history.index') }}" method="GET">
-                <input type="text" name="aHistorySearch" id="aHistorySearch" placeholder="Instructor or Course..." class="form-control form-control-lg">
+                <div class="input-group">
+                    <input type="text" name="aHistorySearch" id="aHistorySearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </form>
 
             <table class="table table-hover table-striped mx-auto text-center">

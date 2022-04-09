@@ -60,7 +60,7 @@ Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('
 Route::get('/schedule', function () {
 
     return view('InstructorViews/instructorSchedule');
-});
+})->name('schedule');
 
 //main
 
@@ -79,7 +79,7 @@ Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelec
 Route::get('/welcome', function () {
 
     return view('InstructorViews/instructorWelcome');
-});
+})->name('welcome');
 
 //admin routes, mostly for testing, for now
 //main

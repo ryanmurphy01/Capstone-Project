@@ -155,7 +155,10 @@
 
             {{-- search bar --}}
             <form action="{{ route('programs.index') }}" method="GET">
-                <input type="text" name="aProgramSearch" id="aProgramSearch" placeholder="Program Name or Code..." class="form-control form-control-lg">
+                <div class="input-group">
+                    <input type="text" name="aProgramSearch" id="aProgramSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
             </form>
 
             <table class="table table-hover table-striped">
