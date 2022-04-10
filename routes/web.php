@@ -8,6 +8,7 @@ use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\SemesterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,9 @@ Route::get('coursesReq', [ICourseRequestController::class, 'iDropdown'])->name('
 Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
 Route::get('coursesReqSelect', [ICourseRequestController::class, 'addToList'])->name('coursesReqSelect');
 
+
+Route::resource('semester', SemesterController::class);
+
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
 //     return view('InstructorViews/instructorCourses');
@@ -113,12 +117,6 @@ Route::get('history', [IHistoryController::class, 'index'])->name('history.index
 //route for when you click on a certain instructor in the history page
 Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
 
-
-
-//main
-Route::get('/semester', function () {
-    return view('AdminViews/adminSemester');
-})->name('semester');
 
 //main
 Route::get('/email', function () {
