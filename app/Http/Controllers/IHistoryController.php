@@ -80,6 +80,15 @@ class IHistoryController extends Controller
     function detail($id) {
 
         $data = account::find($id);
-        return view('AdminViews/adminInstructorHistory', ['accounts'=>$data]);
+
+        $data2 = DB::table('courses')
+            //join the teacher courses and courses table to read out course details
+            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_code')
+            //check if the search matches any user's name. use($search_text)
+            -> where('teacher_courses.account_id', '=', $id)
+            -> select('courses.*')
+            -> get();
+
+        return view('AdminViews/adminInstructorHistory', ['account'=>$data], ['courses'=>$data2]);
     }
 }
