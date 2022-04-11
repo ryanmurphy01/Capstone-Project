@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeactivatedController;
 use App\Http\Controllers\ICourseRequestController;
@@ -8,6 +9,9 @@ use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\RequestEmail;
+use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\TeacherAvailabilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +26,7 @@ use App\Http\Controllers\ProgramController;
 
 Route::get('/', function () {
 
-    return view('InstructorViews/instructorSchedule');
+    return view('login');
 });
 
 
@@ -57,10 +61,15 @@ Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('
 
 //instructor routes
 //main
-Route::get('/schedule', function () {
 
-    return view('InstructorViews/instructorSchedule');
-})->name('schedule');
+Route::get('/schedule',[AvailabilityController::class, 'index'])->name('schedule.index');
+Route::post('/schedule/add',[AvailabilityController::class, 'add'])->name('schedule.add');
+Route::delete('/schedule/delete/{id}',[AvailabilityController::class, 'delete'])->name('schedule.delete');
+
+
+Route::resource('semester', SemesterController::class);
+
+
 
 //main
 
@@ -70,6 +79,7 @@ Route::get('coursesReq/programs', [ICourseRequestController::class, 'showProgams
 Route::get('coursesReq/courses/{id}', [ICourseRequestController::class, 'showCourses'])->name('coursesReq/courses');
 //route to save course selected by user
 Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelection'])->name('coursesReq/save');
+
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
 //     return view('InstructorViews/instructorCourses');
@@ -116,17 +126,9 @@ Route::get('history', [IHistoryController::class, 'index'])->name('history.index
 Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
 
 
-
 //main
-Route::get('/semester', function () {
-    return view('AdminViews/adminSemester');
-})->name('semester');
-
-//main
-Route::get('/email', function () {
-
-    return view('AdminViews/adminEmail');
-})->name('email');
+Route::get('/email', [RequestEmail::class, 'index'])->name('email');
+Route::get('/email/send', [RequestEmail::class, 'sendEmail'])->name('email.send');
 
 //main
 Route::get('/requests', function () {
