@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeactivatedController;
 use App\Http\Controllers\ICourseRequestController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RequestEmail;
 use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\TeacherAvailabilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,7 @@ use App\Http\Controllers\SemesterController;
 
 Route::get('/', function () {
 
-    return view('InstructorViews/instructorSchedule');
+    return view('login');
 });
 
 
@@ -59,10 +61,9 @@ Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('
 
 //instructor routes
 //main
-Route::get('/schedule', function () {
-
-    return view('InstructorViews/instructorSchedule');
-});
+Route::get('/schedule',[AvailabilityController::class, 'index'])->name('schedule.index');
+Route::post('/schedule/add',[AvailabilityController::class, 'add'])->name('schedule.add');
+Route::delete('/schedule/delete/{id}',[AvailabilityController::class, 'delete'])->name('schedule.delete');
 
 //main
 
