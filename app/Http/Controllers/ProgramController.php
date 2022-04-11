@@ -4,23 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\program;
+use Illuminate\Support\Facades\DB;
 
 class ProgramController extends Controller
 {
 
-    function index(){
-        $data = program::all();
+    function index(Request $request) {
+
+        $search_text = $request->aProgramSearch;
+
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            $data = DB::table('programs')
+            -> where('programs.program_name', 'LIKE', '%'.$search_text.'%')
+            -> orWhere('programs.program_code', 'LIKE', '%'.$search_text.'%')
+            -> select('programs.*')
+            -> get();
+        }
+        //otherwise run the retrieve as usual
+        else {
+            $data = program::all();
+        }
 
         return view('AdminViews/adminPrograms', ['programs'=>$data]);
     }
-
-    //duplicate function to give info to the instructor's page program drop down, change this too if you want Ryan
-    function iDropdown(){
-        $data = program::all();
-
-        return view('InstructorViews/instructorCourses', ['programs'=>$data]);
-    }
-
 
     //Function to save new programs into the database
     function store(Request $request){

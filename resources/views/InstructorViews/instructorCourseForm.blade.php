@@ -1,6 +1,7 @@
 @extends('template')
 @section('content')
 
+{{-- bootstrap nav bar --}}
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-0 col-xl-0 px-sm-2 px-0">
@@ -13,7 +14,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark active">
+                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -54,9 +55,8 @@
                 <div class="dropdown pb-4" style="border-top: 1px solid black; width: 100%; padding-top: 20px">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- insert profile pic/icon here here --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                          </svg>
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Instructor Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -69,33 +69,64 @@
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1 class="text-center text-success pt-2">Welcome Instructor!</h1>
-            <h5 class="text-center p-1">The text below provides a brief overview of functionality of this application</h5>
+        <div class="col-8">
+            <h1 class="pb-5 pt-5 display-3">{{ $programs->program_name }}</h1>
 
-            <section class="p-5">
-                <h2 class="text-success">Availability</h2>
-                <p>
-                    Here you can set your working hours. Once on the page, enter your start and end time,
-                    then hit save to add it to the list. Use the delete buttons if you've added an entry by mistake.
-                </p>
-                <p>
-                    Once you have your hours set for every day, press the submit button on the bottom right.
-                </p>
-             </section>
-             <section class="p-5">
-                <h2 class="text-success">Courses</h2>
-                <p>
-                Here you select what courses you want to teach. These selections will be sent to administrators who will decide if it's approved.
-                Based on what you have taught before, the approval may be automatic.
-                </p>
-                <p>
-                On the page, select the program and courses within that program via dropdown. Add them to the submission list with the green button.
-                Once all the courses you wish to teach are in the submission list, press the red button and confirm your selection.
-                </p>
-             </section>
+            @if(Session::get('success'))
+            <div class="alert alert-success alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ Session::get('success') }}
+            </div>
+            @endif
 
+            @if(Session::get('fail'))
+            <div class="alert alert-fail alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ Session::get('fail') }}
+            </div>
+            @endif
 
+            {{-- search bar --}}
+            <form action="{{ route('coursesReq/courses', $programs->id) }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="iCourseSearch" id="iCourseSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
+
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new Program please try again.
+                </div>
+            @endif
+
+            <table class="table table-hover table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Course Code</th>
+                        <th>Course Description</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($courses as $course)
+                    <tr>
+                        <td>{{ $course->course_name }}</td>
+                        <td>{{ $course->course_code }}</td>
+                        <td>{{ $course->description }}</td>
+                        <td>
+                            <form style="display: inline-block" class="float-end" action="{{ route('coursesReq/save', $course->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Teach this Course</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

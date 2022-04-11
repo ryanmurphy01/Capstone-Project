@@ -136,7 +136,14 @@
                 {{ Session::get('fail') }}
             </div>
             @endif
-            <input type="text" placeholder="Course Name or Code..." class="form-control form-control-lg">
+
+            {{-- search bar --}}
+            <form action="{{ route('courses', $programs->id) }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aCourseSearch" id="aCourseSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
 
             @if($errors->any())
             <div class="alert alert-danger alert-dismissible">
@@ -144,9 +151,6 @@
                     Failed to add new Program please try again.
                 </div>
             @endif
-
-           
-
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">

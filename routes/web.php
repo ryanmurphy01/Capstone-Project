@@ -61,18 +61,24 @@ Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('
 
 //instructor routes
 //main
+
 Route::get('/schedule',[AvailabilityController::class, 'index'])->name('schedule.index');
 Route::post('/schedule/add',[AvailabilityController::class, 'add'])->name('schedule.add');
 Route::delete('/schedule/delete/{id}',[AvailabilityController::class, 'delete'])->name('schedule.delete');
 
-//main
-
-Route::get('coursesReq', [ICourseRequestController::class, 'iDropdown'])->name('coursesReq');
-Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
-Route::get('coursesReqSelect', [ICourseRequestController::class, 'addToList'])->name('coursesReqSelect');
-
 
 Route::resource('semester', SemesterController::class);
+
+
+
+//main
+
+Route::get('coursesReq', [ICourseRequestController::class, 'index'])->name('coursesReq');
+Route::get('coursesReq/programs', [ICourseRequestController::class, 'showProgams'])->name('coursesReq/programs');
+//pass the program as param and list associated courses
+Route::get('coursesReq/courses/{id}', [ICourseRequestController::class, 'showCourses'])->name('coursesReq/courses');
+//route to save course selected by user
+Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelection'])->name('coursesReq/save');
 
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
@@ -83,7 +89,7 @@ Route::resource('semester', SemesterController::class);
 Route::get('/welcome', function () {
 
     return view('InstructorViews/instructorWelcome');
-});
+})->name('welcome');
 
 //admin routes, mostly for testing, for now
 //main

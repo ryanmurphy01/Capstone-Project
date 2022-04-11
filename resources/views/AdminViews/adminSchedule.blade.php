@@ -122,8 +122,16 @@
             </div>
         </div>
         <div class="col py-3">
-        <h1 class="pb-3 pt-3 ">Instructor Availability</h1>
-            <input type="text" placeholder="Instructor Name..." class="mb-4 w-100 p-1">
+            <h1 class="pb-5 pt-5 display-3">Instructor Availability</h1>
+
+            {{-- search bar --}}
+            {{-- TODO put the proper route here when doing this page --}}
+            <form action="" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aSchduleSearch" id="aSchduleSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
 
             {{-- might need to put all this in a scrollview later --}}
             <table class="table table-striped table-hover mx-auto text-center">
