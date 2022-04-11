@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeacherAvailabilityTable extends Migration
+class CreateTeacherScheduleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateTeacherAvailabilityTable extends Migration
      */
     public function up()
     {
-        Schema::create('teacher_availabilitys', function (Blueprint $table) {
-            $table->foreignId('account_id')->constrained()->primary();
+        Schema::create('teacher_availabilities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('account_id')->constrained();
             $table->foreignId('day_id')->constrained("days");
             $table->time('start_time');
             $table->time("end_time");
@@ -30,6 +31,6 @@ class CreateTeacherAvailabilityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teacher_availability');
+        Schema::dropIfExists('teacher_schedule');
     }
 }
