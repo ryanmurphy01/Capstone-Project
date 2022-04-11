@@ -86,8 +86,7 @@ class IHistoryController extends Controller
             -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_code')
             //check if the search matches any user's name. use($search_text)
             -> where('teacher_courses.account_id', '=', $id)
-            -> select('courses.*')
-            -> get();
+            -> get(['courses.*', 'teacher_courses.status_id']);
 
         return view('AdminViews/adminInstructorHistory', ['account'=>$data], ['courses'=>$data2]);
     }

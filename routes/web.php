@@ -9,6 +9,7 @@ use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\RequestDisplayController;
 use App\Http\Controllers\RequestEmail;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TeacherAvailabilityController;
@@ -131,17 +132,6 @@ Route::get('/email', [RequestEmail::class, 'index'])->name('email');
 Route::get('/email/send', [RequestEmail::class, 'sendEmail'])->name('email.send');
 
 //main
-Route::get('/requests', function () {
-
-    return view('AdminViews/adminRequests');
-})->name('request.index');
-
-Route::get('/approvedRequests', function () {
-
-    return view('AdminViews/adminApprovedRequests');
-});
-
-Route::get('/deniedRequests', function () {
-
-    return view('AdminViews/adminDeniedRequests');
-});
+Route::get('requests', [RequestDisplayController::class, 'index'])->name('requests');
+Route::get('approvedRequests', [RequestDisplayController::class, 'approvedRequests'])->name('approvedRequests');
+Route::get('deniedRequests', [RequestDisplayController::class, 'deniedRequests'])->name('deniedRequests');

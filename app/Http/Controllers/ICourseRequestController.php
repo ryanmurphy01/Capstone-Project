@@ -94,7 +94,7 @@ class ICourseRequestController extends Controller
             //if so, auto accept it right here
             'course_code' => $id,
             //and put the status for pending here
-            'status_id' => 2
+            'status_id' => 1
         ]);
 
         return redirect('coursesReq');
