@@ -121,18 +121,31 @@
             </div>
         </div>
         <div class="col py-3 m-5">
+            @if(Session::get('success'))
+                    <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif
+
+                    @if(Session::get('fail'))
+                    <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        {{ Session::get('fail') }}
+                    </div>
+                    @endif
         <div class="border border-dark rounded text-center bg-secondary" style="--bs-bg-opacity: .20; width: auto">
             <h1 class="mt-4 text-success">Request Availability</h1>
 
             <h2 class="col mt-4">Semester</h2>
 
         <div class="row">
-            <h3 class="col mt-4">Semester Name here</h3>
-            <h3 class="col mt-4">Semester Code here</h3>
+            <h3 class="col mt-4">Semester Name: {{$currentSemester->name}}</h3>
+            <h3 class="col mt-4">Semester Code: {{$currentSemester->code}}</h3>
         </div>
 
             {{-- TODO make this do something --}}
-            <button type="button" class="my-4 btn btn-warning border-dark" style="width: 150px;">Send Email</button>
+            <a type="button" class="my-4 btn btn-warning border-dark" style="width: 150px;" href="{{route('email.send')}}">Send Email</a>
         </div>
 
         </div>

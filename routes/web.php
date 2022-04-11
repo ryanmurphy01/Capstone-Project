@@ -8,6 +8,7 @@ use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\RequestEmail;
 use App\Http\Controllers\SemesterController;
 
 /*
@@ -119,10 +120,8 @@ Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
 
 
 //main
-Route::get('/email', function () {
-
-    return view('AdminViews/adminEmail');
-})->name('email');
+Route::get('/email', [RequestEmail::class, 'index'])->name('email');
+Route::get('/email/send', [RequestEmail::class, 'sendEmail'])->name('email.send');
 
 //main
 Route::get('/requests', function () {
