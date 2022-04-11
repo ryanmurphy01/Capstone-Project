@@ -15,7 +15,7 @@ class ICourseRequestController extends Controller
 
         $data = DB::table('courses')
             //join the teacher courses and courses table to read out course details
-            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_code')
+            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
             //check if the search matches any user's name. use($search_text)
             -> where('teacher_courses.account_id', '=', $id)
             -> select('courses.*')
@@ -92,7 +92,7 @@ class ICourseRequestController extends Controller
             'account_id' => $Userid,
             //maybe put an if comparison to check if the course has already been taught
             //if so, auto accept it right here
-            'course_code' => $id,
+            'course_id' => $id,
             //and put the status for pending here
             'status_id' => 1
         ]);
@@ -103,7 +103,7 @@ class ICourseRequestController extends Controller
     function destroy($id){
 
         $Userid = session('LoggedUser');
-        $delete = DB::table('teacher_courses')->where('course_code', '=', $id)->where('account_id', '=', $Userid)->delete();
+        $delete = DB::table('teacher_courses')->where('course_id', '=', $id)->where('account_id', '=', $Userid)->delete();
 
         if($delete){
             print('it worked');

@@ -126,5 +126,12 @@ Route::get('/email/send', [RequestEmail::class, 'sendEmail'])->name('email.send'
 
 //main
 Route::get('requests', [RequestDisplayController::class, 'index'])->name('requests');
+//route to show approved requests
 Route::get('approvedRequests', [RequestDisplayController::class, 'approvedRequests'])->name('approvedRequests');
+//route to mark a request as approved
+Route::get('approveRequest/{userId}/{courseCode}', [RequestDisplayController::class, 'approveARequest'])->name('approveRequest');
+//route to retrieve all denied requests
 Route::get('deniedRequests', [RequestDisplayController::class, 'deniedRequests'])->name('deniedRequests');
+//route to deny a teaching request
+Route::get('denyRequest/{userId}/{courseCode}', [RequestDisplayController::class, 'denyARequest'])->name('denyRequest');
+

@@ -19,7 +19,7 @@ class IHistoryController extends Controller
         //then return the records in the junction that match
         $coursesMatched = DB::table('courses')
             //join the teacher courses and courses table
-            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_code')
+            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
             //find courses that match
             -> orWhere(function ($query) use($search_text) {
                 $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
@@ -83,7 +83,7 @@ class IHistoryController extends Controller
 
         $data2 = DB::table('courses')
             //join the teacher courses and courses table to read out course details
-            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_code')
+            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
             //check if the search matches any user's name. use($search_text)
             -> where('teacher_courses.account_id', '=', $id)
             -> get(['courses.*', 'teacher_courses.status_id']);
