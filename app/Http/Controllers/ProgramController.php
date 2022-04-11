@@ -54,9 +54,6 @@ class ProgramController extends Controller
         }
     }
 
-    //Get all programs for the admin's view program page
-
-
     function destroy($id){
 
         $program = program::where('id', '=', $id)->first();

@@ -100,5 +100,17 @@ class ICourseRequestController extends Controller
         return redirect('coursesReq');
     }
 
-    //TODO need to make a delete function
+    function destroy($id){
+
+        $Userid = session('LoggedUser');
+        $delete = DB::table('teacher_courses')->where('course_code', '=', $id)->where('account_id', '=', $Userid)->delete();
+
+        if($delete){
+            print('it worked');
+            return back()->with('success', 'Program has been deleted');
+        } else {
+            print('it broke');
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
 }

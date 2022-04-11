@@ -80,6 +80,8 @@ Route::get('coursesReq/programs', [ICourseRequestController::class, 'showProgams
 Route::get('coursesReq/courses/{id}', [ICourseRequestController::class, 'showCourses'])->name('coursesReq/courses');
 //route to save course selected by user
 Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelection'])->name('coursesReq/save');
+//delete route to delete a course from the instructors selection
+Route::post('coursesReq/remove/{id}',[ICourseRequestController::class, 'destroy'])->name('coursesReq/remove');
 
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
@@ -92,10 +94,9 @@ Route::get('/welcome', function () {
     return view('InstructorViews/instructorWelcome');
 })->name('welcome');
 
-//admin routes, mostly for testing, for now
+
+//admin routes
 //main
-
-
 Route::get('/unresponsive', function () {
 
     return view('AdminViews/adminUnresponsiveInstructors');
@@ -108,21 +109,13 @@ Route::get('/availability', function () {
 })->name('availability');
 
 
-
-
 //main Program routes
 //Route::get('/programs', [ProgramController::class, 'indexPrograms']);
 //Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
-
-
 //main
 Route::get('history', [IHistoryController::class, 'index'])->name('history.index');
-// Route::get('/history', function () {
-//     return view('AdminViews/adminHistory');
-// });
-
 //route for when you click on a certain instructor in the history page
 Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
 

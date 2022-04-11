@@ -90,10 +90,9 @@
                         <td>{{ $course->description }}</td>
                         <td>
                             {{-- TODO put the proper route to remove courses from the selection --}}
-                            <form style="display: inline-block" action="" method="POST">
+                            <form style="display: inline-block" action="{{ route('coursesReq/remove', $course->id) }}" method="POST">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger">Remove</button>
                             </form>
                         </td>
                     </tr>
