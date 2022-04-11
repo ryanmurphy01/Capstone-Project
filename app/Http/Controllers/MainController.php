@@ -11,6 +11,7 @@ use PDO;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
 {
