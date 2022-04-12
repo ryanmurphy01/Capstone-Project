@@ -150,6 +150,14 @@
                 </div>
             </div>
 
+            {{-- search bar --}}
+            <form action="{{ route('requests') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aRequestSearch" id="aRequestSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
+
             <table class="table table-striped table-hover mx-auto">
                 <thead class="thead-light">
                     <tr>

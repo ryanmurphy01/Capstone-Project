@@ -30,12 +30,12 @@ class InstructorController extends Controller
             //check if any of the fields in an account match the given input
             //need the 'use(varName)' to access variable outside the closure
             -> where(function ($query) use($search_text) {
-            $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
-                -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
-                -> orWhere('contact_number', 'LIKE', '%'.$search_text.'%')
-                -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
-                -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
-            })
+                $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('contact_number', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
+                })
             -> get();
         }
         //return all active users if the search is returned empty

@@ -151,6 +151,14 @@
                 </div>
             </div>
 
+            {{-- search bar --}}
+            <form action="{{ route('approvedRequests') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aRequestSearch" id="aRequestSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
+
             <table class="table table-striped table-hover mx-auto">
                 <thead class="thead-light">
                     <tr>
@@ -193,6 +201,10 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{-- the thing in the url is the route name of the destination page, see web.php --}}
+            <button onclick="document.location='{{ url('deniedRequests') }}'" class="m-2 btn btn-success border-dark float-end">Denied Requests</button>
+            <button onclick="document.location='{{ url('requests') }}'" class="m-2 btn btn-success border-dark float-end">Pending Requests</button>
         </div>
     </div>
 </div>
