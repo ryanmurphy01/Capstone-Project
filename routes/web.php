@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RequestEmail;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TeacherAvailabilityController;
 
@@ -74,6 +75,8 @@ Route::get('coursesReqSelect', [ICourseRequestController::class, 'addToList'])->
 
 Route::resource('semester', SemesterController::class);
 
+Route::get('/availability', [ScheduleController::class, 'index']);
+
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
 //     return view('InstructorViews/instructorCourses');
@@ -95,10 +98,7 @@ Route::get('/unresponsive', function () {
 })->name('unresponsive');
 
 //main
-Route::get('/availability', function () {
 
-    return view('AdminViews/adminSchedule');
-})->name('availability');
 
 
 
