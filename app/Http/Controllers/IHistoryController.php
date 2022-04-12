@@ -94,7 +94,7 @@ class IHistoryController extends Controller
                     $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
                         -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
                     })
-                -> get(['courses.*', 'teacher_courses.status_id']);
+                -> get(['courses.*', 'teacher_courses.*']);
         }
         //otherwise run the retrieve as usual
         else {
@@ -103,7 +103,7 @@ class IHistoryController extends Controller
                 -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
                 //check if the search matches any user's name. use($search_text)
                 -> where('teacher_courses.account_id', '=', $id)
-                -> get(['courses.*', 'teacher_courses.status_id']);
+                -> get(['courses.*', 'teacher_courses.*']);
         }
 
         return view('AdminViews/adminInstructorHistory', ['account'=>$data], ['courses'=>$data2]);
