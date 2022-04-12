@@ -23,22 +23,22 @@ class RequestDisplayController extends Controller
 
         $result = DB::table('teacher_courses')
             ->where('account_id', $userid)
-            //there's a conflict since course_code exists in courses and the junction, and both are used here
             ->where('course_id', $courseCode)
             ->update(['status_id' => 2]);
 
-        return redirect(route('requests'));
+        //go back to the page that sent the request, this way it can be used for denied and accept page too
+        return redirect(url()->previous());
     }
 
     function denyARequest($userid, $courseCode) {
 
         $result = DB::table('teacher_courses')
             ->where('account_id', $userid)
-            //there's a conflict since course_code exists in courses and the junction, and both are used here
             ->where('course_id', $courseCode)
             ->update(['status_id' => 3]);
 
-        return redirect(route('requests'));
+        //go back to the page that sent the request, this way it can be used for denied and accept page too
+        return redirect(url()->previous());
     }
 
     function approvedRequests() { //retrives only approved
