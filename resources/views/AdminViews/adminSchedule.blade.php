@@ -131,7 +131,7 @@
             {{--Days of the weeks header--}}
             <thead>
                 <tr>
-                {{-- Cai said only Sat, so if anyone whines that all the days aren't here, i will eat you --}}
+               
                 <th scope="col">Instructor</th>
                 <th scope="col">Monday</th>
                 <th scope="col">Tuesday</th>
