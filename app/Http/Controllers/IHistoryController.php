@@ -77,16 +77,34 @@ class IHistoryController extends Controller
     }
 
     //function to show details of a certain instructor when clicked
-    function detail($id) {
+    function detail($id, Request $request) {
+
+        $search_text = $request->aHistorySearch;
 
         $data = account::find($id);
 
-        $data2 = DB::table('courses')
-            //join the teacher courses and courses table to read out course details
-            -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
-            //check if the search matches any user's name. use($search_text)
-            -> where('teacher_courses.account_id', '=', $id)
-            -> get(['courses.*', 'teacher_courses.status_id']);
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            $data2 = DB::table('courses')
+                //join the teacher courses and courses table to read out course details
+                -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
+                //check if the search matches any user's name. use($search_text)
+                -> where('teacher_courses.account_id', '=', $id)
+                -> where(function ($query) use($search_text) {
+                    $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
+                        -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
+                    })
+                -> get(['courses.*', 'teacher_courses.status_id']);
+        }
+        //otherwise run the retrieve as usual
+        else {
+            $data2 = DB::table('courses')
+                //join the teacher courses and courses table to read out course details
+                -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
+                //check if the search matches any user's name. use($search_text)
+                -> where('teacher_courses.account_id', '=', $id)
+                -> get(['courses.*', 'teacher_courses.status_id']);
+        }
 
         return view('AdminViews/adminInstructorHistory', ['account'=>$data], ['courses'=>$data2]);
     }

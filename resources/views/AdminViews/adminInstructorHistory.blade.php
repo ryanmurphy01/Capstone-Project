@@ -153,7 +153,7 @@
 
             {{-- search bar --}}
             {{-- TODO, add the route --}}
-            <form action="" method="GET">
+            <form action="{{ route('courseHistory', $account->id) }}" method="GET">
                 <div class="input-group">
                     <input type="text" name="aHistorySearch" id="aHistorySearch" placeholder="Search..." class="form-control form-control-lg">
                     <button type="submit" class="btn btn-secondary">Search</button>

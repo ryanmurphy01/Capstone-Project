@@ -48,11 +48,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 });
 
 Route::post('courses/{id}',[CourseController::class, 'storeCourse'])->name('storeCourse');
-//trying to search and index in one
+//search and index in one
 Route::get('courses/{id}', [CourseController::class, 'index'])->name('courses');
 Route::resource('courses', CourseController::class);
-//route to search
-// Route::get('courses/search', 'CourseController@search');
 
 
 Route::get("/passwordReset",[MainController::class, 'showResetPage'])->name('forgot.password');
@@ -117,7 +115,7 @@ Route::get('/availability', function () {
 //main
 Route::get('history', [IHistoryController::class, 'index'])->name('history.index');
 //route for when you click on a certain instructor in the history page
-Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
+Route::get('courseHistory/{id}', [IHistoryController::class, 'detail'])->name('courseHistory');
 
 
 //main
