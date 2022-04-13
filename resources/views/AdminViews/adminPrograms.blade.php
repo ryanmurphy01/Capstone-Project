@@ -106,8 +106,9 @@
                 <div class="dropdown pb-4" style="border-top: 1px solid black; width: 100%; padding-top: 20px">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- insert profile pic/icon here here --}}
-                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">Admin Name Here</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                          </svg>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -123,6 +124,22 @@
 
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Programs</h1>
+
+            @if($errors->any())
+            <script>
+                    $(document).ready(function(){
+                        $('#programModal').modal("show");
+                    });
+                </script>
+                @endif
+
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new Program please try again.
+                </div>
+            @endif
+
             @if(Session::get('success'))
                     <div class="alert alert-success alert-dismissible">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -137,8 +154,13 @@
                     </div>
                     @endif
 
-
-            <input type="text" placeholder="Program Name or Code..." class="form-control form-control-lg">
+            {{-- search bar --}}
+            <form action="{{ route('programs.index') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aProgramSearch" id="aProgramSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">
@@ -153,15 +175,16 @@
                 <tbody>
                     @foreach ($programs as $program)
                     <tr>
-                        <td>{{ $program->program_name}}</td>
-                        <td>{{ $program->program_code}}</td>
+                        <td><a href="courses/{{ $program->id }}" class="link-dark" style="font-size: 13pt">{{ $program->program_name }}</a></td>
+                        {{-- <td>{{ $program->program_name }}</td> --}}
+                        <td>{{ $program->program_code }}</td>
                         <td>
-                            <form action="{{ route('programs.destroy',$program->id) }}" method="POST">
-                                <a class="btn btn border-dark">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                                    </svg>
-                                </a>
+                            <a class="btn btn border-dark" id="edit"  href="{{route('programs.edit', $program->id)}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                </svg>
+                            </a>
+                            <form style="display: inline-block" action="{{ route('programs.destroy',$program->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -172,16 +195,16 @@
                 </tbody>
             </table>
 
-            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#userModal">Add Program</button>
+            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#programModal">Add Program</button>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="programModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title ">Create Program</h1>
+                <h1 class="modal-title">Create Program</h1>
             </div>
             <div class="modal-body">
 
@@ -211,7 +234,7 @@
                     </div>
 
                 </form>
-                
+
             </div>
         </div>
     </div>

@@ -36,7 +36,7 @@
                      <span class="text-danger">@error('password'){{ $message }}@enderror</span>
                 </div>
 
-                <p class="small d-md-flex justify-content-md-end"><a href="#!" class="text-black mb-2">Forgot password?</a></p>
+                <p class="small d-md-flex justify-content-md-end"><a href="{{route('forgot.password')}}" class="text-black mb-2">Forgot password?</a></p>
 
                 <div class="d-grid">
                   <button type="submit" class="btn btn-lg btn-primary mb-2">Login</button>

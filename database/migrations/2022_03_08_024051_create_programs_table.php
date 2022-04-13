@@ -15,7 +15,7 @@ class CreateProgramsTable extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->string("program_code");
+            $table->string("program_code")->onDelete('cascade');
             $table->string("program_name");
             $table->timestamps();
         });

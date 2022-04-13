@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\account;
 use App\Models\AccountType;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class InstructorController extends Controller
 {
@@ -15,12 +18,41 @@ class InstructorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = DB::table('accounts')->where('status_id', 1)->get();
+        //extract the instructor to be matched from the request
+        $search_text = $request->aInstructorSearch;
+
+        if (!empty($search_text)) {
+            $data = DB::table('accounts')
+            //only retrieve records that are active (not deactivated or unresponsive)
+            -> where('status_id', 1)
+            //check if any of the fields in an account match the given input
+            //need the 'use(varName)' to access variable outside the closure
+            -> where(function ($query) use($search_text) {
+                $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('contact_number', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
+                })
+            -> get();
+        }
+        //return all active users if the search is returned empty
+        else {
+            $data = DB::table('accounts')->where('status_id', 1)->get();
+        }
+
         $data2 = DB::table('user_types')->get();
 
         return view('AdminViews/adminViewInstructors', ['accounts'=>$data], ['accountTypes'=>$data2]);
+
+    }
+
+    public function getUserType($id)
+    {
+        $userType = DB::table('account_types')->where('account_id', $id)->get();
+        return $userType;
 
     }
 
@@ -44,22 +76,23 @@ class InstructorController extends Controller
     {
         //Validate request
         $request->validate([
-
             'firstname'=>'required',
             'lastname'=>'required',
             'personalemail'=>'required|email',
             'collegeemail'=>'required|email',
-            'password'=>'required|min:5',
             'phone'=>'required',
             'accounttype'=>'required'
         ]);
+
 
         //Insert into database
         $account = new account;
         $account->first_name = $request->firstname;
         $account->last_name = $request->lastname;
         $account->contact_number = $request->phone;
-        $account->password = Hash::make($request->password);
+        //Make Random Password
+        $password = Str::random(10);
+        $account->password = Hash::make($password);
         $account->personal_email = $request->personalemail;
         $account->school_email = $request->collegeemail;
         $account->num_of_courses = 0;
@@ -67,12 +100,30 @@ class InstructorController extends Controller
         $account->last_updated_availability = now();
         $save = $account->save();
 
-        
-        //Get account types
+
+
         DB::table('account_types')->insert([
             'account_id' => $account->id,
             'type_id' => $request->accounttype
         ]);
+
+        $token = Str::random(64);
+        DB::table('password_resets')->insert([
+            'personal_email'=>$request->personalemail,
+            'token'=>$token,
+            'created_at'=>Carbon::now(),
+        ]);
+
+        $action_link = route('reset.password.form', ['token'=>$token, 'personal_email'=>$request->personalemail]);
+        $body = "Welcome! You have been registered for the Zekelman School of Business & Information Technology Part Time Availability Portal
+        With the account email: ".$request->personalemail."
+        Please click the link below to reset password and login for the first time.";
+
+        Mail::send('email-forgot', ['action_link'=>$action_link,'body'=>$body], function($message) use ($request){
+            $message->from('parttimeteststclair@gmail.com','Part Time App');
+            $message->to($request->personalemail, 'name')
+            ->subject('Welcome To Part Time Availability Portal');
+        });
 
 
 
@@ -102,7 +153,12 @@ class InstructorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $account = account::findOrFail($id);
+        $userTypes = DB::table('user_types')->get();
+        $userType = DB::table('account_types')->where('account_id', $account->id)->first();
+
+
+        return view('AdminViews/admineditInstructor', ['account'=>$account],  ['accountTypes'=>$userTypes, 'userType'=>$userType]);
     }
 
     /**
@@ -114,7 +170,35 @@ class InstructorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        //Validate request
+        $request->validate([
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'personalemail'=>'required|email',
+            'collegeemail'=>'required|email',
+            'phone'=>'required',
+            'accounttype'=>'required'
+        ]);
+
+
+        $account = account::findOrFail($id);
+        $account->first_name = $request->firstname;
+        $account->last_name = $request->lastname;
+        $account->personal_email = $request->personalemail;
+        $account->school_email = $request->collegeemail;
+        $account->contact_number = $request->phone;
+
+        $save = $account->save();
+
+        if($save){
+            print('it worked');
+            return redirect()->route('instructors.index')->with('success', 'Account has been updated');
+        } else {
+            print('it broke');
+            return redirect()->route('instructors.index')->with('fail', 'Something went wrong');
+        }
+
     }
 
     /**
@@ -129,12 +213,12 @@ class InstructorController extends Controller
     {
         $account = account::where('id', '=', $id)->first();
         $delete = $account->delete();
-       
+
 
         if($delete){
             print('it worked');
             return back()->with('success', 'Account has been deleted');
-        } else {    
+        } else {
             print('it broke');
             return back()->with('fail', 'Something went wrong');
         }

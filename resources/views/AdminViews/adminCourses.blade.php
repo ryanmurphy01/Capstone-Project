@@ -4,17 +4,16 @@
 {{-- bootstrap nav bar --}}
 <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+        <div class="col-auto col-md-0 col-xl-0 px-sm-2 px-0">
             {{-- extra style, border to make the bar actually visible lol --}}
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100" style="border-right: 1px solid black;">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <span class="d-none d-sm-inline" style="font-size: 18pt;">Admin Panel</span>
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-1 pt-2 min-vh-100" style="border-right: 1px solid black;">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto link-dark text-decoration-none justify-center">
+                    <span class="d-none d-sm-inline text-center" style="font-size: 18pt;">Admin Panel</span>
                 </a>
-                {{-- make both of these max width so the active box fills all the space --}}
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%">
-                    <li class="nav-item" style="width: 100%">
+                {{-- make both of these max width so the active box fills all the space, also add a touch of margin so it doesn't touch the edge --}}
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="instructors" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('instructors.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -26,7 +25,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="availability" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('availability') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -39,7 +38,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="programs" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('programs.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -52,7 +51,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="history" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('history.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -66,7 +65,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="semester" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('semester.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -79,7 +78,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="email" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('email') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mailbox" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -92,7 +91,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="requests" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('requests') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-patch-question-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -107,8 +106,9 @@
                 <div class="dropdown pb-4" style="border-top: 1px solid black; width: 100%; padding-top: 20px">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- insert profile pic/icon here here --}}
-                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">Admin Name Here</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                          </svg>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -122,33 +122,127 @@
             </div>
         </div>
         <div class="col-8">
-            <h1 class="pb-5 pt-5 display-3">Program Title Here</h1>
-            <input type="text" placeholder="Course Name or Code..." class="form-control form-control-lg">
+            <h1 class="pb-5 pt-5 display-3">{{ $programs->program_name }}</h1>
+            @if(Session::get('success'))
+            <div class="alert alert-success alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ Session::get('success') }}
+            </div>
+            @endif
+
+            @if(Session::get('fail'))
+            <div class="alert alert-fail alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ Session::get('fail') }}
+            </div>
+            @endif
+
+            {{-- search bar --}}
+            <form action="{{ route('courses', $programs->id) }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aCourseSearch" id="aCourseSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
+
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new Program please try again.
+                </div>
+            @endif
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">
                     <tr>
                         <th>Course Name</th>
                         <th>Course Code</th>
-                        {{-- empty placeholder that may be helpful for formatting (heading) --}}
+                        <th>Course Description</th>
+
                         <th></th>
                     </tr>
                 </thead>
-                {{-- again, use a foreach to go through db once it's setup --}}
                 <tbody>
+                    @foreach ($courses as $course)
                     <tr>
-                        <td>HTML and CSS</td>
-                        <td>WEB110</td>
+                        <td>{{ $course->course_name }}</td>
+                        <td>{{ $course->course_code }}</td>
+                        <td>{{ $course->description }}</td>
                         <td>
-                            {{-- use these to trigger a popup or run a function --}}
-                            <button type="button">edit</button>
-                            <button type="button">delete</button>
+
+                            <a class="btn btn border-dark" id="edit"  href="{{ route('courses.edit', $course->id) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                </svg>
+                            </a>
+                            <form style="display: inline-block" action="{{ route('courses.destroy', $course->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
 
-            <button type="button" class="btn btn-success float-end" style="width: 150px">Add Course</button>
+            <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#userModal">
+                Add Course
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Create Course</h1>
+            </div>
+            <div class="modal-body">
+
+                {{-- TODO put the proper route in here when done route('courses.store') --}}
+                <form method="post" action="{{ route('storeCourse', $programs->id) }}">
+                @csrf
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="courseName" name="courseName" placeholder="example">
+                        <label for="floatingInput">Course Name</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('courseName'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="courseCode" name="courseCode" placeholder="example">
+                        <label for="floatingInput">Course Code</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('courseCode'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="description" name="description" placeholder="example">
+                        <label for="floatingInput">Description</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('description'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="creditHours" name="creditHours" placeholder="1">
+                        <label for="floatingInput">Credit Hours</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('creditHours'){{ $message }} @enderror</span>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Course</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

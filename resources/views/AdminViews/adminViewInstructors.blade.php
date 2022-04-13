@@ -107,8 +107,10 @@
                 <div class="dropdown pb-4" style="border-top: 1px solid black; width: 100%; padding-top: 20px">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- insert profile pic/icon here here --}}
-                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">Admin Name Here</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                          </svg>
+                        
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -125,6 +127,23 @@
         <div class="col-8">
             <h1 class="pb-5 pt-5 display-3">Instructors</h1>
 
+            @if($errors->any())
+            <script>
+                    $(document).ready(function(){
+                        $('#userModal').modal("show");
+                    });
+                </script>
+                @endif
+
+            {{-- When modal form fails tell user --}}
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new User please try again.
+                </div>
+            @endif
+
+            {{-- If Sql works tell user if not display error--}}
             @if(Session::get('success'))
                     <div class="alert alert-success alert-dismissible">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -133,12 +152,19 @@
                     @endif
 
                     @if(Session::get('fail'))
-                    <div class="alert alert-fail alert-dismissible">
+                    <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         {{ Session::get('fail') }}
                     </div>
                     @endif
-            <input type="text" class="form-control form-control-lg" placeholder="Search...">
+
+            {{-- search bar --}}
+            <form action="{{ route('instructors.index') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aInstructorSearch" id="aInstructorSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
 
             <table class="table table-hover table-striped">
 
@@ -154,7 +180,7 @@
                 <tbody>
                     @foreach ($accounts as $account)
                     <tr>
-                        <td>{{ $account->first_name}}</td>
+                        <td class="firstname">{{ $account->first_name}}</td>
                         <td>{{ $account->last_name}}</td>
                         <td>{{ $account->personal_email}}</td>
                         <td>{{ $account->contact_number}}</td>
@@ -164,11 +190,11 @@
                                     <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
                                 </svg>
                             </button>
-                            <button type="button" class="btn btn border-dark">
+                            <a type="button" class="btn btn border-dark" id="edit"  href="{{route('instructors.edit', $account->id)}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                     <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                                 </svg>
-                            </button>
+                            </a>
 
                             <form style="display: inline-block" action="{{ route('deactivate.activate',$account->id) }}" method="POST">
 
@@ -188,13 +214,12 @@
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
 
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
-
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true" name="userModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -238,14 +263,6 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="name@example.com" >
-                        <label for="password">Password</label>
-
-                        <!-- error field -->
-                        <span class="text-danger">@error('password'){{ $message }} @enderror</span>
-                    </div>
-
-                    <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="name@example.com" value="{{ old('phone')}}">
                         <label for="number">Phone Number</label>
 
@@ -260,6 +277,11 @@
                         @endforeach
                     </select>
 
+                     <!-- error field -->
+                     <span class="text-danger">@error('accounttype'){{ $message }} @enderror</span>
+
+                     <br>
+
 
 
                     <div class="modal-footer">
@@ -267,7 +289,10 @@
                     <button type="submit" class="btn btn-primary">Create User</button>
                     </div>
 
+
                 </form>
+
+
             </div>
         </div>
     </div>

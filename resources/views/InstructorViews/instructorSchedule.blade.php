@@ -13,7 +13,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="welcome" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -26,7 +26,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="schedule" class="nav-link align-middle px-0 link-dark active">
+                        <a href="{{ route('schedule.index') }}" class="nav-link align-middle px-0 link-dark active">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -38,7 +38,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="courses" class="nav-link align-middle px-0 link-dark">
+                        <a href="coursesReq" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -54,125 +54,376 @@
                 <div class="dropdown pb-4" style="border-top: 1px solid black; width: 100%; padding-top: 20px">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- insert profile pic/icon here here --}}
-                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                        <span class="d-none d-sm-inline mx-1">Instructor Name Here</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                          </svg>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Sign Out</a></li>
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li> --}}
+                        </li> --}}
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col py-3">
-            {{-- TODO link this to appropriate controller --}}
-            <form action="submitHours" method="POST">
+
+        <div class="col py-3" >
+
                 {{-- div for each day should be something like this --}}
-                <div class="form-group">
-                    <h2>Monday</h2>
-                    {{-- start time field --}}
-                    <label for="startTime">Enter your start time</label>
-                    <input type="time" name="startTime" class="form-control" id="startTime">
-                    {{-- end time field --}}
-                    <label for="endTime">Enter your end time</label>
-                    <input type="time" name="endTime" class="form-control" id="endTime">
-                    {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
-                    <button type="button" class="btn btn-primary text-center">Set</button>
-                    {{-- table to hold the times --}}
-                    <table>
-                        {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
-                        <tr>10:00<td><button class="editbtn">edit</button></td></tr>
-                    </table>
+
+            <div class="container-fluid">
+                <h2 class="pb-5 text-center">Current Semester: {{$currentSemester->name}} ({{$currentSemester->code}})</h2>
+                <div class="row">
+                <div class="col">
+                {{-- Monday Section --}}
+                <form method="post" action="{{ route('schedule.add') }}">
+                 @csrf
+                <div class="form-group" style="width: 300px;">
+                    <div class="col">
+                        <h2 class="text-center">Monday</h2>
+                        <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
+                        {{-- Hidden Field for day id--}}
+                        <input type="hidden" name="day" value="1">
+                         {{-- Hidden Field for account_id--}}
+                         <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
+                        {{-- start time field --}}
+                        <label for="startTime">Enter your start time</label>
+                        <input type="time" name="startTime" class="form-control" id="startTime">
+                        {{-- end time field --}}
+                        <label for="endTime">Enter your end time</label>
+                        <input type="time" name="endTime" class="form-control" id="endTime">
+                        {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
+                        <button type="submit" class="btn btn-primary text-center float-end mt-2 bg-success border border-dark">Add</button>
+                    </form>
+                        {{-- table to hold the times --}}
+                        <div class="border-bottom border-dark border-2 mt-5">
+
+                        <table  class="table table-hover  text-center mt-5">
+                            <thead>
+                            <th >Times added</th>
+                            </thead>
+                            {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
+                            @foreach ($mondayTimes as $mondayTime)
+                            <tr >
+                                <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$mondayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$mondayTime->end_time)->format('h:i A')}}
+                                    <form style="display: inline-block" action="{{ route('schedule.delete',$mondayTime->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn" id="delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 20 20">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </button>
+
+
+                                    </form>
+                                </td>
+
+                            </tr>
+                            @endforeach
+
+                        </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <h2>Tuesday</h2>
-                    {{-- start time field --}}
-                    <label for="startTime">Enter your start time</label>
-                    <input type="time" name="startTime" class="form-control" id="startTime">
-                    {{-- end time field --}}
-                    <label for="endTime">Enter your end time</label>
-                    <input type="time" name="endTime" class="form-control" id="endTime">
-                    {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
-                    <button type="button" class="btn btn-primary text-center">Set</button>
-                    {{-- table to hold the times --}}
-                    <table>
-                        {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
-                        <tr>10:00<td><button class="editbtn">edit</button></td></tr>
-                    </table>
                 </div>
-                <div class="form-group">
-                    <h2>Wednesday</h2>
-                    {{-- start time field --}}
-                    <label for="startTime">Enter your start time</label>
-                    <input type="time" name="startTime" class="form-control" id="startTime">
-                    {{-- end time field --}}
-                    <label for="endTime">Enter your end time</label>
-                    <input type="time" name="endTime" class="form-control" id="endTime">
-                    {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
-                    <button type="button" class="btn btn-primary text-center">Set</button>
-                    {{-- table to hold the times --}}
-                    <table>
-                        {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
-                        <tr>10:00<td><button class="editbtn">edit</button></td></tr>
-                    </table>
+
                 </div>
-                <div class="form-group">
-                    <h2>Thursday</h2>
-                    {{-- start time field --}}
-                    <label for="startTime">Enter your start time</label>
-                    <input type="time" name="startTime" class="form-control" id="startTime">
-                    {{-- end time field --}}
-                    <label for="endTime">Enter your end time</label>
-                    <input type="time" name="endTime" class="form-control" id="endTime">
-                    {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
-                    <button type="button" class="btn btn-primary text-center">Set</button>
-                    {{-- table to hold the times --}}
-                    <table>
-                        {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
-                        <tr>10:00<td><button class="editbtn">edit</button></td></tr>
-                    </table>
+                <div class="col">
+                   {{-- Tuesday Section --}}
+                <form method="post" action="{{ route('schedule.add') }}">
+                    @csrf
+                   <div class="form-group" style="width: 300px;">
+                       <div class="col">
+                           <h2 class="text-center">Tuesday</h2>
+                           <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
+                           {{-- Hidden Field for day id--}}
+                           <input type="hidden" name="day" value="2">
+                            {{-- Hidden Field for account_id--}}
+                            <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
+                           {{-- start time field --}}
+                           <label for="startTime">Enter your start time</label>
+                           <input type="time" name="startTime" class="form-control" id="startTime">
+                           {{-- end time field --}}
+                           <label for="endTime">Enter your end time</label>
+                           <input type="time" name="endTime" class="form-control" id="endTime">
+                           {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
+                           <button type="submit" class="btn btn-primary text-center float-end mt-2 bg-success border border-dark">Add</button>
+                          </form>
+                           {{-- table to hold the times --}}
+                           <div class="border-bottom border-dark border-2 mt-5">
+
+                           <table  class="table table-hover  text-center mt-5">
+                               <thead>
+                               <th >Times added</th>
+                               </thead>
+                               {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
+                               @foreach ($tuesdayTimes as $tuesdayTime)
+                               <tr >
+                                   <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$tuesdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$tuesdayTime->end_time)->format('h:i A')}}
+
+                                    <form style="display: inline-block" action="{{ route('schedule.delete',$tuesdayTime->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn" id="delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 20 20">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </button>
+
+
+                                    </form>
+                                </td>
+                               </tr>
+                               @endforeach
+
+                           </table>
+                           </div>
+                       </div>
+                   </div>
+                   </div>
+
                 </div>
-                <div class="form-group">
-                    <h2>Friday</h2>
-                    {{-- start time field --}}
-                    <label for="startTime">Enter your start time</label>
-                    <input type="time" name="startTime" class="form-control" id="startTime">
-                    {{-- end time field --}}
-                    <label for="endTime">Enter your end time</label>
-                    <input type="time" name="endTime" class="form-control" id="endTime">
-                    {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
-                    <button type="button" class="btn btn-primary text-center">Set</button>
-                    {{-- table to hold the times --}}
-                    <table>
-                        {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
-                        <tr>10:00<td><button class="editbtn">edit</button></td></tr>
-                    </table>
+
+                <div class="col">
+                   {{-- Wednesday Section --}}
+                <form method="post" action="{{ route('schedule.add') }}">
+                    @csrf
+                   <div class="form-group" style="width: 300px;">
+                       <div class="col">
+                           <h2 class="text-center">Wednesday</h2>
+                           <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
+                           {{-- Hidden Field for day id--}}
+                           <input type="hidden" name="day" value="3">
+                            {{-- Hidden Field for account_id--}}
+                            <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
+                           {{-- start time field --}}
+                           <label for="startTime">Enter your start time</label>
+                           <input type="time" name="startTime" class="form-control" id="startTime">
+                           {{-- end time field --}}
+                           <label for="endTime">Enter your end time</label>
+                           <input type="time" name="endTime" class="form-control" id="endTime">
+                           {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
+                           <button type="submit" class="btn btn-primary text-center float-end mt-2 bg-success border border-dark">Add</button>
+                        </form>
+                           {{-- table to hold the times --}}
+                           <div class="border-bottom border-dark border-2 mt-5">
+
+                           <table  class="table table-hover  text-center mt-5">
+                               <thead>
+                               <th >Times added</th>
+                               </thead>
+                               {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
+                               @foreach ($wednesdayTimes as $wednesdayTime)
+                               <tr >
+                                   <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$wednesdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$wednesdayTime->end_time)->format('h:i A')}}
+
+                                    <form style="display: inline-block" action="{{ route('schedule.delete',$wednesdayTime->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn" id="delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 20 20">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </button>
+
+
+                                    </form>
+                                </td>
+                               </tr>
+                               @endforeach
+
+                           </table>
+                           </div>
+                       </div>
+                   </div>
+                   </div>
+
                 </div>
-                <div class="form-group">
-                    <h2>Saturday</h2>
-                    {{-- start time field --}}
-                    <label for="startTime">Enter your start time</label>
-                    <input type="time" name="startTime" class="form-control" id="startTime">
-                    {{-- end time field --}}
-                    <label for="endTime">Enter your end time</label>
-                    <input type="time" name="endTime" class="form-control" id="endTime">
-                    {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
-                    <button type="button" class="btn btn-primary text-center">Set</button>
-                    {{-- table to hold the times --}}
-                    <table>
-                        {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
-                        <tr>10:00<td><button class="editbtn">edit</button></td></tr>
-                    </table>
                 </div>
-                <label for="courseLoad">Maximum Course Load</label>
-                <p name="courseLoad" id="courseLoad">0</p>
-                <button type="submit" class="btn btn-primary text-center">Submit</button>
-            </form>
+                <div class="row">
+
+                <div class="col">
+                   {{-- Thursday Section --}}
+                <form method="post" action="{{ route('schedule.add') }}">
+                    @csrf
+                   <div class="form-group" style="width: 300px;">
+                       <div class="col">
+                           <h2 class="text-center">Thursday</h2>
+                           <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
+                           {{-- Hidden Field for day id--}}
+                           <input type="hidden" name="day" value="4">
+                            {{-- Hidden Field for account_id--}}
+                            <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
+                           {{-- start time field --}}
+                           <label for="startTime">Enter your start time</label>
+                           <input type="time" name="startTime" class="form-control" id="startTime">
+                           {{-- end time field --}}
+                           <label for="endTime">Enter your end time</label>
+                           <input type="time" name="endTime" class="form-control" id="endTime">
+                           {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
+                           <button type="submit" class="btn btn-primary text-center float-end mt-2 bg-success border border-dark">Add</button>
+                        </form>
+                           {{-- table to hold the times --}}
+                           <div class="border-bottom border-dark border-2 mt-5">
+
+                           <table  class="table table-hover  text-center mt-5">
+                               <thead>
+                               <th >Times added</th>
+                               </thead>
+                               {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
+                               @foreach ($thursdayTimes as $thursdayTime)
+                               <tr >
+                                   <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$thursdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$thursdayTime->end_time)->format('h:i A')}}
+
+                                    <form style="display: inline-block" action="{{ route('schedule.delete',$thursdayTime->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn" id="delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 20 20">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </button>
+
+
+                                    </form>
+                                </td>
+                               </tr>
+                               @endforeach
+
+                           </table>
+                           </div>
+                       </div>
+                   </div>
+                   </div>
+
+                </div>
+
+                <div class="col">
+                   {{-- Friday Section --}}
+                <form method="post" action="{{ route('schedule.add') }}">
+                    @csrf
+                   <div class="form-group" style="width: 300px;">
+                       <div class="col">
+                           <h2 class="text-center">Friday</h2>
+                           <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
+                           {{-- Hidden Field for day id--}}
+                           <input type="hidden" name="day" value="5">
+                            {{-- Hidden Field for account_id--}}
+                            <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
+                           {{-- start time field --}}
+                           <label for="startTime">Enter your start time</label>
+                           <input type="time" name="startTime" class="form-control" id="startTime">
+                           {{-- end time field --}}
+                           <label for="endTime">Enter your end time</label>
+                           <input type="time" name="endTime" class="form-control" id="endTime">
+                           {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
+                           <button type="submit" class="btn btn-primary text-center float-end mt-2 bg-success border border-dark">Add</button>
+                        </form>
+                           {{-- table to hold the times --}}
+                           <div class="border-bottom border-dark border-2 mt-5">
+
+                           <table  class="table table-hover  text-center mt-5">
+                               <thead>
+                               <th >Times added</th>
+                               </thead>
+                               {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
+                               @foreach ($fridayTimes as $fridayTime)
+                               <tr >
+                                   <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$fridayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$fridayTime->end_time)->format('h:i A')}}
+
+                                    <form style="display: inline-block" action="{{ route('schedule.delete',$fridayTime->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn" id="delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 20 20">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </button>
+
+
+                                    </form>
+                                </td>
+                               </tr>
+                               @endforeach
+
+                           </table>
+                           </div>
+                       </div>
+                   </div>
+                   </div>
+                </div>
+
+                <div class="col">
+                   {{-- Saturday Section --}}
+                <form method="post" action="{{ route('schedule.add') }}">
+                    @csrf
+                   <div class="form-group" style="width: 300px;">
+                       <div class="col">
+                           <h2 class="text-center">Saturday</h2>
+                           <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
+                           {{-- Hidden Field for day id--}}
+                           <input type="hidden" name="day" value="6">
+                            {{-- Hidden Field for account_id--}}
+                            <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
+                           {{-- start time field --}}
+                           <label for="startTime">Enter your start time</label>
+                           <input type="time" name="startTime" class="form-control" id="startTime">
+                           {{-- end time field --}}
+                           <label for="endTime">Enter your end time</label>
+                           <input type="time" name="endTime" class="form-control" id="endTime">
+                           {{-- button to save it to the table below, program functionality in controller or right here maybe, still wip --}}
+                           <button type="submit" class="btn btn-primary text-center float-end mt-2 bg-success border border-dark">Add</button>
+                           </form>
+                           {{-- table to hold the times --}}
+                           <div class="border-bottom border-dark border-2 mt-5">
+
+                           <table  class="table table-hover  text-center mt-5">
+                               <thead>
+                               <th >Times added</th>
+                               </thead>
+                               {{-- replace the button text with icon, or just replace it entirely with an image and add an onclick --}}
+                               @foreach ($saturdayTimes as $saturdayTime)
+                               <tr >
+                                   <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$saturdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$saturdayTime->end_time)->format('h:i A')}}
+
+                                    <form style="display: inline-block" action="{{ route('schedule.delete',$saturdayTime->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn" id="delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-x-circle" viewBox="0 0 20 20">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </button>
+
+
+                                    </form>
+                                </td>
+                               </tr>
+                               @endforeach
+
+                           </table>
+                           </div>
+                       </div>
+                   </div>
+                   </div>
+                </div>
+                <div>
+                <label for="courseLoad" class="ms-3 mt-3 mb-1">Maximum Course Load</label>
+                <p name="courseLoad" id="courseLoad" type="text" class="form-control text-center ms-3" style="width: 150px;" >ex. 0</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

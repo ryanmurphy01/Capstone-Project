@@ -14,7 +14,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="welcome" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -39,7 +39,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="coursesReq" class="nav-link align-middle px-0 link-dark active">
+                        <a href="{{ route('coursesReq') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -55,9 +55,8 @@
                 <div class="dropdown pb-4" style="border-top: 1px solid black; width: 100%; padding-top: 20px">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- insert profile pic/icon here here --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                        </svg>
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Instructor Name Here</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -71,36 +70,73 @@
             </div>
         </div>
         <div class="col-8">
-            <h1 class="pb-5 pt-5 display-3">Selected Courses</h1>
+            <h1 class="pb-5 pt-5 display-3">Programs</h1>
+
+            @if($errors->any())
+                <script>
+                    $(document).ready(function(){
+                        $('#programModal').modal("show");
+                    });
+                </script>
+            @endif
+
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Failed to add new Program please try again.
+                </div>
+            @endif
+
+            @if(Session::get('success'))
+                <div class="alert alert-success alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    {{ Session::get('success') }}
+                </div>
+                @endif
+
+                @if(Session::get('fail'))
+                <div class="alert alert-fail alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    {{ Session::get('fail') }}
+                </div>
+            @endif
+
+            <small>Click a program to see courses for it.</small>
+            {{-- search bar --}}
+            {{-- TODO put the proper route here --}}
+            <form action="{{ route('coursesReq/programs') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="iProgramSearch" id="iProgramSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th>Course Name</th>
-                        <th>Course Code</th>
-                        <th>Course Description</th>
-                        <th></th>
+                        <th>Program Name</th>
+                        <th>Program Code</th>
                     </tr>
                 </thead>
+                {{-- again, use a foreach to go through db once it's setup --}}
                 <tbody>
-                    @foreach ($courses as $course)
+                    @foreach ($programs as $program)
                     <tr>
-                        <td>{{ $course->course_name }}</td>
-                        <td>{{ $course->course_code }}</td>
-                        <td>{{ $course->description }}</td>
-                        <td>
-                            {{-- TODO put the proper route to remove courses from the selection --}}
-                            <form style="display: inline-block" action="{{ route('coursesReq/remove', $course->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Remove</button>
-                            </form>
-                        </td>
+                        {{-- TODO put the proper route here --}}
+                        <td><a href="{{ route('coursesReq/courses', $program->id) }}" class="link-dark" style="font-size: 13pt">{{ $program->program_name }}</a></td>
+                        <td>{{ $program->program_code }}</td>
+                        {{-- <td>
+                            <a href="{{route('programs.edit', $program->id)}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </svg>
+                            </a>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
-            <a href="{{ route('coursesReq/programs') }}" style="margin-top: 10px" type="button" class="pb-2 pt-2 btn btn-success">Click here to add another course</a>
+        </div>
     </div>
 </div>
 
