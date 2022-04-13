@@ -65,7 +65,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="{{ route('semester') }}" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('semester.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -91,7 +91,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="{{ route('request.index') }}" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('requests') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-patch-question-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -122,32 +122,87 @@
             </div>
         </div>
         <div class="col-8">
-            <h1>Denied Instructors</h1>
+            <h1 class="pb-5 pt-5 display-3">Denied Requests</h1>
 
-            <table>
-                <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                {{-- empty header for format --}}
-                <th></th>
-                </tr>
-                {{-- again, use a foreach to go through db once it's setup --}}
-                <tr>
-                <td>Philip Rosen</td>
-                <td>HTML and CSS</td>
-                <td>WEB110</td>
-                {{-- make the image an onclick once we get into controllers and stuff --}}
-                <td>
-                    <svg height="30" width="30">
-                        <circle cx="15" cy="15" r="10" stroke="black" stroke-width="3" fill="red" />
+            {{-- the key for the symbols --}}
+            <div class="container" >
+                <div class="row row-cols-auto float-end mb-3">
+                <div class="col text-center">
+                    <h3>Approved</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16">
+                        <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+                        <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
                     </svg>
-                </td>
-                </tr>
-            </table>
+                </div>
+                <div class="col text-center">
+                    <h3>Pending</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="current-color" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                </div>
+                <div class="col text-center">
+                    <h3>Denied</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </div>
+                </div>
+            </div>
 
-            {{-- not really sure if this is to update all records or bring up the editing popup, clarify next time we talk --}}
-            <button type="button">Update</button>
+            <form action="{{ route('deniedRequests') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aRequestSearch" id="aRequestSearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
+
+            <table class="table table-striped table-hover mx-auto">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Instructor Name</th>
+                        <th>Course Name</th>
+                        <th>Course Code</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($records as $record)
+                        <tr>
+                            <td>{{ $record->first_name }}  {{ $record->last_name }}</td>
+                            <td>{{ $record->course_name }}</td>
+                            <td>{{ $record->course_code }}</td>
+                            <td style="padding-left: 20px">
+                                {{-- display a different icon depending on what the status of the request is --}}
+                                @if ($record->status_id == 1)
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                                    </svg>
+                                @elseif ($record->status_id == 2)
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16">
+                                        <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+                                        <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                    </svg>
+                                @elseif ($record->status_id == 3)
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg>
+                                @endif
+                            </td>
+                            <td>
+                                <a class="btn btn border-dark"  href="{{ route('approveRequest', [$record->account_id, $record->course_id]) }}">Change to Accepted</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            {{-- the thing in the url is the route name of the destination page, see web.php --}}
+            <button onclick="document.location='{{ url('approvedRequests') }}'" class="m-2 btn btn-success border-dark float-end">Approved Requests</button>
+            <button onclick="document.location='{{ url('requests') }}'" class="m-2 btn btn-success border-dark float-end">Pending Requests</button>
         </div>
     </div>
 </div>

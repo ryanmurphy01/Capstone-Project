@@ -13,7 +13,7 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="width: 100%; margin-right: 10px">                    <li class="nav-item" style="width: 100%">
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="welcome" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('welcome') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -26,7 +26,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="schedule" class="nav-link align-middle px-0 link-dark active">
+                        <a href="{{ route('schedule.index') }}" class="nav-link align-middle px-0 link-dark active">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -38,7 +38,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="courses" class="nav-link align-middle px-0 link-dark">
+                        <a href="coursesReq" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -85,9 +85,9 @@
                     <div class="col">
                         <h2 class="text-center">Monday</h2>
                         <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
-                        {{-- Hidden Field for day id--}}   
+                        {{-- Hidden Field for day id--}}
                         <input type="hidden" name="day" value="1">
-                         {{-- Hidden Field for account_id--}}   
+                         {{-- Hidden Field for account_id--}}
                          <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
                         {{-- start time field --}}
                         <label for="startTime">Enter your start time</label>
@@ -118,20 +118,20 @@
                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                               </svg>
                                             </button>
-            
-                                        
+
+
                                     </form>
                                 </td>
-                                
+
                             </tr>
                             @endforeach
-                            
+
                         </table>
                         </div>
                     </div>
                 </div>
                 </div>
-                 
+
                 </div>
                 <div class="col">
                    {{-- Tuesday Section --}}
@@ -141,9 +141,9 @@
                        <div class="col">
                            <h2 class="text-center">Tuesday</h2>
                            <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
-                           {{-- Hidden Field for day id--}}   
+                           {{-- Hidden Field for day id--}}
                            <input type="hidden" name="day" value="2">
-                            {{-- Hidden Field for account_id--}}   
+                            {{-- Hidden Field for account_id--}}
                             <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
                            {{-- start time field --}}
                            <label for="startTime">Enter your start time</label>
@@ -156,7 +156,7 @@
                           </form>
                            {{-- table to hold the times --}}
                            <div class="border-bottom border-dark border-2 mt-5">
-   
+
                            <table  class="table table-hover  text-center mt-5">
                                <thead>
                                <th >Times added</th>
@@ -165,7 +165,7 @@
                                @foreach ($tuesdayTimes as $tuesdayTime)
                                <tr >
                                    <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$tuesdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$tuesdayTime->end_time)->format('h:i A')}}
-                                
+
                                     <form style="display: inline-block" action="{{ route('schedule.delete',$tuesdayTime->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -175,19 +175,19 @@
                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                               </svg>
                                             </button>
-            
-                                        
+
+
                                     </form>
                                 </td>
                                </tr>
                                @endforeach
-                               
+
                            </table>
                            </div>
                        </div>
                    </div>
                    </div>
-                   
+
                 </div>
 
                 <div class="col">
@@ -198,9 +198,9 @@
                        <div class="col">
                            <h2 class="text-center">Wednesday</h2>
                            <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
-                           {{-- Hidden Field for day id--}}   
+                           {{-- Hidden Field for day id--}}
                            <input type="hidden" name="day" value="3">
-                            {{-- Hidden Field for account_id--}}   
+                            {{-- Hidden Field for account_id--}}
                             <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
                            {{-- start time field --}}
                            <label for="startTime">Enter your start time</label>
@@ -213,7 +213,7 @@
                         </form>
                            {{-- table to hold the times --}}
                            <div class="border-bottom border-dark border-2 mt-5">
-   
+
                            <table  class="table table-hover  text-center mt-5">
                                <thead>
                                <th >Times added</th>
@@ -222,7 +222,7 @@
                                @foreach ($wednesdayTimes as $wednesdayTime)
                                <tr >
                                    <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$wednesdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$wednesdayTime->end_time)->format('h:i A')}}
-                                
+
                                     <form style="display: inline-block" action="{{ route('schedule.delete',$wednesdayTime->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -232,23 +232,23 @@
                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                               </svg>
                                             </button>
-            
-                                        
+
+
                                     </form>
                                 </td>
                                </tr>
                                @endforeach
-                               
+
                            </table>
                            </div>
                        </div>
                    </div>
                    </div>
-                    
+
                 </div>
                 </div>
                 <div class="row">
-                
+
                 <div class="col">
                    {{-- Thursday Section --}}
                 <form method="post" action="{{ route('schedule.add') }}">
@@ -257,9 +257,9 @@
                        <div class="col">
                            <h2 class="text-center">Thursday</h2>
                            <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
-                           {{-- Hidden Field for day id--}}   
+                           {{-- Hidden Field for day id--}}
                            <input type="hidden" name="day" value="4">
-                            {{-- Hidden Field for account_id--}}   
+                            {{-- Hidden Field for account_id--}}
                             <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
                            {{-- start time field --}}
                            <label for="startTime">Enter your start time</label>
@@ -272,7 +272,7 @@
                         </form>
                            {{-- table to hold the times --}}
                            <div class="border-bottom border-dark border-2 mt-5">
-   
+
                            <table  class="table table-hover  text-center mt-5">
                                <thead>
                                <th >Times added</th>
@@ -281,7 +281,7 @@
                                @foreach ($thursdayTimes as $thursdayTime)
                                <tr >
                                    <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$thursdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$thursdayTime->end_time)->format('h:i A')}}
-                                
+
                                     <form style="display: inline-block" action="{{ route('schedule.delete',$thursdayTime->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -291,19 +291,19 @@
                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                               </svg>
                                             </button>
-            
-                                        
+
+
                                     </form>
                                 </td>
                                </tr>
                                @endforeach
-                               
+
                            </table>
                            </div>
                        </div>
                    </div>
                    </div>
-                 
+
                 </div>
 
                 <div class="col">
@@ -314,9 +314,9 @@
                        <div class="col">
                            <h2 class="text-center">Friday</h2>
                            <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
-                           {{-- Hidden Field for day id--}}   
+                           {{-- Hidden Field for day id--}}
                            <input type="hidden" name="day" value="5">
-                            {{-- Hidden Field for account_id--}}   
+                            {{-- Hidden Field for account_id--}}
                             <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
                            {{-- start time field --}}
                            <label for="startTime">Enter your start time</label>
@@ -329,7 +329,7 @@
                         </form>
                            {{-- table to hold the times --}}
                            <div class="border-bottom border-dark border-2 mt-5">
-   
+
                            <table  class="table table-hover  text-center mt-5">
                                <thead>
                                <th >Times added</th>
@@ -338,7 +338,7 @@
                                @foreach ($fridayTimes as $fridayTime)
                                <tr >
                                    <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$fridayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$fridayTime->end_time)->format('h:i A')}}
-                                
+
                                     <form style="display: inline-block" action="{{ route('schedule.delete',$fridayTime->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -348,18 +348,18 @@
                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                               </svg>
                                             </button>
-            
-                                        
+
+
                                     </form>
                                 </td>
                                </tr>
                                @endforeach
-                               
+
                            </table>
                            </div>
                        </div>
                    </div>
-                   </div> 
+                   </div>
                 </div>
 
                 <div class="col">
@@ -370,9 +370,9 @@
                        <div class="col">
                            <h2 class="text-center">Saturday</h2>
                            <div class="border border-dark m-3 p-3 bg-secondary" style="--bs-bg-opacity: .20;">
-                           {{-- Hidden Field for day id--}}   
+                           {{-- Hidden Field for day id--}}
                            <input type="hidden" name="day" value="6">
-                            {{-- Hidden Field for account_id--}}   
+                            {{-- Hidden Field for account_id--}}
                             <input type="hidden" name="accountId" value="{{session('LoggedUser')}}">
                            {{-- start time field --}}
                            <label for="startTime">Enter your start time</label>
@@ -385,7 +385,7 @@
                            </form>
                            {{-- table to hold the times --}}
                            <div class="border-bottom border-dark border-2 mt-5">
-   
+
                            <table  class="table table-hover  text-center mt-5">
                                <thead>
                                <th >Times added</th>
@@ -394,7 +394,7 @@
                                @foreach ($saturdayTimes as $saturdayTime)
                                <tr >
                                    <td>{{ \Carbon\Carbon::createFromFormat('H:i:s',$saturdayTime->start_time)->format('h:i A')}}-{{ \Carbon\Carbon::createFromFormat('H:i:s',$saturdayTime->end_time)->format('h:i A')}}
-                                
+
                                     <form style="display: inline-block" action="{{ route('schedule.delete',$saturdayTime->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -404,18 +404,18 @@
                                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                               </svg>
                                             </button>
-            
-                                        
+
+
                                     </form>
                                 </td>
                                </tr>
                                @endforeach
-                               
+
                            </table>
                            </div>
                        </div>
                    </div>
-                   </div> 
+                   </div>
                 </div>
                 <div>
                 <label for="courseLoad" class="ms-3 mt-3 mb-1">Maximum Course Load</label>

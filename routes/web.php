@@ -9,6 +9,7 @@ use App\Http\Controllers\InstructorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\RequestDisplayController;
 use App\Http\Controllers\RequestEmail;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SemesterController;
@@ -48,11 +49,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 });
 
 Route::post('courses/{id}',[CourseController::class, 'storeCourse'])->name('storeCourse');
-//trying to search and index in one
+//search and index in one
 Route::get('courses/{id}', [CourseController::class, 'index'])->name('courses');
 Route::resource('courses', CourseController::class);
-//route to search
-// Route::get('courses/search', 'CourseController@search');
 
 
 Route::get("/passwordReset",[MainController::class, 'showResetPage'])->name('forgot.password');
@@ -62,18 +61,26 @@ Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('
 
 //instructor routes
 //main
+
 Route::get('/schedule',[AvailabilityController::class, 'index'])->name('schedule.index');
 Route::post('/schedule/add',[AvailabilityController::class, 'add'])->name('schedule.add');
 Route::delete('/schedule/delete/{id}',[AvailabilityController::class, 'delete'])->name('schedule.delete');
 
-//main
-
-Route::get('coursesReq', [ICourseRequestController::class, 'iDropdown'])->name('coursesReq');
-Route::get('coursesReqSearch', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqSearch');
-Route::get('coursesReqSelect', [ICourseRequestController::class, 'addToList'])->name('coursesReqSelect');
-
 
 Route::resource('semester', SemesterController::class);
+
+
+
+//main
+
+Route::get('coursesReq', [ICourseRequestController::class, 'index'])->name('coursesReq');
+Route::get('coursesReq/programs', [ICourseRequestController::class, 'showProgams'])->name('coursesReq/programs');
+//pass the program as param and list associated courses
+Route::get('coursesReq/courses/{id}', [ICourseRequestController::class, 'showCourses'])->name('coursesReq/courses');
+//route to save course selected by user
+Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelection'])->name('coursesReq/save');
+//delete route to delete a course from the instructors selection
+Route::post('coursesReq/remove/{id}',[ICourseRequestController::class, 'destroy'])->name('coursesReq/remove');
 
 Route::get('/availability', [ScheduleController::class, 'index']);
 
@@ -86,12 +93,11 @@ Route::get('/availability', [ScheduleController::class, 'index']);
 Route::get('/welcome', function () {
 
     return view('InstructorViews/instructorWelcome');
-});
+})->name('welcome');
 
-//admin routes, mostly for testing, for now
+
+//admin routes
 //main
-
-
 Route::get('/unresponsive', function () {
 
     return view('AdminViews/adminUnresponsiveInstructors');
@@ -101,23 +107,15 @@ Route::get('/unresponsive', function () {
 
 
 
-
-
 //main Program routes
 //Route::get('/programs', [ProgramController::class, 'indexPrograms']);
 //Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
-
-
 //main
 Route::get('history', [IHistoryController::class, 'index'])->name('history.index');
-// Route::get('/history', function () {
-//     return view('AdminViews/adminHistory');
-// });
-
 //route for when you click on a certain instructor in the history page
-Route::get('courseHistory/{id}', [IHistoryController::class, 'detail']);
+Route::get('courseHistory/{id}', [IHistoryController::class, 'detail'])->name('courseHistory');
 
 
 //main
@@ -125,17 +123,13 @@ Route::get('/email', [RequestEmail::class, 'index'])->name('email');
 Route::get('/email/send', [RequestEmail::class, 'sendEmail'])->name('email.send');
 
 //main
-Route::get('/requests', function () {
+Route::get('requests', [RequestDisplayController::class, 'index'])->name('requests');
+//route to show approved requests
+Route::get('approvedRequests', [RequestDisplayController::class, 'approvedRequests'])->name('approvedRequests');
+//route to mark a request as approved
+Route::get('approveRequest/{userId}/{courseCode}', [RequestDisplayController::class, 'approveARequest'])->name('approveRequest');
+//route to retrieve all denied requests
+Route::get('deniedRequests', [RequestDisplayController::class, 'deniedRequests'])->name('deniedRequests');
+//route to deny a teaching request
+Route::get('denyRequest/{userId}/{courseCode}', [RequestDisplayController::class, 'denyARequest'])->name('denyRequest');
 
-    return view('AdminViews/adminRequests');
-})->name('request.index');
-
-Route::get('/approvedRequests', function () {
-
-    return view('AdminViews/adminApprovedRequests');
-});
-
-Route::get('/deniedRequests', function () {
-
-    return view('AdminViews/adminDeniedRequests');
-});

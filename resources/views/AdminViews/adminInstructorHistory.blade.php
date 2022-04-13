@@ -65,7 +65,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="{{ route('semester') }}" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('semester.index') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -91,7 +91,7 @@
                     </li>
                     <li class="nav-item" style="width: 100%">
                         {{-- link goes here --}}
-                        <a href="{{ route('request.index') }}" class="nav-link align-middle px-0 link-dark">
+                        <a href="{{ route('requests') }}" class="nav-link align-middle px-0 link-dark">
                             {{-- extra width and height to compensate padding which makes it smaller, also margin and padding to make it centered in small version --}}
                             {{-- styles: style="padding-bottom: 5px; margin-left: 5px". make the image height and width 30 --}}
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-patch-question-fill" viewBox="0 0 16 16" style="padding-bottom: 5px; margin-left: 5px">
@@ -122,10 +122,43 @@
             </div>
         </div>
         <div class="col-8">
-            {{-- TODO, this part causes a crash when leaving the page using the navbar. something about the account
-            object not existing. We can either disable the navbar here or make a button that takes them back instead --}}
-            <h1 class="pb-5 pt-5 display-3">Course History - {{ $accounts->first_name }} {{ $accounts->last_name }}</h1>
-            <input type="text" placeholder="Course Name or Code..." class="form-control form-control-lg">
+            <h1 class="pb-5 pt-5 display-3">Course History - {{ $account->first_name }} {{ $account->last_name }}</h1>
+
+            {{-- the key for the little symbols --}}
+            <div class="container" >
+                <div class="row row-cols-auto float-end mb-3">
+                <div class="col text-center">
+                    <h3>Approved</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16">
+                        <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+                        <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                    </svg>
+                </div>
+                <div class="col text-center">
+                    <h3>Pending</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="current-color" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                </div>
+                <div class="col text-center">
+                    <h3>Denied</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </div>
+                </div>
+            </div>
+
+            {{-- search bar --}}
+            {{-- TODO, add the route --}}
+            <form action="{{ route('courseHistory', $account->id) }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="aHistorySearch" id="aHistorySearch" placeholder="Search..." class="form-control form-control-lg">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
 
             <table class="table table-hover table-striped mx-auto text-center">
                 <thead class="thead-light">
@@ -137,20 +170,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- again, use a foreach to go through db once it's setup --}}
-                    <tr>
-                        <td>HTML and CSS</td>
-                        <td>Course Code</td>
-                        {{-- replace with svg at some point --}}
-                        <td><img src="#" alt="status icon"></td>
-                        <td>
-                            <button type="button" class="btn btn border-dark">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                    @foreach ($courses as $course)
+                        <tr>
+                            <td>{{ $course->course_name }}</td>
+                            <td>{{ $course->course_code }}</td>
+                            {{-- display a different icon and button(s) depending on what the status of the request is --}}
+                            @if ($course->status_id == 1)
+                                <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                                    </svg>
+                                </td>
+                                <td>
+                                    <a class="btn btn border-dark"  href="{{ route('approveRequest', [$account->id, $course->course_id]) }}">Accept</a>
+                                    <a class="btn btn border-dark" href="{{ route('denyRequest', [$account->id, $course->course_id]) }}">Deny</a>
+                                </td>
+                            @elseif ($course->status_id == 2)
+                                <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16">
+                                        <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+                                        <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                    </svg>
+                                </td>
+                                <td>
+                                    <a class="btn btn border-dark" href="{{ route('denyRequest', [$account->id, $course->course_id]) }}">Change to Denied</a>
+                                </td>
+                            @elseif ($course->status_id == 3)
+                            <td>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-x-square" viewBox="0 0 16 16">
+                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                 </svg>
-                            </button>
-                        </td>
-                    </tr>
+                            </td>
+                            <td>
+                                <a class="btn btn border-dark"  href="{{ route('approveRequest', [$account->id, $course->course_id]) }}">Change to Accepted</a>
+                            </td>
+                            @endif
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

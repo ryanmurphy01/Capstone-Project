@@ -153,6 +153,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col py-3">
                 <h1 class="pb-3 pt-3 ">Instructor Availability</h1>
                 <input type="text" placeholder="Instructor Name..." class="mb-4 w-100 p-1">
