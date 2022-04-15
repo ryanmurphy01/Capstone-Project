@@ -165,6 +165,7 @@
                         <th>Instructor Name</th>
                         <th>Course Name</th>
                         <th>Course Code</th>
+                        <th>Semester</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -175,6 +176,8 @@
                             <td>{{ $record->first_name }}  {{ $record->last_name }}</td>
                             <td>{{ $record->course_name }}</td>
                             <td>{{ $record->course_code }}</td>
+                            {{-- semester code --}}
+                            <td>{{ $record->code }}</td>
                             <td style="padding-left: 20px">
                                 {{-- display a different icon depending on what the status of the request is --}}
                                 @if ($record->status_id == 1)
@@ -195,7 +198,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a class="btn btn border-dark" href="{{ route('denyRequest', [$record->account_id, $record->course_id]) }}">Change to Denied</a>
+                                <a class="btn btn border-dark" href="{{ route('denyRequest', [$record->account_id, $record->course_id, $record->semester_id]) }}">Change to Denied</a>
                             </td>
                         </tr>
                     @endforeach

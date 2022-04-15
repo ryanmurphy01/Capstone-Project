@@ -17,7 +17,9 @@ class CreateTeacherCourseTable extends Migration
 
             $table->foreignId('account_id')->constrained('accounts')->primary();
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
-            $table->foreignId('status_id')->constrained("course_status");
+            $table->foreignId('status_id')->constrained('course_status');
+            //new row to track semester in course selection records
+            $table->foreignId('semester_id')->constrained('semesters');
             $table->timestamps();
 
         });

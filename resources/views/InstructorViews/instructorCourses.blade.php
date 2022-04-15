@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="col-8">
-            <h1 class="pb-5 pt-5 display-3">Selected Courses</h1>
+            <h1 class="pb-5 pt-5 display-3">Selected Courses (semester: {{ $semester->name }} {{ $semester->code }})</h1>
 
             <table class="table table-hover table-striped">
                 <thead class="thead-light">

@@ -21,6 +21,8 @@ class account extends Model
         'id',
         'first_name',
         'last_name',
+        //new employee id field
+        'employee_id',
         'contact_number',
         'password',
         'personal_email',

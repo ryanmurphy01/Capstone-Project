@@ -152,7 +152,6 @@
             </div>
 
             {{-- search bar --}}
-            {{-- TODO, add the route --}}
             <form action="{{ route('courseHistory', $account->id) }}" method="GET">
                 <div class="input-group">
                     <input type="text" name="aHistorySearch" id="aHistorySearch" placeholder="Search..." class="form-control form-control-lg">
@@ -165,6 +164,7 @@
                     <tr>
                         <th>Course Name</th>
                         <th>Course Code</th>
+                        <th>Semester</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -174,6 +174,7 @@
                         <tr>
                             <td>{{ $course->course_name }}</td>
                             <td>{{ $course->course_code }}</td>
+                            <td>{{ $course->code }}</td>
                             {{-- display a different icon and button(s) depending on what the status of the request is --}}
                             @if ($course->status_id == 1)
                                 <td>
@@ -183,7 +184,7 @@
                                     </svg>
                                 </td>
                                 <td>
-                                    <a class="btn btn border-dark"  href="{{ route('approveRequest', [$account->id, $course->course_id]) }}">Accept</a>
+                                    <a class="btn btn border-dark"  href="{{ route('approveRequest', [$account->id, $course->course_id, $course->semester_id]) }}">Accept</a>
                                     <a class="btn btn border-dark" href="{{ route('denyRequest', [$account->id, $course->course_id]) }}">Deny</a>
                                 </td>
                             @elseif ($course->status_id == 2)
@@ -194,7 +195,7 @@
                                     </svg>
                                 </td>
                                 <td>
-                                    <a class="btn btn border-dark" href="{{ route('denyRequest', [$account->id, $course->course_id]) }}">Change to Denied</a>
+                                    <a class="btn btn border-dark" href="{{ route('denyRequest', [$account->id, $course->course_id, $course->semester_id]) }}">Change to Denied</a>
                                 </td>
                             @elseif ($course->status_id == 3)
                             <td>
@@ -204,7 +205,7 @@
                                 </svg>
                             </td>
                             <td>
-                                <a class="btn btn border-dark"  href="{{ route('approveRequest', [$account->id, $course->course_id]) }}">Change to Accepted</a>
+                                <a class="btn btn border-dark"  href="{{ route('approveRequest', [$account->id, $course->course_id, $course->semester_id]) }}">Change to Accepted</a>
                             </td>
                             @endif
                         </tr>
