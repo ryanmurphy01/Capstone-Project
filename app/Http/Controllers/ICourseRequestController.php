@@ -103,7 +103,10 @@ class ICourseRequestController extends Controller
         $temp = DB::table('teacher_courses')
             -> where('account_id', '=', $Userid)
             -> where('course_id', '=', $id)
+            -> where('status_id', '=', 2)
             -> get();
+
+            print($temp);
 
         if ($temp->isNotEmpty()) {
             //check if there's a record for this specific semester already to stop dupes
@@ -115,7 +118,7 @@ class ICourseRequestController extends Controller
 
             if ($dupeCheck->isNotEmpty()) {
                 //tell the user that this course has already been requested
-                echo '<script>alert("This course has already been requested for this semester")</script>';
+                return back()->with('fail', 'This course has already been requested for this semester');
             }
             //if the record exists in the past but not for this semester, add a record for this semester
             //and approve is automatically

@@ -21,22 +21,32 @@ class IHistoryController extends Controller
             -> join('courses', 'teacher_courses.course_id', '=', 'courses.id')
             //join to semester table too
             -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
+            //check to make sure only teachers are displayed here, join the status and check that the number is 2
+            -> join('account_types', 'accounts.id', '=', 'account_types.account_id')
             //check for instructor name or course detail matches
             -> where(function ($query) use($search_text) {
                 $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
                     -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                    -> orWhere('employee_id', 'LIKE', '%'.$search_text.'%')
                     -> orWhere('courses.course_code', 'LIKE', '%'.$search_text.'%')
                     -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%')
                     //check to see if search matches any semester
                     -> orWhere('semesters.code', 'LIKE', '%'.$search_text.'%')
                     -> orWhere('semesters.name', 'LIKE', '%'.$search_text.'%');
                 })
+            -> where('account_types.type_id', '=', 2)
             -> select('accounts.*')
             -> get();
         }
         //otherwise get all accounts
         else {
-            $data = account::all();
+            $data = DB::table('accounts')
+            -> join('account_types', 'accounts.id', '=', 'account_types.account_id')
+            //-> where('account_types.type_id', '=', 2)
+            -> select('accounts.*')
+            -> get();
+            //simple way, if we want to go back to admins and teachers shown here
+            //$data = account::all();
             //may want to return only active users, in which case, uncomment and use line below instead
             // $data = DB::table('accounts')->where('status_id', 1)->get();
         }
@@ -67,7 +77,7 @@ class IHistoryController extends Controller
                         -> orWhere('semesters.name', 'LIKE', '%'.$search_text.'%');
                     })
                     //return the courses, junction records and semester code
-                -> get(['courses.*', 'teacher_courses.*, semesters.code']);
+                -> get(['courses.*', 'teacher_courses.*', 'semesters.code']);
         }
         //otherwise run the retrieve as usual
         else {
@@ -78,7 +88,7 @@ class IHistoryController extends Controller
                 -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
                 //check if the search matches any user's name. use($search_text)
                 -> where('teacher_courses.account_id', '=', $id)
-                -> get(['courses.*', 'teacher_courses.*, semesters.code']);
+                -> get(['courses.*', 'teacher_courses.*', 'semesters.code']);
         }
 
         return view('AdminViews/adminInstructorHistory', ['account'=>$data], ['courses'=>$data2]);

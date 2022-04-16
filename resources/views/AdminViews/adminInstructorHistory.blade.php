@@ -185,7 +185,7 @@
                                 </td>
                                 <td>
                                     <a class="btn btn border-dark"  href="{{ route('approveRequest', [$account->id, $course->course_id, $course->semester_id]) }}">Accept</a>
-                                    <a class="btn btn border-dark" href="{{ route('denyRequest', [$account->id, $course->course_id]) }}">Deny</a>
+                                    <a class="btn btn border-dark" href="{{ route('denyRequest', [$account->id, $course->course_id, $course->semester_id]) }}">Deny</a>
                                 </td>
                             @elseif ($course->status_id == 2)
                                 <td>
