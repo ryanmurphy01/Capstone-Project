@@ -105,6 +105,7 @@ class RequestDisplayController extends Controller
             //join the courses and accounts table via junction, then return names and course info
             -> join('teacher_courses', 'accounts.id', '=', 'teacher_courses.account_id')
             -> join('courses', 'teacher_courses.course_id', '=', 'courses.id')
+            -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
             -> where('teacher_courses.status_id', 2)
             -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
@@ -138,12 +139,14 @@ class RequestDisplayController extends Controller
             -> where('teacher_courses.status_id', 3)
             -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
+
         //otherwise run the retrieve as usual
         else {
             $data = DB::table('accounts')
             //join the courses and accounts table via junction, then return names and course info
             -> join('teacher_courses', 'accounts.id', '=', 'teacher_courses.account_id')
             -> join('courses', 'teacher_courses.course_id', '=', 'courses.id')
+            -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
             -> where('teacher_courses.status_id', 3)
             -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }

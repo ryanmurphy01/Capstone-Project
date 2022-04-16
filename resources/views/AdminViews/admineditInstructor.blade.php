@@ -39,11 +39,11 @@
 
                 {{-- new field for employee ID when adding users --}}
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="employeeid" name="employeeid" value="{{ old('employeeid')}}">
+                    <input type="text" class="form-control" id="employee_id" name="employee_id" value="{{$account->employee_id}}">
                     <label for="floatingInput">Employee ID</label>
 
                     <!-- error field -->
-                    <span class="text-danger">@error('employeeid'){{ $message }} @enderror</span>
+                    <span class="text-danger">@error('employee_id'){{ $message }} @enderror</span>
                 </div>
 
                 <div class="form-floating mb-3">

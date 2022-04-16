@@ -183,8 +183,7 @@
                     <tr>
                         <td class="firstname">{{ $account->first_name}}</td>
                         <td>{{ $account->last_name}}</td>
-                        <td>test</td>
-                        {{-- <td>{{ $account->employee_id }}</td> --}}
+                         <td>{{ $account->employee_id }}</td>
                         <td>{{ $account->personal_email}}</td>
                         <td>{{ $account->contact_number}}</td>
                         <td>
@@ -251,11 +250,11 @@
 
                     {{-- new field for employee ID when adding users --}}
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="employeeid" name="employeeid" value="{{ old('employeeid')}}">
+                        <input type="text" class="form-control" id="employee_id" name="employee_id" placeholder="name@example.com" value="{{ old('employeeid')}}">
                         <label for="floatingInput">Employee ID</label>
 
                         <!-- error field -->
-                        <span class="text-danger">@error('employeeid'){{ $message }} @enderror</span>
+                        <span class="text-danger">@error('employee_id'){{ $message }} @enderror</span>
                     </div>
 
                     <div class="form-floating mb-3">
