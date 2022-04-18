@@ -382,8 +382,8 @@
                 </table>
 
                 {{-- could make an invisible form which appears when this button is clicked --}}
-                <button type="button" class="my-4 btn btn-success border-dark float-end" style="width: 150px;">Export
-                </button>
+                <a type="button" class="my-4 btn btn-success border-dark float-end" style="width: 150px;" href="{{ route('avail.export') }}">Export
+                </a>
             </div>
         </div>
     </div>

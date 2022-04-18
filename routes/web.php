@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\availabilityExport;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeactivatedController;
@@ -83,6 +84,8 @@ Route::post('coursesReq/remove/{id}',[ICourseRequestController::class, 'destroy'
 
 //main
 Route::get('availability', [ScheduleController::class, 'index'])->name('availability');
+Route::get('availability/export/', [ScheduleController::class, 'export'])->name('avail.export');
+
 
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
