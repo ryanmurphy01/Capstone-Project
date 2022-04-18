@@ -136,12 +136,14 @@
                 <thead class="thead-light">
                     <tr>
                         <th>Instructor Name</th>
+                        <th>Employee ID</th>
                     </tr>
                 </thead>
                 <tbody>
                         @foreach ($accounts as $account)
                             <tr>
                                 <td><a href="courseHistory/{{ $account->id }}" class="link-dark" style="font-size: 14pt">{{ $account->first_name }} {{ $account->last_name }}</a></td>
+                                <td>{{ $account->employee_id }}</td>
                             </tr>
                         @endforeach
                 </tbody>

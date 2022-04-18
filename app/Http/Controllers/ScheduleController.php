@@ -8,24 +8,32 @@ use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
-    function index() {
+    function index(Request $request) {
 
-        $data = DB::table('teacher_availabilities')
-            //join avail table to accounts by ID
-            -> join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
-            //makes sure status is active
-            -> where('accounts.status_id', 1)
-            //return the schedule record along with account first and last name
-            -> get(['teacher_availabilities.*', 'accounts.first_name', 'accounts.last_name']);
+        $search_text = $request->aScheduleSearch;
 
-
-
-        //Get active teacher users
-        $activeTeachers = DB::table('accounts')
-                    ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
-                    ->where('accounts.status_id', 1)
-                    ->where('account_types.type_id', 2)
-                    ->get(['accounts.*', 'account_types.type_id']);
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            $activeTeachers = DB::table('accounts')
+                ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
+                ->where('accounts.status_id', 1)
+                ->where('account_types.type_id', 2)
+                -> where(function ($query) use($search_text) {
+                    $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
+                        -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                        -> orWhere('employee_id', 'LIKE', '%'.$search_text.'%');
+                    })
+                ->get(['accounts.*', 'account_types.type_id']);
+        }
+        //otherwise run the retrieve as usual
+        else {
+            //Get active teacher users
+            $activeTeachers = DB::table('accounts')
+                ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
+                ->where('accounts.status_id', 1)
+                ->where('account_types.type_id', 2)
+                ->get(['accounts.*', 'account_types.type_id']);
+        }
 
         return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers]);
     }

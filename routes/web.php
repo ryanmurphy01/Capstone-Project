@@ -72,7 +72,6 @@ Route::resource('semester', SemesterController::class);
 
 
 //main
-
 Route::get('coursesReq', [ICourseRequestController::class, 'index'])->name('coursesReq');
 Route::get('coursesReq/programs', [ICourseRequestController::class, 'showProgams'])->name('coursesReq/programs');
 //pass the program as param and list associated courses
@@ -82,7 +81,8 @@ Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelec
 //delete route to delete a course from the instructors selection
 Route::post('coursesReq/remove/{id}',[ICourseRequestController::class, 'destroy'])->name('coursesReq/remove');
 
-Route::get('/availability', [ScheduleController::class, 'index']);
+//main
+Route::get('availability', [ScheduleController::class, 'index'])->name('availability');
 
 // Route::get('coursesReqDesc', [ICourseRequestController::class, 'courseRequest'])->name('coursesReqDesc');
 // Route::get('/courses', function () {
@@ -127,9 +127,9 @@ Route::get('requests', [RequestDisplayController::class, 'index'])->name('reques
 //route to show approved requests
 Route::get('approvedRequests', [RequestDisplayController::class, 'approvedRequests'])->name('approvedRequests');
 //route to mark a request as approved
-Route::get('approveRequest/{userId}/{courseCode}', [RequestDisplayController::class, 'approveARequest'])->name('approveRequest');
+Route::get('approveRequest/{userId}/{courseCode}/{semesterid}', [RequestDisplayController::class, 'approveARequest'])->name('approveRequest');
 //route to retrieve all denied requests
 Route::get('deniedRequests', [RequestDisplayController::class, 'deniedRequests'])->name('deniedRequests');
 //route to deny a teaching request
-Route::get('denyRequest/{userId}/{courseCode}', [RequestDisplayController::class, 'denyARequest'])->name('denyRequest');
+Route::get('denyRequest/{userId}/{courseCode}/{semesterid}', [RequestDisplayController::class, 'denyARequest'])->name('denyRequest');
 

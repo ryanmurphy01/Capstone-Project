@@ -144,8 +144,8 @@
             <h2 class="col mt-4">Semester</h2>
     
         <div class="row">
-            <h3 class="col mt-4">Semester Name: {{$currentSemester->name}}</h3>
-            <h3 class="col mt-4">Semester Code: {{$currentSemester->code}}</h3>
+            <h3 class="col mt-4">Semester Name: {{$currentSemester->name ?? "Add"}}</h3>
+            <h3 class="col mt-4">Semester Code: {{$currentSemester->code ?? 'Semester'}}</h3>
         </div>
     
 

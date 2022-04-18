@@ -156,7 +156,14 @@
 
             <div class="col py-3">
                 <h1 class="pb-3 pt-3 ">Instructor Availability</h1>
-                <input type="text" placeholder="Instructor Name..." class="mb-4 w-100 p-1">
+
+                {{-- search bar --}}
+                <form action="{{ route('availability') }}" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="aScheduleSearch" id="aScheduleSearch" placeholder="Search..." class="form-control form-control-lg">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                    </div>
+                </form>
 
                 {{-- might need to put all this in a scrollview later --}}
                 <table class="table table-striped table-hover mx-auto text-center">
@@ -184,8 +191,8 @@
                                 <td>
 
                                     <ul style="list-style: none;">
-                                        <li class="text-center"><strong>{{ $teacher->first_name }}</strong></li>
-                                        <li class="text-center"><strong>{{ $teacher->last_name }}</strong></li>
+                                        <li><a href="courseHistory/{{ $teacher->id }}" class="link-dark">{{ $teacher->first_name }}</a></li>
+                                        <li><a href="courseHistory/{{ $teacher->id }}" class="link-dark">{{ $teacher->last_name }}</a></li>
                                     </ul>
 
                                 </td>
