@@ -77,6 +77,19 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->where('accounts.id', $avails->id)
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
+        /*$monday->each(function($item, $key) {
+            //dd($item);
+            return $item->start_time . " " . $item->end_time;
+        });*/
+        
+
+        $MondayStr = "";
+        foreach($monday->toArray() as $temp) {
+            $MondayStr .= "$temp->start_time - $temp->end_time ";
+        }
+        //dd($str);
+
+        
 
         $tuesday = DB::table('teacher_availabilities')
         ->join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
@@ -124,11 +137,12 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
 
 
+
         return [
             $avails->employee_id,
             $avails->first_name,
             $avails->last_name,
-            $monday,
+            $MondayStr,
             $tuesday,
             $wednesday,
             $thursday,
