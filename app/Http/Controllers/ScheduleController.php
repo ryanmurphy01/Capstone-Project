@@ -30,7 +30,8 @@ class ScheduleController extends Controller
                         -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
                         -> orWhere('employee_id', 'LIKE', '%'.$search_text.'%');
                     })
-                ->get(['accounts.*', 'account_types.type_id']);
+                -> orderBy('accounts.last_name', 'asc')
+                -> paginate(5, ['accounts.*', 'account_types.type_id']);
         }
         //otherwise run the retrieve as usual
         else {
@@ -39,7 +40,8 @@ class ScheduleController extends Controller
                 ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
                 ->where('accounts.status_id', 1)
                 ->where('account_types.type_id', 2)
-                ->get(['accounts.*', 'account_types.type_id']);
+                -> orderBy('accounts.last_name', 'asc')
+                -> paginate(5, ['accounts.*', 'account_types.type_id']);
         }
 
         return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers], ['semester'=>$data2]);

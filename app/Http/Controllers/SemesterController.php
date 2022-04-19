@@ -16,8 +16,8 @@ class SemesterController extends Controller
     public function index()
     {
         //Get semester History
-        $data = semester::orderBy('created_at', 'DESC')->get();
-        
+        $data = semester::orderBy('created_at', 'DESC')->paginate(7);
+
         //Get current semester
         $data2 = DB::table('semesters')->where('current_semester', 1)->first();
 
@@ -57,12 +57,12 @@ class SemesterController extends Controller
 
         if($save){
             return redirect()->route('semester.index')->with('success', 'New Semester Created');
-        
+
         } else {
             return redirect()->route('semester.index')->with('fail', 'Something went wrong');
         }
 
-        
+
 
     }
 
@@ -74,26 +74,26 @@ class SemesterController extends Controller
             $oldSemester = DB::table('semesters')
             ->where('current_semester', 1)
             ->update(['current_semester' => 0]);
-    
+
             $semester = DB::table('semesters')
             ->where('id', $id)
             ->update(['current_semester' => 1]);
             if($semester){
                 return redirect()->route('semester.index')->with('success', 'Current Semester Changed');
-            
+
             } else {
-                
+
             }
-    
+
 
         }  else {
             return redirect()->route('semester.index')->with('fail', 'This Semester is already set to current');
         }
 
-       
 
-        
-        
+
+
+
     }
 
     /**
@@ -115,7 +115,7 @@ class SemesterController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**

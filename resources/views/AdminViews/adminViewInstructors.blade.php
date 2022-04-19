@@ -212,6 +212,7 @@
                 </tbody>
             </table>
 
+            {{ $accounts->links() }}
 
             <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>

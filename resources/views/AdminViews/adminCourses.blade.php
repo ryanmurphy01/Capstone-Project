@@ -187,6 +187,8 @@
                 </tbody>
             </table>
 
+            {{ $courses->links() }}
+
             <button type="button" class="btn btn-success float-end" style="width: 150px" data-bs-toggle="modal" data-bs-target="#userModal">
                 Add Course
             </button>

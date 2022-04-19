@@ -102,7 +102,6 @@
                         <th>Course Name</th>
                         <th>Course Code</th>
                         <th>Course Description</th>
-
                         <th></th>
                     </tr>
                 </thead>
@@ -122,6 +121,9 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $courses->links() }}
+
         </div>
     </div>
 </div>

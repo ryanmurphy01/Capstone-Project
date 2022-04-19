@@ -37,11 +37,15 @@ class InstructorController extends Controller
                     -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
                     -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
                 })
-            -> get();
+            -> orderBy('accounts.last_name', 'asc')
+            -> paginate(10);
         }
         //return all active users if the search is returned empty
         else {
-            $data = DB::table('accounts')->where('status_id', 1)->get();
+            $data = DB::table('accounts')
+            -> where('status_id', 1)
+            -> orderBy('accounts.last_name', 'asc')
+            -> paginate(10);
         }
 
         $data2 = DB::table('user_types')->get();

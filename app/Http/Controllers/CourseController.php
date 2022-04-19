@@ -28,7 +28,8 @@ class CourseController extends Controller
                     -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
                 })
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
         }
 
         //otherwise only match courses with the right program ID
@@ -39,7 +40,8 @@ class CourseController extends Controller
             -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
             -> where('courses_programs.program_id', $id)
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
         }
 
         $data2 = program::find($id);

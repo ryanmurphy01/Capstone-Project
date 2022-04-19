@@ -213,6 +213,9 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $courses->links() }}
+
         </div>
     </div>
 </div>

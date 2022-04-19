@@ -138,6 +138,8 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $programs->links() }}
         </div>
     </div>
 </div>

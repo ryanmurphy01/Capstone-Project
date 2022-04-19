@@ -196,6 +196,8 @@
                 </tbody>
             </table>
 
+            {{ $records->links() }}
+
             {{-- the thing in the url is the route name of the destination page, see web.php --}}
             <button onclick="document.location='{{ url('approvedRequests') }}'" class="m-2 btn btn-success border-dark float-end">Approved Requests</button>
             <button onclick="document.location='{{ url('deniedRequests') }}'" class="m-2 btn btn-success border-dark float-end">Denied Requests</button>

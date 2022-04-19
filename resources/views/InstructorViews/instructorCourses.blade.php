@@ -101,6 +101,8 @@
                 </tbody>
             </table>
 
+            {{ $courses->links() }}
+
             <a href="{{ route('coursesReq/programs') }}" style="margin-top: 10px" type="button" class="pb-2 pt-2 btn btn-success">Click here to add another course</a>
     </div>
 </div>
