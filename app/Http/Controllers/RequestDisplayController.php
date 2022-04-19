@@ -11,6 +11,8 @@ class RequestDisplayController extends Controller
 
         $search_text = $request->aRequestSearch;
 
+        $data2 = DB::table('semesters')->where('current_semester', 1)->first();
+
         //if there is a search value provided
         if (!empty($search_text)) {
             $data = DB::table('accounts')
@@ -44,7 +46,7 @@ class RequestDisplayController extends Controller
             -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
 
-        return view('AdminViews/adminRequests', ['records'=>$data]);
+        return view('AdminViews/adminRequests', ['records'=>$data], ['semester'=>$data2]);
     }
 
     function approveARequest($userid, $courseCode, $semesterid) {
@@ -77,6 +79,8 @@ class RequestDisplayController extends Controller
 
         $search_text = $request->aRequestSearch;
 
+        $data2 = DB::table('semesters')->where('current_semester', 1)->first();
+
         //if there is a search value provided
         if (!empty($search_text)) {
             $data = DB::table('accounts')
@@ -110,13 +114,15 @@ class RequestDisplayController extends Controller
             -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
 
-        return view('AdminViews/adminApprovedRequests', ['records'=>$data]);
+        return view('AdminViews/adminApprovedRequests', ['records'=>$data], ['semester'=>$data2]);
     }
 
     function deniedRequests(Request $request) { //retrives only denied
 
         $search_text = $request->aRequestSearch;
 
+        $data2 = DB::table('semesters')->where('current_semester', 1)->first();
+
         //if there is a search value provided
         if (!empty($search_text)) {
             $data = DB::table('accounts')
@@ -151,6 +157,6 @@ class RequestDisplayController extends Controller
             -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
 
-        return view('AdminViews/adminDeniedRequests', ['records'=>$data]);
+        return view('AdminViews/adminDeniedRequests', ['records'=>$data], ['semester'=>$data2]);
     }
 }
