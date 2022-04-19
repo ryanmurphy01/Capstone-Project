@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\teacher_availabilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\availabilityExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ScheduleController extends Controller
 {
@@ -36,5 +38,10 @@ class ScheduleController extends Controller
         }
 
         return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers]);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new availabilityExport, 'availability.xlsx');
     }
 }

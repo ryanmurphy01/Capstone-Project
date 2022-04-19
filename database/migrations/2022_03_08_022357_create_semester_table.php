@@ -17,6 +17,7 @@ class CreateSemesterTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
+            $table->tinyInteger('current_semester');
             $table->timestamps();
         });
     }

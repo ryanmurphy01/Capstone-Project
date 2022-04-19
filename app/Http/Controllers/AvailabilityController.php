@@ -5,24 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
+
 class AvailabilityController extends Controller
 {
     function index(){
 
         //get current semester
-        $currentSemester = DB::table('semesters')->latest('created_at')->first();
+        $currentSemester = DB::table('semesters')->where('current_semester', 1)->first();
    
         //Get account_id 
         $accountId = session('LoggedUser');
    
    
         //Get times for days of the week
-         $mondayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 1)->where('semester_id', $currentSemester->id)->get();
-         $tuesdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 2)->where('semester_id', $currentSemester->id)->get();
-         $wednesdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 3)->where('semester_id', $currentSemester->id)->get();
-         $thursdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 4)->where('semester_id', $currentSemester->id)->get();
-         $fridayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 5)->where('semester_id', $currentSemester->id)->get();
-         $saturdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 6)->where('semester_id', $currentSemester->id)->get();
+         $mondayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 1)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
+         $tuesdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 2)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
+         $wednesdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 3)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
+         $thursdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 4)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
+         $fridayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 5)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
+         $saturdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 6)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
         
         return view("InstructorViews/instructorSchedule",['mondayTimes'=>$mondayTimes, 'tuesdayTimes'=>$tuesdayTimes,'wednesdayTimes'=>$wednesdayTimes,'thursdayTimes'=>$thursdayTimes,'fridayTimes'=>$fridayTimes,'saturdayTimes'=>$saturdayTimes, 'currentSemester'=>$currentSemester ]);
    
@@ -68,4 +70,7 @@ class AvailabilityController extends Controller
         return back();
 
        }
+       
+    
+
 }
