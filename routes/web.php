@@ -15,6 +15,7 @@ use App\Http\Controllers\RequestEmail;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\TeacherAvailabilityController;
+use App\Http\Controllers\UnresponsiveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,11 +61,9 @@ Route::post("/passwordReset", [MainController::class, 'sendResetLink'])->name('f
 Route::get("/passwordSet/{token}", [MainController::class, 'showResetForm'])->name('reset.password.form');
 Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('reset.password');
 
-//instructor routes
-//main
 
 Route::get('/schedule',[AvailabilityController::class, 'index'])->name('schedule.index');
-Route::post('/schedule/add',[AvailabilityController::class, 'add'])->name('schedule.add');
+Route::post('/schedule/add/{id}',[AvailabilityController::class, 'add'])->name('schedule.add');
 Route::delete('/schedule/delete/{id}',[AvailabilityController::class, 'delete'])->name('schedule.delete');
 
 
@@ -73,7 +72,7 @@ Route::get('semester/{id}/{currentid}', [SemesterController::class, 'makeCurrent
 
 
 
-//main
+
 Route::get('coursesReq', [ICourseRequestController::class, 'index'])->name('coursesReq');
 Route::get('coursesReq/programs', [ICourseRequestController::class, 'showProgams'])->name('coursesReq/programs');
 //pass the program as param and list associated courses
@@ -83,7 +82,7 @@ Route::post('coursesReq/save/{id}',[ICourseRequestController::class, 'addToSelec
 //delete route to delete a course from the instructors selection
 Route::post('coursesReq/remove/{id}',[ICourseRequestController::class, 'destroy'])->name('coursesReq/remove');
 
-//main
+
 Route::get('availability', [ScheduleController::class, 'index'])->name('availability');
 Route::get('availability/export/', [ScheduleController::class, 'export'])->name('avail.export');
 
@@ -93,6 +92,10 @@ Route::get('availability/export/', [ScheduleController::class, 'export'])->name(
 //     return view('InstructorViews/instructorCourses');
 // });
 
+
+Route::get('unresponsive', [UnresponsiveController::class, 'index'])->name('unresponsive');
+Route::get('unresponsive/{id}',[UnresponsiveController::class, 'sendEmail'])->name('unresponsive.email');
+
 //main
 Route::get('/welcome', function () {
 
@@ -100,14 +103,6 @@ Route::get('/welcome', function () {
 })->name('welcome');
 
 
-//admin routes
-//main
-Route::get('/unresponsive', function () {
-
-    return view('AdminViews/adminUnresponsiveInstructors');
-})->name('unresponsive');
-
-//main
 
 
 
@@ -116,17 +111,16 @@ Route::get('/unresponsive', function () {
 //Route::post('/saveProgram',[ProgramController::class, 'saveProgram'])->name('saveProgram');
 //Route::delete('/programs/deleteProgram/{id}',[ProgramController::class, 'destroy'])->name('deleteProgram');
 
-//main
+
 Route::get('history', [IHistoryController::class, 'index'])->name('history.index');
 //route for when you click on a certain instructor in the history page
 Route::get('courseHistory/{id}', [IHistoryController::class, 'detail'])->name('courseHistory');
 
 
-//main
+
 Route::get('/email', [RequestEmail::class, 'index'])->name('email');
 Route::get('/email/send', [RequestEmail::class, 'sendEmail'])->name('email.send');
 
-//main
 Route::get('requests', [RequestDisplayController::class, 'index'])->name('requests');
 //route to show approved requests
 Route::get('approvedRequests', [RequestDisplayController::class, 'approvedRequests'])->name('approvedRequests');

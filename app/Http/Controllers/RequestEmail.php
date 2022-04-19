@@ -11,8 +11,7 @@ class RequestEmail extends Controller
     function index(){
         //Get current semester
         $data = DB::table('semesters')
-        ->where('semesters.current_semester', 1)
-        ->get()->first();
+        ->where('semesters.current_semester', 1)->first();
 
         return view('AdminViews/adminEmail', ['currentSemester'=>$data]);
 

@@ -132,24 +132,37 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>Phone Number</th>
+                        <th>Employee ID</th>
                         {{-- empty placeholder that may be helpful for formatting --}}
                         <th></th>
                     </tr>
                 </thead>
                 {{-- again, use a foreach to go through db once it's setup --}}
                 <tbody>
+                    @foreach($accounts as $account)
+                    
+                    @if ($account->last_updated_availability < $semester->created_at)
                     <tr>
-                        <td>Alfreds</td>
-                        <td>Futterkiste</td>
-                        <td>AFutterkiste@example.com</td>
-                        <td>5555555555</td>
+                        <td>{{$account->first_name}}</td>
+                        <td>{{$account->last_name}}</td>
+                        <td>{{$account->personal_email}}</td>
+                        <td>{{$account->employee_id}}</td>
                         <td>
                             {{-- TODO link these to actually do something --}}
-                            <button type="button" class="btn btn-primary">email</button>
-                            <button type="button" class="btn btn-danger">deactivate</button>
+                            <a type="button" class="btn btn-primary" href="{{ route('unresponsive.email', $account->id) }}">email</a>
+                            <form style="display: inline-block" action="{{ route('deactivate.activate',$account->id) }}" method="POST">
+
+                                <button type="submit" class="btn btn-danger">Deactivate</button>
+                                @csrf
+                                @method('PUT')
+                            </form>
+
                         </td>
                     </tr>
+                    @endif
+                    @endforeach
+                    
+                   
                 </tbody>
             </table>
 

@@ -26,12 +26,12 @@ class AvailabilityController extends Controller
          $fridayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 5)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
          $saturdayTimes = DB::table("teacher_availabilities")->where('account_id', $accountId)->where('day_id', 6)->where('semester_id', $currentSemester->id)->orderBy('start_time', 'asc')->get();
 
-        return view("InstructorViews/instructorSchedule",['mondayTimes'=>$mondayTimes, 'tuesdayTimes'=>$tuesdayTimes,'wednesdayTimes'=>$wednesdayTimes,'thursdayTimes'=>$thursdayTimes,'fridayTimes'=>$fridayTimes,'saturdayTimes'=>$saturdayTimes, 'currentSemester'=>$currentSemester ]);
+        return view("InstructorViews/instructorSchedule",['mondayTimes'=>$mondayTimes, 'tuesdayTimes'=>$tuesdayTimes,'wednesdayTimes'=>$wednesdayTimes,'thursdayTimes'=>$thursdayTimes,'fridayTimes'=>$fridayTimes,'saturdayTimes'=>$saturdayTimes, 'currentSemester'=>$currentSemester, 'account'=>$accountId ]);
 
        }
 
 
-       function add(Request $request){
+       function add(Request $request, $id){
 
            //get current semester
            $currentSemester = DB::table('semesters')
@@ -59,6 +59,11 @@ class AvailabilityController extends Controller
                'semester_id' => $currentSemester->id
            ]);
 
+           //Update user last updated time.
+           DB::table('accounts')
+           ->where('id', $id)
+           ->update(['last_updated_availability' => now()]);
+
 
            return back();
 
@@ -72,6 +77,8 @@ class AvailabilityController extends Controller
         return back();
 
        }
+
+       
 
 
 

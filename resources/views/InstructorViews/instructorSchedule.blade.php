@@ -74,13 +74,12 @@
         <div class="col py-3" >
 
                 {{-- div for each day should be something like this --}}
-
             <div class="container-fluid">
                 <h2 class="pb-5 text-center">Current Semester: {{$currentSemester->name}} ({{$currentSemester->code}})</h2>
                 <div class="row">
                 <div class="col">
                 {{-- Monday Section --}}
-                <form method="post" action="{{ route('schedule.add') }}">
+                <form method="post" action="{{ route('schedule.add', $account) }}">
                  @csrf
                 <div class="form-group" style="width: 300px;">
                     <div class="col">
@@ -136,7 +135,7 @@
                 </div>
                 <div class="col">
                    {{-- Tuesday Section --}}
-                <form method="post" action="{{ route('schedule.add') }}">
+                <form method="post" action="{{ route('schedule.add', $account) }}">
                     @csrf
                    <div class="form-group" style="width: 300px;">
                        <div class="col">
@@ -193,7 +192,7 @@
 
                 <div class="col">
                    {{-- Wednesday Section --}}
-                <form method="post" action="{{ route('schedule.add') }}">
+                <form method="post" action="{{ route('schedule.add', $account) }}">
                     @csrf
                    <div class="form-group" style="width: 300px;">
                        <div class="col">
@@ -252,7 +251,7 @@
 
                 <div class="col">
                    {{-- Thursday Section --}}
-                <form method="post" action="{{ route('schedule.add') }}">
+                <form method="post" action="{{ route('schedule.add', $account) }}">
                     @csrf
                    <div class="form-group" style="width: 300px;">
                        <div class="col">
@@ -309,7 +308,7 @@
 
                 <div class="col">
                    {{-- Friday Section --}}
-                <form method="post" action="{{ route('schedule.add') }}">
+                <form method="post" action="{{ route('schedule.add', $account) }}">
                     @csrf
                    <div class="form-group" style="width: 300px;">
                        <div class="col">
@@ -365,7 +364,7 @@
 
                 <div class="col">
                    {{-- Saturday Section --}}
-                <form method="post" action="{{ route('schedule.add') }}">
+                <form method="post" action="{{ route('schedule.add', $account) }}">
                     @csrf
                    <div class="form-group" style="width: 300px;">
                        <div class="col">
