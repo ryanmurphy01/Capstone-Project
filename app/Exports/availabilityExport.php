@@ -8,9 +8,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-
-class availabilityExport implements FromCollection, WithHeadings, WithMapping
+class availabilityExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -77,19 +77,12 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->where('accounts.id', $avails->id)
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
-        /*$monday->each(function($item, $key) {
-            //dd($item);
-            return $item->start_time . " " . $item->end_time;
-        });*/
-        
-
+    
+        //Add start and end time together
         $MondayStr = "";
         foreach($monday->toArray() as $temp) {
-            $MondayStr .= "$temp->start_time - $temp->end_time ";
+            $MondayStr .= "$temp->start_time - $temp->end_time     ";
         }
-        //dd($str);
-
-        
 
         $tuesday = DB::table('teacher_availabilities')
         ->join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
@@ -100,6 +93,13 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
 
+        //Add start and end time together
+        $TuesdayStr = "";
+        foreach($tuesday->toArray() as $temp) {
+            $TuesdayStr .= "$temp->start_time - $temp->end_time     ";
+        }
+
+
         $wednesday = DB::table('teacher_availabilities')
         ->join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
         ->join('semesters', 'teacher_availabilities.semester_id', '=', 'semesters.id')
@@ -108,6 +108,13 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->where('accounts.id', $avails->id)
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
+
+        //Add start and end time together
+        $WednesdayStr = "";
+        foreach($wednesday->toArray() as $temp) {
+            $WednesdayStr .= "$temp->start_time - $temp->end_time     ";
+        }
+
 
         $thursday = DB::table('teacher_availabilities')
         ->join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
@@ -118,6 +125,13 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
 
+        //Add start and end time together
+        $ThursdayStr = "";
+        foreach($thursday->toArray() as $temp) {
+            $ThursdayStr .= "$temp->start_time - $temp->end_time    ";
+        }
+
+
         $friday = DB::table('teacher_availabilities')
         ->join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
         ->join('semesters', 'teacher_availabilities.semester_id', '=', 'semesters.id')
@@ -126,6 +140,13 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->where('accounts.id', $avails->id)
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
+
+        //Add start and end time together
+        $FridayStr = "";
+        foreach($friday->toArray() as $temp) {
+            $FridayStr .= "$temp->start_time - $temp->end_time    ";
+        }
+
 
         $saturday = DB::table('teacher_availabilities')
         ->join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
@@ -136,6 +157,13 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
 
+        //Add start and end time together
+        $SaturdayStr = "";
+        foreach($saturday->toArray() as $temp) {
+            $SaturdayStr .= "$temp->start_time - $temp->end_time    ";
+        }
+
+
 
 
         return [
@@ -143,11 +171,11 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
             $avails->first_name,
             $avails->last_name,
             $MondayStr,
-            $tuesday,
-            $wednesday,
-            $thursday,
-            $friday,
-            $saturday
+            $TuesdayStr,
+            $WednesdayStr,
+            $ThursdayStr,
+            $FridayStr,
+            $SaturdayStr
 
 
         ];
