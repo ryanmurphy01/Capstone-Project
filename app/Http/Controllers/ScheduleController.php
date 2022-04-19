@@ -12,6 +12,11 @@ class ScheduleController extends Controller
 {
     function index(Request $request) {
 
+        //Get current semester
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
+
         $search_text = $request->aScheduleSearch;
 
         //if there is a search value provided
@@ -37,10 +42,10 @@ class ScheduleController extends Controller
                 ->get(['accounts.*', 'account_types.type_id']);
         }
 
-        return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers]);
+        return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers], ['semester'=>$data2]);
     }
 
-    public function export() 
+    public function export()
     {
         return Excel::download(new availabilityExport, 'availability.xlsx');
     }

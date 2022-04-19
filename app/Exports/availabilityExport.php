@@ -16,7 +16,7 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
     * @return \Illuminate\Support\Collection
     */
     private $avails;
-   
+
     //Headings for the columns
     public function headings(): array
     {
@@ -36,7 +36,9 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
     //Get data
     public function collection()
     {
-        $data2 = DB::table('semesters')->latest ('created_at')->first();
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         $sortedData = collect();
         $data = DB::table ('accounts')
@@ -47,24 +49,26 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
 
         //DD($data);
 
-        
+
 
         foreach($data as $teacher){
             $sortedData->push($teacher);
         }
-       
-        
+
+
         return $sortedData;
         //return account::with('days')->get();
-        
+
     }
 
 
     //Display the rows you want
     public function map($avails): array
     {
-        $data2 = DB::table('semesters')->latest ('created_at')->first();
-    
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
+
         $monday = DB::table('teacher_availabilities')
         ->join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
         ->join('semesters', 'teacher_availabilities.semester_id', '=', 'semesters.id')
@@ -119,7 +123,7 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
         ->orderBy('teacher_availabilities.start_time', 'asc')
         ->get(['teacher_availabilities.start_time', 'teacher_availabilities.end_time']);
 
-        
+
         return [
             $avails->employee_id,
             $avails->first_name,
@@ -130,11 +134,11 @@ class availabilityExport implements FromCollection, WithHeadings, WithMapping
             $thursday,
             $friday,
             $saturday
-            
-        
+
+
         ];
 
-        
+
     }
 }
 

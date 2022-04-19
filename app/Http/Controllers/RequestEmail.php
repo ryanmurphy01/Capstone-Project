@@ -10,7 +10,9 @@ class RequestEmail extends Controller
 {
     function index(){
         //Get current semester
-        $data = DB::table('semesters')->latest('created_at')->first();
+        $data = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         return view('AdminViews/adminEmail', ['currentSemester'=>$data]);
 
@@ -19,7 +21,9 @@ class RequestEmail extends Controller
 
     function sendEmail(){
         //Get current semester
-        $currentSemester = DB::table('semesters')->latest('created_at')->first();
+        $currentSemester = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         //Get all active users
         $activeUsers = DB::table('accounts')->where('status_id', 1)->get();
@@ -40,4 +44,4 @@ class RequestEmail extends Controller
 
          return back()->with('success', 'Emails Sent');
     }
-}   
+}

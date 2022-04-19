@@ -34,7 +34,7 @@ class IHistoryController extends Controller
                     -> orWhere('semesters.code', 'LIKE', '%'.$search_text.'%')
                     -> orWhere('semesters.name', 'LIKE', '%'.$search_text.'%');
                 })
-            -> where('account_types.type_id', '=', 2)
+            -> where('account_types.type_id', 2)
             -> select('accounts.*')
             -> get();
         }
@@ -42,7 +42,7 @@ class IHistoryController extends Controller
         else {
             $data = DB::table('accounts')
             -> join('account_types', 'accounts.id', '=', 'account_types.account_id')
-            //-> where('account_types.type_id', '=', 2)
+            -> where('account_types.type_id', '=', 2)
             -> select('accounts.*')
             -> get();
             //simple way, if we want to go back to admins and teachers shown here

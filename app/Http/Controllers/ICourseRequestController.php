@@ -14,7 +14,9 @@ class ICourseRequestController extends Controller
         $id = session('LoggedUser');
 
         //Get current semester
-        $data2 = DB::table('semesters')->latest('created_at')->first();
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         $data = DB::table('courses')
             //join the teacher courses and courses table to read out course details
@@ -95,7 +97,9 @@ class ICourseRequestController extends Controller
     function addToSelection($id) {
 
         //get the current semester info
-        $data2 = DB::table('semesters')->latest('created_at')->first();
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         $Userid = session('LoggedUser');
 
@@ -155,7 +159,9 @@ class ICourseRequestController extends Controller
 
     function destroy($id){
 
-        $data2 = DB::table('semesters')->latest('created_at')->first();
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
         $Userid = session('LoggedUser');
 
         $delete = DB::table('teacher_courses')->where('course_id', '=', $id)->where('account_id', '=', $Userid)->where('semester_id', '=', $data2->id)->delete();
