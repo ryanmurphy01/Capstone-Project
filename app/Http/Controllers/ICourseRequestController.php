@@ -14,7 +14,9 @@ class ICourseRequestController extends Controller
         $id = session('LoggedUser');
 
         //Get current semester
-        $data2 = DB::table('semesters')->latest('created_at')->first();
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         $data = DB::table('courses')
             //join the teacher courses and courses table to read out course details
@@ -26,7 +28,8 @@ class ICourseRequestController extends Controller
             //check that the courses are from the current semester
             -> where('teacher_courses.semester_id', '=', $data2->id)
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
 
         return view('InstructorViews/instructorCourses', ['courses'=>$data], ['semester'=>$data2]);
     }
@@ -44,11 +47,12 @@ class ICourseRequestController extends Controller
             -> where('programs.program_name', 'LIKE', '%'.$search_text.'%')
             -> orWhere('programs.program_code', 'LIKE', '%'.$search_text.'%')
             -> select('programs.*')
-            -> get();
+            -> orderBy('programs.program_name', 'asc')
+            -> paginate(10);
         }
         //otherwise run the retrieve as usual
         else {
-            $data = program::all();
+            $data = program::orderBy('programs.program_name', 'asc')-> paginate(10);
         }
 
         return view('InstructorViews/instructorProgramForm', ['programs'=>$data]);
@@ -73,7 +77,8 @@ class ICourseRequestController extends Controller
                     -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
                 })
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
         }
 
         //otherwise only match courses with the right program ID
@@ -84,7 +89,8 @@ class ICourseRequestController extends Controller
             -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
             -> where('courses_programs.program_id', $id)
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
         }
 
         $data2 = program::find($id);
@@ -95,7 +101,9 @@ class ICourseRequestController extends Controller
     function addToSelection($id) {
 
         //get the current semester info
-        $data2 = DB::table('semesters')->latest('created_at')->first();
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         $Userid = session('LoggedUser');
 
@@ -155,7 +163,9 @@ class ICourseRequestController extends Controller
 
     function destroy($id){
 
-        $data2 = DB::table('semesters')->latest('created_at')->first();
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
         $Userid = session('LoggedUser');
 
         $delete = DB::table('teacher_courses')->where('course_id', '=', $id)->where('account_id', '=', $Userid)->where('semester_id', '=', $data2->id)->delete();

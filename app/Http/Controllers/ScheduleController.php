@@ -12,6 +12,11 @@ class ScheduleController extends Controller
 {
     function index(Request $request) {
 
+        //Get current semester
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
+
         $search_text = $request->aScheduleSearch;
 
         //if there is a search value provided
@@ -25,7 +30,8 @@ class ScheduleController extends Controller
                         -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
                         -> orWhere('employee_id', 'LIKE', '%'.$search_text.'%');
                     })
-                ->get(['accounts.*', 'account_types.type_id']);
+                -> orderBy('accounts.last_name', 'asc')
+                -> paginate(5, ['accounts.*', 'account_types.type_id']);
         }
         //otherwise run the retrieve as usual
         else {
@@ -34,13 +40,14 @@ class ScheduleController extends Controller
                 ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
                 ->where('accounts.status_id', 1)
                 ->where('account_types.type_id', 2)
-                ->get(['accounts.*', 'account_types.type_id']);
+                -> orderBy('accounts.last_name', 'asc')
+                -> paginate(5, ['accounts.*', 'account_types.type_id']);
         }
 
-        return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers]);
+        return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers], ['semester'=>$data2]);
     }
 
-    public function export() 
+    public function export()
     {
         return Excel::download(new availabilityExport, 'availability.xlsx');
     }

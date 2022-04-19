@@ -32,11 +32,15 @@ class DeactivatedController extends Controller
                 -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
                 -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
             })
-            -> get();
+            -> orderBy('accounts.last_name', 'asc')
+            -> paginate(10);
         }
         //return all deactivated users if the search is returned empty
         else {
-            $data = DB::table('accounts')->where('status_id', 2)->get();
+            $data = DB::table('accounts')
+            -> where('status_id', 2)
+            -> orderBy('accounts.last_name', 'asc')
+            -> paginate(10);
         }
 
         return view('AdminViews/adminDeactivatedInstructors', ['accounts'=>$data]);

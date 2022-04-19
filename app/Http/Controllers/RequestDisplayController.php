@@ -11,6 +11,8 @@ class RequestDisplayController extends Controller
 
         $search_text = $request->aRequestSearch;
 
+        $data2 = DB::table('semesters')->where('current_semester', 1)->first();
+
         //if there is a search value provided
         if (!empty($search_text)) {
             $data = DB::table('accounts')
@@ -31,7 +33,8 @@ class RequestDisplayController extends Controller
                 })
             //and make sure the status is pending
             -> where('teacher_courses.status_id', 1)
-            -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
+            -> orderBy('semesters.code', 'asc')
+            -> paginate(10, ['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
         //otherwise run the retrieve as usual
         else {
@@ -41,10 +44,11 @@ class RequestDisplayController extends Controller
             -> join('courses', 'teacher_courses.course_id', '=', 'courses.id')
             -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
             -> where('teacher_courses.status_id', 1)
-            -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
+            -> orderBy('semesters.code', 'asc')
+            -> paginate(10, ['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
 
-        return view('AdminViews/adminRequests', ['records'=>$data]);
+        return view('AdminViews/adminRequests', ['records'=>$data], ['semester'=>$data2]);
     }
 
     function approveARequest($userid, $courseCode, $semesterid) {
@@ -77,6 +81,8 @@ class RequestDisplayController extends Controller
 
         $search_text = $request->aRequestSearch;
 
+        $data2 = DB::table('semesters')->where('current_semester', 1)->first();
+
         //if there is a search value provided
         if (!empty($search_text)) {
             $data = DB::table('accounts')
@@ -97,7 +103,9 @@ class RequestDisplayController extends Controller
                 })
             //and make sure the status is pending
             -> where('teacher_courses.status_id', 2)
-            -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
+            -> orderBy('semesters.code', 'asc')
+            -> paginate(10, ['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
+            //-> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
         //otherwise run the retrieve as usual
         else {
@@ -107,16 +115,19 @@ class RequestDisplayController extends Controller
             -> join('courses', 'teacher_courses.course_id', '=', 'courses.id')
             -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
             -> where('teacher_courses.status_id', 2)
-            -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
+            -> orderBy('semesters.code', 'asc')
+            -> paginate(10, ['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
 
-        return view('AdminViews/adminApprovedRequests', ['records'=>$data]);
+        return view('AdminViews/adminApprovedRequests', ['records'=>$data], ['semester'=>$data2]);
     }
 
     function deniedRequests(Request $request) { //retrives only denied
 
         $search_text = $request->aRequestSearch;
 
+        $data2 = DB::table('semesters')->where('current_semester', 1)->first();
+
         //if there is a search value provided
         if (!empty($search_text)) {
             $data = DB::table('accounts')
@@ -135,9 +146,10 @@ class RequestDisplayController extends Controller
                     -> orWhere('semesters.code', 'LIKE', '%'.$search_text.'%')
                     -> orWhere('semesters.name', 'LIKE', '%'.$search_text.'%');
                 })
-            //and make sure the status is pending
+            //and make sure the status is denied
             -> where('teacher_courses.status_id', 3)
-            -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
+            -> orderBy('semesters.code', 'asc')
+            -> paginate(10, ['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
 
         //otherwise run the retrieve as usual
@@ -148,9 +160,10 @@ class RequestDisplayController extends Controller
             -> join('courses', 'teacher_courses.course_id', '=', 'courses.id')
             -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
             -> where('teacher_courses.status_id', 3)
-            -> get(['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
+            -> orderBy('semesters.code', 'asc')
+            -> paginate(10, ['teacher_courses.*', 'accounts.first_name', 'accounts.last_name', 'courses.course_name', 'courses.course_code', 'semesters.code']);
         }
 
-        return view('AdminViews/adminDeniedRequests', ['records'=>$data]);
+        return view('AdminViews/adminDeniedRequests', ['records'=>$data], ['semester'=>$data2]);
     }
 }

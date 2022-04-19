@@ -19,11 +19,12 @@ class ProgramController extends Controller
             -> where('programs.program_name', 'LIKE', '%'.$search_text.'%')
             -> orWhere('programs.program_code', 'LIKE', '%'.$search_text.'%')
             -> select('programs.*')
-            -> get();
+            -> orderBy('programs.program_name', 'asc')
+            -> paginate(10);
         }
         //otherwise run the retrieve as usual
         else {
-            $data = program::all();
+            $data = program::orderBy('program_name', 'asc')->paginate(10);
         }
 
         return view('AdminViews/adminPrograms', ['programs'=>$data]);
