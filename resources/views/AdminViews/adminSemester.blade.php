@@ -169,6 +169,7 @@
                     
                     <td>{{ $semester->name}}</td>
                     <td>{{ $semester->code}}</td>
+                    <td><a class="btn btn border-dark"  href="{{route('semester.current', [$semester->id, $currentSemester->id])}}">Set Current Semester</a></td>
                     
                 </tr>
                 @endforeach

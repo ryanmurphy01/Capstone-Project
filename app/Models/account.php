@@ -47,4 +47,8 @@ class account extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function days(){
+        return $this->hasMany(teacher_availabilities::class);
+    }
 }

@@ -69,6 +69,7 @@ Route::delete('/schedule/delete/{id}',[AvailabilityController::class, 'delete'])
 
 
 Route::resource('semester', SemesterController::class);
+Route::get('semester/{id}/{currentid}', [SemesterController::class, 'makeCurrent'])->name('semester.current');
 
 
 
