@@ -140,7 +140,7 @@
                 {{-- again, use a foreach to go through db once it's setup --}}
                 <tbody>
                     @foreach($accounts as $account)
-                    
+
                     @if ($account->last_updated_availability < $semester->created_at)
                     <tr>
                         <td>{{$account->first_name}}</td>
@@ -161,8 +161,8 @@
                     </tr>
                     @endif
                     @endforeach
-                    
-                   
+
+
                 </tbody>
             </table>
 
