@@ -25,8 +25,6 @@ class ICourseRequestController extends Controller
             -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
             //check if the search matches any user's name. use($search_text)
             -> where('teacher_courses.account_id', '=', $id)
-            //check that the courses are from the current semester
-            -> where('teacher_courses.semester_id', '=', $data2->id)
             -> select('courses.*')
             -> orderBy('courses.course_name', 'asc')
             -> paginate(10);
@@ -111,38 +109,11 @@ class ICourseRequestController extends Controller
         $temp = DB::table('teacher_courses')
             -> where('account_id', '=', $Userid)
             -> where('course_id', '=', $id)
-            -> where('status_id', '=', 2)
             -> get();
-
-            print($temp);
 
         if ($temp->isNotEmpty()) {
             //check if there's a record for this specific semester already to stop dupes
-            $dupeCheck = DB::table('teacher_courses')
-            -> where('account_id', '=', $Userid)
-            -> where('course_id', '=', $id)
-            -> where('semester_id', '=', $data2->id)
-            -> get();
-
-            if ($dupeCheck->isNotEmpty()) {
-                //tell the user that this course has already been requested
-                return back()->with('fail', 'This course has already been requested for this semester');
-            }
-            //if the record exists in the past but not for this semester, add a record for this semester
-            //and approve is automatically
-            else {
-                DB::table('teacher_courses')->insert([
-                    'account_id' => $Userid,
-                    //maybe put an if comparison to check if the course has already been taught
-                    //if so, auto accept it right here
-                    'course_id' => $id,
-                    //and put the status for accepted here
-                    'status_id' => 2,
-                    //add the current semester's id to the record
-                    'semester_id' => $data2->id
-                ]);
-            }
-
+            return back()->with('fail', 'This course has already been requested');
         }
         //if the record does not exist in the past, then proceed as normal
         else {

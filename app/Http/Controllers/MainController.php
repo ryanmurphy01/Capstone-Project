@@ -23,7 +23,7 @@ class MainController extends Controller
 
 
 
-    //check users login 
+    //check users login
     function check(Request $request){
         //Validate request
         $request->validate([
@@ -33,14 +33,14 @@ class MainController extends Controller
         ]);
 
         $userInfo = account::where('personal_email', '=', $request->personal_email)->first();
-       
+
 
         if(!$userInfo){
            return back()->with('fail','Incorrect Email');
         } else{
             if(Hash::check($request->password, $userInfo->password)){
                 $request->session()->put('LoggedUser', $userInfo->id);
-                
+
                 //Get account type and redirect them to correct pages.
                 $userType = AccountType::where('account_id', '=', $userInfo->id)->first();
 
@@ -49,7 +49,7 @@ class MainController extends Controller
                 } else {
                     return redirect('/welcome');
                 }
-            
+
 
             } else{
                 return back()->with('fail','Incorrect Password');
@@ -66,7 +66,7 @@ class MainController extends Controller
     }
 
     function showResetPage(){
-        
+
         return view('/passwordReset');
     }
 
@@ -79,11 +79,11 @@ class MainController extends Controller
         DB::table('password_resets')->insert([
             'personal_email'=>$request->personal_email,
             'token'=>$token,
-            'created_at'=>Carbon::now(), 
+            'created_at'=>Carbon::now(),
         ]);
 
         $action_link = route('reset.password.form', ['token'=>$token, 'personal_email'=>$request->personal_email]);
-        $body = "Reset Password request from Part Time Teachers Application for account associated with ".$request->personal_email." 
+        $body = "Reset Password request from Part Time Instructors Application for account associated with ".$request->personal_email."
         Please click the link below to reset password";
 
         Mail::send('email-forgot', ['action_link'=>$action_link,'body'=>$body], function($message) use ($request){
@@ -91,7 +91,7 @@ class MainController extends Controller
             $message->to($request->personal_email, 'name')
             ->subject('Reset Password');
 
-            
+
         });
 
         return back()->with('success', 'We have e-mailed your password reset link');
@@ -129,7 +129,7 @@ class MainController extends Controller
         }
 
     }
-   
-    
-    
+
+
+
 }

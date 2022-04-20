@@ -105,31 +105,25 @@ class IHistoryController extends Controller
             $data2 = DB::table('courses')
                 //join the teacher courses and courses table to read out course details
                 -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
-                //join with semester table
-                -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
                 //check if the search matches any user's name. use($search_text)
                 -> where('teacher_courses.account_id', '=', $id)
                 -> where(function ($query) use($search_text) {
                     $query -> where('courses.course_code', 'LIKE', '%'.$search_text.'%')
-                        -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%')
-                        -> orWhere('semesters.code', 'LIKE', '%'.$search_text.'%')
-                        -> orWhere('semesters.name', 'LIKE', '%'.$search_text.'%');
+                        -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
                     })
                 //return the courses, junction records and semester code
                 -> orderBy('courses.course_name', 'asc')
-                -> paginate(10, ['courses.*', 'teacher_courses.*', 'semesters.code']);
+                -> paginate(10, ['courses.*', 'teacher_courses.*']);
         }
         //otherwise run the retrieve as usual
         else {
             $data2 = DB::table('courses')
                 //join the teacher courses and courses table to read out course details
                 -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
-                //join with semester table
-                -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
                 //check if the search matches any user's name. use($search_text)
                 -> where('teacher_courses.account_id', '=', $id)
                 -> orderBy('courses.course_name', 'asc')
-                -> paginate(10, ['courses.*', 'teacher_courses.*', 'semesters.code']);
+                -> paginate(10, ['courses.*', 'teacher_courses.*']);
         }
 
         return view('AdminViews/adminInstructorHistory', ['account'=>$data], ['courses'=>$data2]);
