@@ -185,11 +185,8 @@
                                 </svg>
                             </td>
                             <td>
-                                @if ($record->semester_id == $semester->id)
-                                    {{-- add float end tag to these if we want --}}
                                 <a class="btn btn border-dark"  href="{{ route('approveRequest', [$record->account_id, $record->course_id, $record->semester_id]) }}">Accept</a>
                                 <a class="btn btn border-dark" href="{{ route('denyRequest', [$record->account_id, $record->course_id, $record->semester_id]) }}">Deny</a>
-                                @endif
                             </td>
                         </tr>
                     @endforeach

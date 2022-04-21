@@ -186,9 +186,7 @@
                                 </svg>
                             </td>
                             <td>
-                                @if ($record->semester_id == $semester->id)
-                                    <a class="btn btn border-dark" href="{{ route('denyRequest', [$record->account_id, $record->course_id, $record->semester_id]) }}">Change to Denied</a>
-                                @endif
+                                <a class="btn btn border-dark" href="{{ route('denyRequest', [$record->account_id, $record->course_id, $record->semester_id]) }}">Change to Denied</a>
                             </td>
                         </tr>
                     @endforeach
