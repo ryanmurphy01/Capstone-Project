@@ -165,7 +165,6 @@
                         <th>Instructor Name</th>
                         <th>Course Name</th>
                         <th>Course Code</th>
-                        <th>Semester</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -176,8 +175,6 @@
                             <td>{{ $record->first_name }}  {{ $record->last_name }}</td>
                             <td>{{ $record->course_name }}</td>
                             <td>{{ $record->course_code }}</td>
-                            {{-- semester code --}}
-                            <td>{{ $record->code }}</td>
                             <td style="padding-left: 20px">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
