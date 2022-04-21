@@ -175,7 +175,6 @@
                         <tr>
                             <td>{{ $course->course_name }}</td>
                             <td>{{ $course->course_code }}</td>
-                            <td>{{ $course->code }}</td>
                             {{-- display a different icon and button(s) depending on what the status of the request is --}}
                             @if ($course->status_id == 1)
                                 <td>
