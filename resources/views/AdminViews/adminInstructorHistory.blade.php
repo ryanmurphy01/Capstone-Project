@@ -165,7 +165,6 @@
                     <tr>
                         <th>Course Name</th>
                         <th>Course Code</th>
-                        <th>Semester</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
