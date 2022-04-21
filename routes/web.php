@@ -65,6 +65,7 @@ Route::post("/password/reset", [MainController::class, 'resetPassword'])->name('
 Route::get('/schedule',[AvailabilityController::class, 'index'])->name('schedule.index');
 Route::post('/schedule/add/{id}',[AvailabilityController::class, 'add'])->name('schedule.add');
 Route::delete('/schedule/delete/{id}',[AvailabilityController::class, 'delete'])->name('schedule.delete');
+Route::post('/submitHours{id}',[AvailabilityController::class, 'updateMaximumHours'])->name('submitHours');
 
 
 Route::resource('semester', SemesterController::class);

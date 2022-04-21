@@ -192,6 +192,7 @@
                                     <ul style="list-style: none;">
                                         <li><a href="courseHistory/{{ $teacher->id }}" class="link-dark">{{ $teacher->first_name }}</a></li>
                                         <li><a href="courseHistory/{{ $teacher->id }}" class="link-dark">{{ $teacher->last_name }}</a></li>
+                                        <li><p>Max Hrs: {{ $teacher->num_of_courses }}</p></li>
                                     </ul>
 
                                 </td>
