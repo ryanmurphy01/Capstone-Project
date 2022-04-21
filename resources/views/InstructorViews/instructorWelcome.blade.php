@@ -94,9 +94,6 @@
                 <p style="font-weight: bold">
                     Please remember to set your maximum work hours per week, this is done with the input field at the bottom left
                 </p>
-                <p>
-                    Once you have your hours set for the week, press the submit button on the bottom right.
-                </p>
              </section>
              <section class="p-5">
                 <h2 class="text-success">Courses</h2>
