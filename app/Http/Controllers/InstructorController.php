@@ -87,9 +87,10 @@ class InstructorController extends Controller
             'accounttype'=>'required'
         ]);
 
-
+        $uuid = Str::uuid();
         //Insert into database
         $account = new account;
+        $account->id = $uuid;
         $account->first_name = $request->firstname;
         $account->last_name = $request->lastname;
         //new employee ID field
@@ -108,7 +109,7 @@ class InstructorController extends Controller
 
 
         DB::table('account_types')->insert([
-            'account_id' => $account->id,
+            'account_id' => $uuid,
             'type_id' => $request->accounttype
         ]);
 
@@ -205,6 +206,46 @@ class InstructorController extends Controller
         }
 
     }
+
+    public function updateInstructorView($id){
+        $account = account::findOrFail($id);
+
+
+        return view('InstructorViews/instructorProfile',['account'=>$account]);
+    }
+
+    public function updateInstructor(Request $request, $id)
+    {
+
+        //Validate request
+        $request->validate([
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'personalemail'=>'required|email',
+        ]);
+
+
+        $account = account::findOrFail($id);
+        $account->first_name = $request->firstname;
+        $account->last_name = $request->lastname;
+        //new employee ID field
+        $account->employee_id = $request->employee_id;
+        $account->personal_email = $request->personalemail;
+        $account->school_email = $request->collegeemail;
+        $account->contact_number = $request->phone;
+
+        $save = $account->save();
+
+        if($save){
+            print('it worked');
+            return redirect()->route('instructors.index')->with('success', 'Account has been updated');
+        } else {
+            print('it broke');
+            return redirect()->route('instructors.index')->with('fail', 'Something went wrong');
+        }
+
+    }
+
 
     /**
      * Remove the specified resource from storage.

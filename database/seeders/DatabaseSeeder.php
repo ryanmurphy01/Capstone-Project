@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -72,7 +73,12 @@ class DatabaseSeeder extends Seeder
             'current_semester' => '1'
         ]);
 
+
+        $userid = Str::uuid();
+        
+
         DB::table('accounts')->insert([
+            'id' => $userid,
             'first_name' => 'admin',
             'last_name' => 'admin',
             'password' => Hash::make('admin'),
@@ -80,12 +86,15 @@ class DatabaseSeeder extends Seeder
             'num_of_courses' => 0,
             'last_updated_availability'=> now(),
             'status_id' => 1,
+
+            
         ]);
 
         DB::table('account_types')->insert([
-            'account_id' => 1,
+            'account_id' => $userid,
             'type_id' => 1,
         ]);
+       
 
     }
 }

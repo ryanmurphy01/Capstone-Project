@@ -15,7 +15,7 @@ class CreateTeacherCourseTable extends Migration
     {
         Schema::create('teacher_courses', function (Blueprint $table) {
 
-            $table->foreignId('account_id')->constrained('accounts')->primary();
+            $table->uuid('account_id')->constrained('accounts')->primary();
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->foreignId('status_id')->constrained('course_status');
             //new row to track semester in course selection records

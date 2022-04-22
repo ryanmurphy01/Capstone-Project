@@ -14,15 +14,15 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
             $table->string('first_name');
             $table->string('last_name');
             //new employee ID row
-            $table->string('employee_id');
-            $table->string('contact_number');
+            $table->string('employee_id')->nullable($value = true);
+            $table->string('contact_number')->nullable($value = true);
             $table->string('password');
             $table->string('personal_email');
-            $table->string('school_email');
+            $table->string('school_email')->nullable($value = true);
             $table->integer('num_of_courses');
             $table->foreignId('status_id')->constrained("account_status");
             $table->string('last_updated_availability');

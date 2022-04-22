@@ -104,7 +104,7 @@ Route::group(['middleware'=>['AuthCheck','AlreadyLogged','UserCheck']], function
     //delete route to delete a course from the instructors selection
     Route::post('coursesReq/remove/{id}',[ICourseRequestController::class, 'destroy'])->name('coursesReq/remove');
     
-    
+    Route::get('instructor/profile/{id}', [InstructorController::class, 'updateInstructorView'])->name('instructor.profile');
     
     //user main page
     Route::get('/welcome', function () {

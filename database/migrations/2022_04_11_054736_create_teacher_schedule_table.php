@@ -15,7 +15,7 @@ class CreateTeacherScheduleTable extends Migration
     {
         Schema::create('teacher_availabilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id')->constrained();
+            $table->uuid('account_id')->constrained("accounts");
             $table->foreignId('day_id')->constrained("days");
             $table->time('start_time');
             $table->time("end_time");
