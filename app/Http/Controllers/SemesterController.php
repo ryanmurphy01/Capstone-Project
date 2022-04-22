@@ -51,7 +51,8 @@ class SemesterController extends Controller
 
         $semester = new semester;
         $semester->code = $request->semesterCode;
-        $semester->name = $request->semesterName;
+        //combine the semester name and year then store in db
+        $semester->name = "$request->semesterName $request->semesterYear";
         $semester->current_semester = 0;
         $save = $semester->save();
 
