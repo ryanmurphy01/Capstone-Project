@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UserImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\account;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InstructorController extends Controller
 {
@@ -84,7 +86,6 @@ class InstructorController extends Controller
             'firstname'=>'required',
             'lastname'=>'required',
             //new employee ID field
-            'employee_id'=>'required',
             'personalemail'=>'required|email',
             'collegeemail'=>'required|email',
             'phone'=>'required',
@@ -235,5 +236,19 @@ class InstructorController extends Controller
             print('it broke');
             return back()->with('fail', 'Something went wrong');
         }
+    }
+
+    public function importUsers(){
+        
+        return view('AdminViews/importUsers');
+    }
+
+    public function storeImportUsers(Request $request){
+
+        
+        $file = $request->file('file');
+        Excel::import(new UserImport, $file);
+
+        return redirect()->route('instructors.index')->with('success', 'Users Improted');
     }
 }

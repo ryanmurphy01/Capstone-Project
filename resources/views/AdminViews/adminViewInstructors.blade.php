@@ -212,6 +212,7 @@
             <button type="button" class="btn btn-danger" onclick="document.location='{{ url('deactivated') }}'">Deactivated Users</button>
             <button type="button" class="btn btn-warning" onclick="document.location='{{ url('unresponsive') }}'">Unresponsive Users</button>
 
+            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('import') }}'">Import Users</button>
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
         </div>
     </div>
