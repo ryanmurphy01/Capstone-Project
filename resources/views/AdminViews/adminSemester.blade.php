@@ -170,7 +170,12 @@
 
                     <td>{{ $semester->name}}</td>
                     <td>{{ $semester->code}}</td>
-                    <td><a class="btn btn border-dark"  href="{{route('semester.current', [$semester->id, $currentSemester->id])}}">Set Current Semester</a></td>
+                    <td>
+                        <form style="display: inline-block" action="{{ route('semester.current', [$semester->id, $currentSemester->id]) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-success">Set Current Semester</button>
+                            
+                        </form></td>
 
                 </tr>
                 @endforeach

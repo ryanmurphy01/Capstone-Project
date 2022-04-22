@@ -61,7 +61,7 @@ class MainController extends Controller
     function logout(){
         if(session()->has('LoggedUser')){
             session()->pull('LoggedUser');
-            return redirect('/login');
+            return redirect('/');
         }
     }
 

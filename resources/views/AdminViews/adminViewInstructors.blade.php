@@ -234,7 +234,7 @@
                         <label for="floatingInput">First Name</label>
 
                         <!-- error field -->
-                        <span class="text-danger">@error('firstname'){{ $message }} @enderror</span>
+                        <span class="text-danger">@error('firstname'){{ "First Name Required" }} @enderror</span>
                     </div>
 
                     <div class="form-floating mb-3">
@@ -242,7 +242,7 @@
                         <label for="floatingInput">Last Name</label>
 
                         <!-- error field -->
-                        <span class="text-danger">@error('lastname'){{ $message }} @enderror</span>
+                        <span class="text-danger">@error('lastname'){{ "Last Name Required" }} @enderror</span>
                     </div>
 
                     {{-- new field for employee ID when adding users --}}
