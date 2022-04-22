@@ -233,7 +233,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="creditHours" name="creditHours" placeholder="1">
+                        <input type="number" min=1 class="form-control" id="creditHours" name="creditHours" placeholder="1">
                         <label for="floatingInput">Credit Hours</label>
 
                         <!-- error field -->

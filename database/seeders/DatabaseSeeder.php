@@ -64,7 +64,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //Fake semester to start
-
+        DB::table('semesters')->insert([
+            'code' => '10000',
+            'name' => 'Default 2022',
+            'current_semester' => '1'
+        ]);
 
 
     }

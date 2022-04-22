@@ -10,21 +10,29 @@
 
                 <form method="post" action="{{route('semester.store')}}">
                 @csrf
-                <br>
-            
-                <h4>Semester Name<h4>
-                <select class="form-select form-select-lg " aria-label="Default select example" name="semesterName">
-                    <option value='' disabled selected>Select Semester Name</option>
-                    <option value='Fall'>Fall</option>
-                    <option value='Winter'>Winter</option>
-                    <option value='Summer'>Summer</option>
+                    <br>
 
-                </select>
+                    <h4>Semester Name<h4>
+                    <select class="form-select form-select-lg " aria-label="Default select example" name="semesterName">
+                        <option value='' disabled selected>Select Semester Name</option>
+                        <option value='Fall'>Fall</option>
+                        <option value='Winter'>Winter</option>
+                        <option value='Summer'>Summer</option>
 
-                 <!-- error field -->
-                 <span class="text-danger">@error('semesterName'){{ $message }} @enderror</span>
+                    </select>
 
-                 <br>
+                    <!-- error field -->
+                    <span class="text-danger">@error('semesterName'){{ $message }} @enderror</span>
+
+                    <br>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="semesterYear" name="semesterYear" min="2000" placeholder="2022" value="2022">
+                        <label for="semesterYear">Semester Year</label>
+
+                        <!-- error field -->
+                        <span class="text-danger">@error('semesterYear'){{ $message }} @enderror</span>
+                    </div>
 
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="semesterCode" name="semesterCode" placeholder="example" value="">

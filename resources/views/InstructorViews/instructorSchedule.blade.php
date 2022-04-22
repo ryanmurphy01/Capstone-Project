@@ -72,8 +72,6 @@
         </div>
 
         <div class="col py-3" >
-
-                {{-- div for each day should be something like this --}}
             <div class="container-fluid">
                 <h2 class="pb-5 text-center">Current Semester: {{$currentSemester->name}} ({{$currentSemester->code}})</h2>
                 <div class="row">
@@ -418,9 +416,19 @@
                    </div>
                 </div>
                 <div>
-                <label for="courseLoad" class="ms-3 mt-3 mb-1">Maximum Course Load</label>
-                <p name="courseLoad" id="courseLoad" type="text" class="form-control text-center ms-3" style="width: 150px;" >ex. 0</p>
-                    </div>
+                    <form method="post" action="{{ route('submitHours', session('LoggedUser')) }}">
+                        @csrf
+                        <div>
+                            <label for="courseLoad" class="ms-3 mt-3 mb-1" style="font-weight: bold">Maximum Hours (ex. 8 per week)</label>
+                            <div class="input-group" style="width: 250px;">
+                                <input name="courseLoad" id="courseLoad" type="number" min=0 value="{{ $details->num_of_courses ?? 0 }}" class="form-control text-center ms-3">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                    {{-- <label for="courseLoad" class="ms-3 mt-3 mb-1">Maximum Course Load</label>
+                    <p name="courseLoad" id="courseLoad" type="text" class="form-control text-center ms-3" style="width: 150px;" >ex. 0</p> --}}
+                </div>
                 </div>
             </div>
 
