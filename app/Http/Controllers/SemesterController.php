@@ -16,10 +16,10 @@ class SemesterController extends Controller
     public function index()
     {
         //Get semester History
-        $data = semester::orderBy('created_at', 'DESC')->get();
-        
+        $data = semester::orderBy('created_at', 'DESC')->paginate(7);
+
         //Get current semester
-        $data2 = DB::table('semesters')->latest('created_at')->first();
+        $data2 = DB::table('semesters')->where('current_semester', 1)->first();
 
 
         return view("AdminViews/adminSemester", ['semesters'=>$data], ['currentSemester'=>$data2]);
@@ -51,17 +51,49 @@ class SemesterController extends Controller
 
         $semester = new semester;
         $semester->code = $request->semesterCode;
-        $semester->name = $request->semesterName;
+        //combine the semester name and year then store in db
+        $semester->name = "$request->semesterName $request->semesterYear";
+        $semester->current_semester = 0;
         $save = $semester->save();
 
         if($save){
             return redirect()->route('semester.index')->with('success', 'New Semester Created');
-        
+
         } else {
             return redirect()->route('semester.index')->with('fail', 'Something went wrong');
         }
 
-        
+
+
+    }
+
+    public function makeCurrent($id, $currentid){
+
+        //Find and change old semester
+        if($id != $currentid){
+
+            $oldSemester = DB::table('semesters')
+            ->where('current_semester', 1)
+            ->update(['current_semester' => 0]);
+
+            $semester = DB::table('semesters')
+            ->where('id', $id)
+            ->update(['current_semester' => 1]);
+            if($semester){
+                return redirect()->route('semester.index')->with('success', 'Current Semester Changed');
+
+            } else {
+
+            }
+
+
+        }  else {
+            return redirect()->route('semester.index')->with('fail', 'This Semester is already set to current');
+        }
+
+
+
+
 
     }
 
@@ -84,7 +116,7 @@ class SemesterController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**

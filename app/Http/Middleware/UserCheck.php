@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\AccountType;
 
-class AuthCheck
+class UserCheck
 {
     /**
      * Handle an incoming request.
@@ -16,16 +17,12 @@ class AuthCheck
      */
     public function handle(Request $request, Closure $next)
     {
+        $userId = session("LoggedUser");
+        $userType = AccountType::where('account_id', '=', $userId)->first();
 
-        //if user is not logged in send them to login page
-        if(!session()->has('LoggedUser')){
-            return redirect('/')->with('fail','You must be logged in');
+        if(session()->has('LoggedUser') && $userType->type_id == 1){
+            return redirect('/instructors');
         }
-
-        
-
         return $next($request);
-
-        
     }
 }

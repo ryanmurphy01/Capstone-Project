@@ -13,15 +13,23 @@ class ICourseRequestController extends Controller
 
         $id = session('LoggedUser');
 
+        //Get current semester
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
+
         $data = DB::table('courses')
             //join the teacher courses and courses table to read out course details
             -> join('teacher_courses', 'courses.id', '=', 'teacher_courses.course_id')
+            //join with semester table so only courses from current semester are displayed
+            -> join('semesters', 'teacher_courses.semester_id', '=', 'semesters.id')
             //check if the search matches any user's name. use($search_text)
             -> where('teacher_courses.account_id', '=', $id)
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
 
-        return view('InstructorViews/instructorCourses', ['courses'=>$data]);
+        return view('InstructorViews/instructorCourses', ['courses'=>$data], ['semester'=>$data2]);
     }
 
 
@@ -37,11 +45,12 @@ class ICourseRequestController extends Controller
             -> where('programs.program_name', 'LIKE', '%'.$search_text.'%')
             -> orWhere('programs.program_code', 'LIKE', '%'.$search_text.'%')
             -> select('programs.*')
-            -> get();
+            -> orderBy('programs.program_name', 'asc')
+            -> paginate(10);
         }
         //otherwise run the retrieve as usual
         else {
-            $data = program::all();
+            $data = program::orderBy('programs.program_name', 'asc')-> paginate(10);
         }
 
         return view('InstructorViews/instructorProgramForm', ['programs'=>$data]);
@@ -66,7 +75,8 @@ class ICourseRequestController extends Controller
                     -> orWhere('courses.course_name', 'LIKE', '%'.$search_text.'%');
                 })
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
         }
 
         //otherwise only match courses with the right program ID
@@ -77,32 +87,54 @@ class ICourseRequestController extends Controller
             -> join('courses_programs', 'courses.id', '=', 'courses_programs.course_code')
             -> where('courses_programs.program_id', $id)
             -> select('courses.*')
-            -> get();
+            -> orderBy('courses.course_name', 'asc')
+            -> paginate(10);
         }
 
         $data2 = program::find($id);
         return view('InstructorViews/instructorCourseForm', ['courses'=>$data], ['programs'=>$data2]);
     }
 
+    //function for teachers to request courses, checks for dupes and if the course has been taught before
     function addToSelection($id) {
+
+        //get the current semester info
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
         $Userid = session('LoggedUser');
 
-        DB::table('teacher_courses')->insert([
-            'account_id' => $Userid,
-            //maybe put an if comparison to check if the course has already been taught
-            //if so, auto accept it right here
-            'course_id' => $id,
-            //and put the status for pending here
-            'status_id' => 1
-        ]);
+        //check if the table already has a record for this course and user
+        $temp = DB::table('teacher_courses')
+            -> where('account_id', '=', $Userid)
+            -> where('course_id', '=', $id)
+            -> get();
+
+        if ($temp->isNotEmpty()) {
+            //check if there's a record for this specific semester already to stop dupes
+            return back()->with('fail', 'This course has already been requested');
+        }
+        //if the record does not exist in the past, then proceed as normal
+        else {
+            DB::table('teacher_courses')->insert([
+                'account_id' => $Userid,
+                //maybe put an if comparison to check if the course has already been taught
+                //if so, auto accept it right here
+                'course_id' => $id,
+                //and put the status for pending here
+                'status_id' => 1,
+                //add the current semester's id to the record
+                'semester_id' => $data2->id
+            ]);
+        }
 
         return redirect('coursesReq');
     }
 
     function destroy($id){
-
         $Userid = session('LoggedUser');
+
         $delete = DB::table('teacher_courses')->where('course_id', '=', $id)->where('account_id', '=', $Userid)->delete();
 
         if($delete){

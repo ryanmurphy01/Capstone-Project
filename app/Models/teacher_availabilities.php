@@ -16,4 +16,5 @@ class teacher_availabilities extends Model
         'end_time',
         'semester_id'
     ];
+
 }

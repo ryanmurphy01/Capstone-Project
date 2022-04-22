@@ -21,6 +21,8 @@ class account extends Model
         'id',
         'first_name',
         'last_name',
+        //new employee id field
+        'employee_id',
         'contact_number',
         'password',
         'personal_email',
@@ -45,4 +47,8 @@ class account extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function days(){
+        return $this->hasMany(teacher_availabilities::class);
+    }
 }

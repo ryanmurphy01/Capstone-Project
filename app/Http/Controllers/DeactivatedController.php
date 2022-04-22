@@ -27,15 +27,20 @@ class DeactivatedController extends Controller
             -> where(function ($query) use($search_text) {
             $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
                 -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                -> orWhere('employee_id', 'LIKE', '%'.$search_text.'%')
                 -> orWhere('contact_number', 'LIKE', '%'.$search_text.'%')
                 -> orWhere('personal_email', 'LIKE', '%'.$search_text.'%')
                 -> orWhere('school_email', 'LIKE', '%'.$search_text.'%');
             })
-            -> get();
+            -> orderBy('accounts.last_name', 'asc')
+            -> paginate(10);
         }
         //return all deactivated users if the search is returned empty
         else {
-            $data = DB::table('accounts')->where('status_id', 2)->get();
+            $data = DB::table('accounts')
+            -> where('status_id', 2)
+            -> orderBy('accounts.last_name', 'asc')
+            -> paginate(10);
         }
 
         return view('AdminViews/adminDeactivatedInstructors', ['accounts'=>$data]);
@@ -104,6 +109,8 @@ class DeactivatedController extends Controller
         $request->validate([
             'firstname'=>'required',
             'lastname'=>'required',
+            //new employee ID field
+            'employee_id'=>'required',
             'personalemail'=>'required|email',
             'collegeemail'=>'required|email',
             'phone'=>'required',
@@ -114,6 +121,8 @@ class DeactivatedController extends Controller
         $account = account::findOrFail($id);
         $account->first_name = $request->firstname;
         $account->last_name = $request->lastname;
+        //new employee ID field
+        $account->employee_id = $request->employee_id;
         $account->personal_email = $request->personalemail;
         $account->school_email = $request->collegeemail;
         $account->contact_number = $request->phone;

@@ -5,28 +5,50 @@ namespace App\Http\Controllers;
 use App\Models\teacher_availabilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\availabilityExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ScheduleController extends Controller
 {
-    function index() {
+    function index(Request $request) {
 
-        $data = DB::table('teacher_availabilities')
-            //join avail table to accounts by ID
-            -> join('accounts', 'teacher_availabilities.account_id', '=', 'accounts.id')
-            //makes sure status is active
-            -> where('accounts.status_id', 1)
-            //return the schedule record along with account first and last name
-            -> get(['teacher_availabilities.*', 'accounts.first_name', 'accounts.last_name']);
+        //Get current semester
+        $data2 = DB::table('semesters')
+        ->where('semesters.current_semester', 1)
+        ->get()->first();
 
+        $search_text = $request->aScheduleSearch;
 
+        //if there is a search value provided
+        if (!empty($search_text)) {
+            $activeTeachers = DB::table('accounts')
+                ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
+                ->where('accounts.status_id', 1)
+                ->where('account_types.type_id', 2)
+                -> where(function ($query) use($search_text) {
+                    $query -> where('first_name', 'LIKE', '%'.$search_text.'%')
+                        -> orWhere('last_name', 'LIKE', '%'.$search_text.'%')
+                        -> orWhere('employee_id', 'LIKE', '%'.$search_text.'%');
+                    })
+                -> orderBy('accounts.last_name', 'asc')
+                -> paginate(5, ['accounts.*', 'account_types.type_id']);
+        }
+        //otherwise run the retrieve as usual
+        else {
+            //Get active teacher users
+            $activeTeachers = DB::table('accounts')
+                ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
+                ->where('accounts.status_id', 1)
+                ->where('account_types.type_id', 2)
+                -> orderBy('accounts.last_name', 'asc')
+                -> paginate(5, ['accounts.*', 'account_types.type_id']);
+        }
 
-        //Get active teacher users
-        $activeTeachers = DB::table('accounts')
-                    ->join('account_types', 'accounts.id', '=', 'account_types.account_id')
-                    ->where('accounts.status_id', 1)
-                    ->where('account_types.type_id', 2)
-                    ->get(['accounts.*', 'account_types.type_id']);
+        return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers], ['semester'=>$data2]);
+    }
 
-        return view('AdminViews/adminSchedule', ['activeTeachers'=>$activeTeachers]);
+    public function export()
+    {
+        return Excel::download(new availabilityExport, 'availability.xlsx');
     }
 }

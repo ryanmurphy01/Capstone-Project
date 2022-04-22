@@ -54,9 +54,10 @@
                 <div class="dropdown pb-4" style="border-top: 1px solid black; width: 100%; padding-top: 20px">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{-- insert profile pic/icon here here --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                          </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -71,27 +72,43 @@
         </div>
         <div class="col py-3">
             <h1 class="text-center text-success pt-2">Welcome Instructor!</h1>
-            <h5 class="text-center p-1">The text below provides a brief overview of functionality of this application</h5>
+            <h5 class="text-center p-1">Take a moment to read some basic information about this site, if this is your first time</h5>
 
+            <section class="p-5">
+                <h2 class="text-success">How to get around</h2>
+                <p>
+                    On the left hand side of the site is the 'navbar'. It includes links to all major pages
+                    and a logout button at the bottom. Click the icon or text to be take to listed page.
+                    The page you are currently on will be highlighted.
+                </p>
+                <p>
+                    The function of each page is explained below
+                </p>
+             </section>
             <section class="p-5">
                 <h2 class="text-success">Availability</h2>
                 <p>
-                    Here you can set your working hours. Once on the page, enter your start and end time,
-                    then hit save to add it to the list. Use the delete buttons if you've added an entry by mistake.
+                    Here you can set your working hours. Once on the page, enter your start and end time for each day,
+                    then hit save to add it to the list. Use the delete buttons if you've added an entry by mistake or want to change it.
                 </p>
-                <p>
-                    Once you have your hours set for every day, press the submit button on the bottom right.
+                <p style="font-weight: bold">
+                    Please remember to set your maximum work hours per week, this is done with the input field at the bottom left
                 </p>
              </section>
              <section class="p-5">
                 <h2 class="text-success">Courses</h2>
                 <p>
                 Here you select what courses you want to teach. These selections will be sent to administrators who will decide if it's approved.
-                Based on what you have taught before, the approval may be automatic.
+                Based on what you have taught before.
                 </p>
                 <p>
-                On the page, select the program and courses within that program via dropdown. Add them to the submission list with the green button.
-                Once all the courses you wish to teach are in the submission list, press the red button and confirm your selection.
+                The page will initially display courses you have requested. It will be empty if this is your first time.
+                You may remove courses from your selection via the "remove" button on the table.
+                </p>
+                <p>
+                To add more courses, use the button on the bottom left. This will take you to a page that lists all the programs
+                available. Select one to view courses available for that program, then press the "teach this course" button and it
+                will be added to your requests.
                 </p>
              </section>
 

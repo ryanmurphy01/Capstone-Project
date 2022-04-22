@@ -17,6 +17,8 @@ class CreateAccountsTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            //new employee ID row
+            $table->string('employee_id');
             $table->string('contact_number');
             $table->string('password');
             $table->string('personal_email');
@@ -26,7 +28,7 @@ class CreateAccountsTable extends Migration
             $table->string('last_updated_availability');
             $table->rememberToken();
             $table->timestamps();
-            
+
         });
     }
 
