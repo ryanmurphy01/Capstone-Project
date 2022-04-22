@@ -83,11 +83,7 @@ class InstructorController extends Controller
         $request->validate([
             'firstname'=>'required',
             'lastname'=>'required',
-            //new employee ID field
-            'employee_id'=>'required',
             'personalemail'=>'required|email',
-            'collegeemail'=>'required|email',
-            'phone'=>'required',
             'accounttype'=>'required'
         ]);
 
@@ -184,11 +180,7 @@ class InstructorController extends Controller
         $request->validate([
             'firstname'=>'required',
             'lastname'=>'required',
-            //new employee ID field
-            'employee_id'=>'required',
             'personalemail'=>'required|email',
-            'collegeemail'=>'required|email',
-            'phone'=>'required',
             'accounttype'=>'required'
         ]);
 
