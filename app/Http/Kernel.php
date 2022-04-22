@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use GuzzleHttp\Middleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Support\Facades\Http;
 
 class Kernel extends HttpKernel
 {
@@ -57,6 +59,8 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'AuthCheck' => \App\Http\Middleware\AuthCheck::class,
         'AlreadyLogged' => \App\Http\Middleware\AlreadyLogged::class,
+        'AdminCheck'=> \App\Http\Middleware\AdminCheck::class,
+        'UserCheck'=> \App\Http\Middleware\UserCheck::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
