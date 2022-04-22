@@ -19,7 +19,7 @@ class AuthCheck
 
         //if user is not logged in send them to login page
         if(!session()->has('LoggedUser')){
-            return redirect('/login')->with('fail','You must be logged in');
+            return redirect('/')->with('fail','You must be logged in');
         }
 
         

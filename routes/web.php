@@ -28,13 +28,8 @@ use App\Http\Controllers\UnresponsiveController;
 |
 */
 
-Route::get('/', function () {
-
-    return view('login');
-});
-
 //Login Routes
-Route::get('/login',[MainController::class, 'login'])->name('login') ->middleware('AlreadyLogged');
+Route::get('/',[MainController::class, 'login'])->name('login') ->middleware('AlreadyLogged');
 Route::post('/check',[MainController::class, 'check'])->name('check');
 Route::get('/logout',[MainController::class, 'logout'])->name('logout');
 
