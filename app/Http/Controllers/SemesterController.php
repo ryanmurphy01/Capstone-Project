@@ -71,15 +71,14 @@ class SemesterController extends Controller
 
         //Find and change old semester
         if($id != $currentid){
-
-            $oldSemester = DB::table('semesters')
-            ->where('current_semester', 1)
-            ->update(['current_semester' => 0]);
-
+            
             $semester = DB::table('semesters')
             ->where('id', $id)
             ->update(['current_semester' => 1]);
             if($semester){
+                $oldSemester = DB::table('semesters')
+                ->where('id', $currentid)
+                ->update(['current_semester' => 0]);
                 return redirect()->route('semester.index')->with('success', 'Current Semester Changed');
 
             } else {
@@ -90,10 +89,6 @@ class SemesterController extends Controller
         }  else {
             return redirect()->route('semester.index')->with('fail', 'This Semester is already set to current');
         }
-
-
-
-
 
     }
 

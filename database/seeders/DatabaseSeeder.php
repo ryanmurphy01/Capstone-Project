@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('user_types')->insert([
-            'account_type' => 'Teacher'
+            'account_type' => 'Instructor'
         ]);
 
         //Days

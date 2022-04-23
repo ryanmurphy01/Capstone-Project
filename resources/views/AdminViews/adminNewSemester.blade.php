@@ -43,12 +43,16 @@
                     </div>
 
                     <div class="modal-footer">
-                    <a type="button" class="btn btn-secondary btn-lg" href="{{url()->previous()}}">Back</a>
+                   
                     <button type="submit" class="btn btn-primary btn-lg">Save</button>
+                    <a type="button" class="btn btn-secondary btn-lg" href="{{route('semester.index')}}">Back</a>
+                    
                     </div>
 
                 </form>
+                
             </div>
+            
         </div>
     </div>
 </div>
