@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -31,7 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('user_types')->insert([
-            'account_type' => 'Teacher'
+            'account_type' => 'Instructor'
         ]);
 
         //Days

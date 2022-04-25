@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->text('course_code');
             $table->text("course_name");
-            $table->text("description");
+            $table->text("description")->nullable($value = true);
             $table->integer("credit_hours");
             $table->timestamps();
         });

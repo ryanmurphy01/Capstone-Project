@@ -85,7 +85,7 @@ class InstructorController extends Controller
         $request->validate([
             'firstname'=>'required',
             'lastname'=>'required',
-            'collegeemail'=>'required|email',
+            'personalemail'=>'required|email',
             'accounttype'=>'required'
         ]);
 

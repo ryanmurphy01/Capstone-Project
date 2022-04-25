@@ -129,17 +129,13 @@ class ICourseRequestController extends Controller
             ]);
         }
 
-        return redirect('coursesReq');
+        return back()->with('success', 'Course Added');
     }
 
     function destroy($id){
-
-        $data2 = DB::table('semesters')
-        ->where('semesters.current_semester', 1)
-        ->get()->first();
         $Userid = session('LoggedUser');
 
-        $delete = DB::table('teacher_courses')->where('course_id', '=', $id)->where('account_id', '=', $Userid)->where('semester_id', '=', $data2->id)->delete();
+        $delete = DB::table('teacher_courses')->where('course_id', '=', $id)->where('account_id', '=', $Userid)->delete();
 
         if($delete){
             print('it worked');

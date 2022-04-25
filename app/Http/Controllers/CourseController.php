@@ -54,7 +54,6 @@ class CourseController extends Controller
         $request->validate([
             'courseName'=>'required',
             'courseCode'=>'required',
-            'description'=>'required',
             'creditHours'=>'required|numeric'
         ]);
 
@@ -123,7 +122,6 @@ class CourseController extends Controller
         $request->validate([
             'courseName'=>'required',
             'courseCode'=>'required',
-            'description'=>'required',
             'creditHours'=>'required|numeric'
         ]);
 

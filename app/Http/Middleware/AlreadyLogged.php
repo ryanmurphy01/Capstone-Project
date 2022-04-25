@@ -19,7 +19,7 @@ class AlreadyLogged
 
         //Check if user is trying to go back to login page and redirect them if already logged in.
 
-        if(session()->has('LoggedUser') && (url('/login')==$request->url())){
+        if(session()->has('LoggedUser') && (url('/')==$request->url())){
             return back();
         }
         return $next($request)->header('Cache-Control','no-cache, no-store, max-age=0, must-revalidate')
