@@ -47,6 +47,8 @@ Route::group(['middleware'=>['AuthCheck','AlreadyLogged','AdminCheck']], functio
     Route::resource('programs', ProgramController::class);
     Route::resource('deactivated', DeactivatedController::class);
     Route::put('deactivated-update/{id}', [DeactivatedController::class, 'statusUpdate'])->name('deactivate.activate');
+    Route::get('importUsers', [InstructorController::class, 'importUsers'])->name('import');
+    Route::post('excelImportUsers', [InstructorController::class, 'storeImportUsers'])->name('import.excel');
 
     Route::post('courses/{id}',[CourseController::class, 'storeCourse'])->name('storeCourse');
     //search and index in one
