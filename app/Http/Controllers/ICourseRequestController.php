@@ -129,7 +129,7 @@ class ICourseRequestController extends Controller
             ]);
         }
 
-        return redirect('coursesReq');
+        return back()->with('success', 'Course Added');
     }
 
     function destroy($id){
